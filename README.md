@@ -1,74 +1,31 @@
-# The Carpentries Workbench Template R Markdown Lesson
+# Profiling and Optimisation (R)
 
-This lesson is a template lesson that uses [The Carpentries Workbench][workbench].
+This course is designed for researchers who want to write efficient R code. It focuses on practical skills for identifying computationally expensive functions and lines of code through profiling, applying best practices for writing performant code, and measuring improvements through benchmarking. You may already be working with large datasets, complex simulations, or have R scripts which take a while to run and you expect that it is possible that the code could be faster. Whether you want to speed up your code because you are frustrated with its slowness, care about the environmental impact of compute, or because you want to reduce the resources you require on HPC, this course will help you adopt coding practices that are more efficient and sustainable.
 
-## Note about lesson life cycle stage
-Although the `config.yaml` states the life cycle stage as pre-alpha, **the template is stable and ready to use**. The life cycle stage is preset to `"pre-alpha"` as this setting is appropriate for new lessons initialised using the template.
+Who is it for: Both research staff and research students
 
-## Create a new repository from this template
+Difficulty rating: 4 stars (Advanced)
 
-To use this template to start a new lesson repository, 
-make sure you're logged into Github.   
-Visit https://github.com/carpentries/workbench-template-rmd/generate
-and follow the instructions.
-Checking the 'Include all branches' option will save some time waiting for the first website build
-when your new repository is initialised.
+Learning objectives: 
 
-If you have any questions, contact [@tobyhodges](https://github.com/tobyhodges)
+- Identify the most computationally expensive functions and lines of code in an R script using `profvis`
+- Use `bench` to compare the execution time of different R expressions that produce the same result
+- Identify coding patterns in R that are known to cause slow performance
+- Rewrite a profiled bottleneck using established optimisation techniques so that it runs faster without changing its output
 
-## Configure a new lesson
+Prerequisites. Learners should have **at least six months of experience using R** and be comfortable with:
 
-Follow the steps below to
-complete the initial configuration of a new lesson repository built from this template:
+- Writing and running R scripts
+- R data structures, such as vectors, matrices, lists and data frames
+- Writing and using functions
+- Installing and using R packages
+- Familiarity with an IDE (the course will be taught in RStudio)
 
-1. **Make sure GitHub Pages is activated:**
-   navigate to _Settings_,
-   select _Pages_ from the left sidebar,
-   and make sure that `gh-pages` is selected as the branch to build from.
-   If no `gh-pages` branch is available, check _Actions_ to see if the first
-   website build workflows are still running.
-   The branch should become available when those have completed.
-1. **Adjust the `config.yaml` file:**
-   this file contains global parameters for your lesson site.
-   Individual fields within the file are documented with comments (beginning with `#`)
-   At minimum, you should adjust all the fields marked 'FIXME':
-   - `title`
-   - `created`
-   - `keywords`
-   - `life_cycle` (the default, _pre-alpha_, is the appropriate for brand new lessons)
-   - `contact`
-1. **Annotate the repository** with site URL and topic tags:
-   navigate back to the repository landing page and
-   click on the gear wheel/cog icon (similar to ⚙️) 
-   at the top-right of the _About_ box.
-   Check the "Use your GitHub Pages website" option,
-   and [add some keywords and other annotations to describe your lesson](https://cdh.carpentries.org/the-carpentries-incubator.html#topic-tags)
-   in the _Topics_ field.
-   At minimum, these should include:
-   - `lesson`
-   - the life cycle of the lesson (e.g. `pre-alpha`)
-   - the human language the lesson is written in (e.g. `deutsch`)
-1. **Adjust the name of the `.Rproj` file.**
-   It is simplest to make this match the name of the repository.
-1. **Adjust the 
-   `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, and `LICENSE.md` files**
-   as appropriate for your project.
-   -  `CODE_OF_CONDUCT.md`: 
-      if you are using this template for a project outside The Carpentries,
-      you should adjust this file to describe 
-      who should be contacted with Code of Conduct reports,
-      and how those reports will be handled.
-   -  `CONTRIBUTING.md`:
-      depending on the current state and maturity of your project,
-      the contents of the template Contributing Guide may not be appropriate.
-      You should adjust the file to help guide contributors on how best
-      to get involved and make an impact on your lesson.
-   -  `LICENSE.md`:
-      in line with the terms of the CC-BY license,
-      you should ensure that the copyright information 
-      provided in the license file is accurate for your project.
-1. **Update this README with 
-   [relevant information about your lesson](https://carpentries.github.io/lesson-development-training/collaborating-newcomers.html#readme)**
-   and delete this section.
+The [Software Carpentry - R](https://www.birmingham.ac.uk/research/arc/bear/training/software-carpentry-r) course covers the expected material. Technical pre-requisites (e.g. packages to install in preparation) will be sent a few days in advance of the course.
 
-[workbench]: https://carpentries.github.io/sandpaper-docs/
+Duration: 6 hours (over two half days)
+
+There are two pilot sessions planned for this lesson, with registration for both open on eventbrite:
+
+- [November 16th and 18th 2026, 1pm-4pm both days (attend both sessions), University of Birmingham](https://www.eventbrite.co.uk/e/profiling-and-optimisation-in-r-tickets-2002285123705)
+- [December 2nd 1pm-4pm and December 3rd 10am-1pm, (attend both sessions), KCL](https://www.eventbrite.co.uk/e/profiling-and-optimisation-in-r-tickets-2002426609894)
