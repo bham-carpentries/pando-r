@@ -2,11 +2,10 @@
 # Values for this lesson.
 #------------------------------------------------------------
 
-# Which carpentry is this (dc, hpcc, lc, swc, or cp)?
-# dc: Data Carpentry
-# hpcc: HPC Carpentry
-# lc: Library Carpentry
+# Which carpentry is this (swc, dc, lc, or cp)?
 # swc: Software Carpentry
+# dc: Data Carpentry
+# lc: Library Carpentry
 # cp: Carpentries (to use for instructor training for instance)
 # incubator: The Carpentries Incubator
 # Note that you can also use a custom carpentry type. For more info,
@@ -21,17 +20,17 @@ carpentry: 'incubator'
 title: 'Profiling and Optimisation (R)'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: 2026-10-05
+created: '2026-10-05'
 
 # Comma-separated list of keywords for the lesson
 keywords: 'R, profiling, optimisation, data structures, lesson, pre-alpha, english'
 
 # Life cycle stage of the lesson
 # refer to <https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html> for details
-# possible values: pre-alpha, alpha, beta, stable, retired
-life_cycle: 'pre-alpha' # FIXME
+# possible values: pre-alpha, alpha, beta, stable
+life_cycle: 'pre-alpha'
 
-# License of the lesson
+# License of the lesson materials (recommended CC-BY 4.0)
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
@@ -41,7 +40,7 @@ source: 'https://github.com/bham-carpentries/pando-r'
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'e.kaye.1@bham.ac.uk' # FIXME
+contact: 'e.kaye.1@bham.ac.uk'
 
 # Navigation ------------------------------------------------
 #
@@ -67,7 +66,7 @@ contact: 'e.kaye.1@bham.ac.uk' # FIXME
 
 # Order of episodes in your lesson
 episodes: 
-- introduction.Rmd
+- profiling-introduction.md
 
 # Information for Learners
 learners: 
