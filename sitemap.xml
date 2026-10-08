@@ -61,10 +61,16 @@
     <loc>https://bham-carpentries.github.io/pando-r/instructor/keypoints.html</loc>
   </url>
   <url>
+    <loc>https://bham-carpentries.github.io/pando-r/instructor/microbenchmarking.html</loc>
+  </url>
+  <url>
     <loc>https://bham-carpentries.github.io/pando-r/instructor/profiles.html</loc>
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/pando-r/instructor/profiling-introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/pando-r/instructor/profiling-profvis.html</loc>
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/pando-r/instructor/reference.html</loc>
@@ -82,10 +88,16 @@
     <loc>https://bham-carpentries.github.io/pando-r/keypoints.html</loc>
   </url>
   <url>
+    <loc>https://bham-carpentries.github.io/pando-r/microbenchmarking.html</loc>
+  </url>
+  <url>
     <loc>https://bham-carpentries.github.io/pando-r/profiles.html</loc>
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/pando-r/profiling-introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/pando-r/profiling-profvis.html</loc>
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/pando-r/reference.html</loc>
