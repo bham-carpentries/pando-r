@@ -67,6 +67,8 @@ contact: 'e.kaye.1@bham.ac.uk'
 # Order of episodes in your lesson
 episodes: 
 - profiling-introduction.md
+- profiling-profvis.md
+- microbenchmarking.Rmd
 
 # Information for Learners
 learners: 
