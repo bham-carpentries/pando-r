@@ -361,7 +361,29 @@ any links that you are not going to use.
 
 
       <section id="aggregate-instructor-notes"><section id="profiling-introduction"><h2 class="section-heading"><a href="profiling-introduction.html">Introduction to Profiling</a></h2>
-<hr class="half-width"></section><section id="profiling-profvis"><h2 class="section-heading"><a href="profiling-profvis.html">Profiling with profvis</a></h2>
+<hr class="half-width">
+<h3 id="profiling-introduction-headingInstructor1">
+<a href="profiling-introduction.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#profiling-introduction-headingInstructor1"></a>
+</h3>
+<p>The bottlenecked implementation was naively parsing a 10MB JSON file
+to create a list of unique items.</p>
+<p>Repeatedly:</p>
+<ul>
+<li>Checking the length of (C) strings, e.g. iterating till the
+terminating character is found, resolved by caching the results.</li>
+<li>Performing a linear search of a list to check for duplicates before
+inserting, resolved by using an appropriate data structure (dictionary).
+<ul>
+<li>Allegedly duplicates were never even present in the JSON.</li>
+</ul>
+</li>
+</ul>
+<p>Why wasn’t this caught by one of the hundreds of developers with
+access to the source code?</p>
+<p>Was more money saved by not investigating performance than committing
+time to profiling and fixing the issue?</p>
+<hr>
+<br></section><section id="profiling-profvis"><h2 class="section-heading"><a href="profiling-profvis.html">Profiling with profvis</a></h2>
 <hr class="half-width"></section><section id="microbenchmarking"><h2 class="section-heading"><a href="microbenchmarking.html">Microbenchmarking with bench</a></h2>
 <hr class="half-width"></section></section>
 </div>
@@ -413,8 +435,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/instructor/instructor-notes.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/instructor-notes.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-10-13",
-  "datePublished": "2026-10-13"
+  "dateModified": "2026-10-14",
+  "datePublished": "2026-10-14"
 }
 
   </script><script>
