@@ -162,6 +162,23 @@
       ],
       "Hash": "09278623bca442bc53b0940ffa2f6d87"
     },
+    "glue": {
+      "Package": "glue",
+      "Version": "1.8.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "glue",
+      "RemoteRef": "glue",
+      "RemoteRepos": "https://cran.rstudio.com/",
+      "RemotePkgPlatform": "aarch64-apple-darwin23",
+      "RemoteSha": "1.8.1",
+      "Requirements": [
+        "R",
+        "methods"
+      ],
+      "Hash": "f8122473e9a49e00d0642f78235ca5e3"
+    },
     "highr": {
       "Package": "highr",
       "Version": "0.12",
@@ -188,6 +205,21 @@
         "utils"
       ],
       "Hash": "102298e238c14eb830cc4b5edd23c3e8"
+    },
+    "htmlwidgets": {
+      "Package": "htmlwidgets",
+      "Version": "1.6.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "grDevices",
+        "htmltools",
+        "jsonlite",
+        "knitr",
+        "rmarkdown",
+        "yaml"
+      ],
+      "Hash": "04291cc45198225444a397606810ac37"
     },
     "jquerylib": {
       "Package": "jquerylib",
@@ -269,6 +301,19 @@
         "tools"
       ],
       "Hash": "0ec19f34c72fab674d8f2b4b1c6410e1"
+    },
+    "profvis": {
+      "Package": "profvis",
+      "Version": "0.4.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "htmlwidgets",
+        "rlang",
+        "vctrs"
+      ],
+      "Hash": "bffa126bf92987e677c12cfb5651fc1d"
     },
     "rappdirs": {
       "Package": "rappdirs",
@@ -359,6 +404,20 @@
         "xfun"
       ],
       "Hash": "263651b52279eaa7835e44aa32f9b754"
+    },
+    "vctrs": {
+      "Package": "vctrs",
+      "Version": "0.7.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "cli",
+        "glue",
+        "lifecycle",
+        "rlang"
+      ],
+      "Hash": "2dcde2d30d3ad67bf1d3a37177457b87"
     },
     "xfun": {
       "Package": "xfun",
