@@ -24,7 +24,7 @@ exercises: 2
 
 To make our code more efficient, we first need to identify the bottlenecks, in terms of time and/or memory usage.
 
-Software is typically comprised of a hierarchy of function calls, both functions written by the developer and those used from the language’s standard library and third party packages.
+Software is typically comprised of a hierarchy of function calls, both functions written by the developer and those used from the language’s standard library and third-party packages.
 
 We will use the [**profvis**](https://profvis.r-lib.org) package to profile code and visualise the results. **profvis** is a *sampling profiler*. It stops the execution of code every few milliseconds and records:
 
@@ -56,7 +56,7 @@ bottom_level <- function() {
 }
 ```
 
-If we profile the execution of `top_level`, after 0.1 secs, we'd recordthe call stack: `"pause"`, `"top_level"`, i.e. we're in the execution of `"pause"`, which was called from `"top_level"`. After 0.2 secs, we'd record: `"pause"`, `"middle_level"`, `"top_level"`, i.e. we're in `"pause"`, as called from `"middle_level"`, which is turn was called from `"top_level"`
+If we profile the execution of `top_level`, after 0.1 secs, we'd record the call stack: `"pause"`, `"top_level"`, i.e. we're in the execution of `"pause"`, which was called from `"top_level"`. After 0.2 secs, we'd record: `"pause"`, `"middle_level"`, `"top_level"`, i.e. we're in `"pause"`, as called from `"middle_level"`, which is turn was called from `"top_level"`
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -99,6 +99,11 @@ profvis(top_level())
 
 Storing code in its own script then calling it with `source()` ensures the best connection between profiling data and source code.
 
+::: callout
+Note that at the time of writing, profvis appears to work in Positron, but gives unexpected results. 
+Use RStudio for profiling R code.
+:::
+
 ### Interpretting the flame graph
 
 An interactive HTML document will open with the results. In RStudio this will open in the source pane; click “show in new window” button to open the document in a new window. It should look something like this:
@@ -111,16 +116,11 @@ The HTML is interactive. Hover over a bar for further details, and to see its co
 In the overall time of 360ms we see:
 
 - Four equal-sized blocks for each pause of 90ms (0.09 seconds)
-- Nearly all time is spent in the top-level function
-- Nearly half the time is spent in the mid-level function
-- Nearly half the time is also spent in the bottom-level function
+- All time is spent in the top-level function
+- Half the time is spent in the mid-level function
+- Half the time is also spent in the bottom-level function
 
 No objects are created or deleted: no memory changes.
-
-::: callout
-Note that at the time of writing, profvis appears to work in Positron, but gives unexpected results. 
-Use RStudio for profiling R code.
-:::
 
 ::: discussion
 Why might the calls to `pause(0.1)` show as taking 90ms, rather than 100ms?
@@ -138,7 +138,7 @@ It contains the same information as the flame graph, but is useful for large or 
 
 Profiling also records memory usage. Creating unnecessary objects is not efficient: it takes time as well as compute resources. 
 
-To demonstrate memory profiling we can consider a loop that concatenates values. 
+To demonstrate memory profiling we can consider a loop that combines values. 
 As it is a small code snippet, we can pass to `profvis()` directly:
 
 ```r
