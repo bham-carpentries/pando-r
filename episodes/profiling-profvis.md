@@ -99,7 +99,7 @@ profvis(top_level())
 
 Storing code in its own script then calling it with `source()` ensures the best connection between profiling data and source code.
 
-::: callout
+::: caution
 Note that at the time of writing, profvis appears to work in Positron, but gives unexpected results. 
 Use RStudio for profiling R code.
 :::
