@@ -1149,8 +1149,8 @@ a vector of numbers:</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 sqrt(x)      8.46µs     12µs    79385.    7.86KB     7.94
-2 x^0.5       19.09µs   19.4µs    47529.    7.86KB     9.51</code></pre>
+1 sqrt(x)      5.52µs   8.14µs   117297.    7.86KB     11.7
+2 x^0.5        9.79µs  10.07µs    89403.    7.86KB     17.9</code></pre>
 </div>
 <p>By default, <code>bench::mark()</code> runs each expression enough
 times to take 0.5 seconds. It also checks that each run returns the same
@@ -1235,7 +1235,7 @@ rank on speed? Use microbenchmarking to check your intuition.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1256,10 +1256,10 @@ rank on speed? Use microbenchmarking to check your intuition.</p>
 <pre class="output" tabindex="0"><code># A tibble: 4 × 6
   expression         min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt;    &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 sqrt(x)         8.46µs   9.27µs    93007.    7.86KB    18.6
-2 exp(log(x)/2)  12.55µs  12.73µs    77042.    7.86KB    15.4
-3 x^0.5           19.1µs  19.39µs    49244.    7.86KB     4.92
-4 x^(1/2)        19.16µs  19.52µs    49734.    7.86KB     9.95</code></pre>
+1 sqrt(x)         5.66µs   6.17µs   133579.    7.86KB    26.7
+2 exp(log(x)/2)   7.38µs   8.48µs   116642.    7.86KB    23.3
+3 x^0.5          10.12µs  10.34µs    91387.    7.86KB     9.14
+4 x^(1/2)        10.32µs  10.53µs    93690.    7.86KB    18.7 </code></pre>
 </div>
 </div>
 </div>
@@ -1324,15 +1324,15 @@ code to benchmark is then given by one unnamed expression</p>
 <pre class="output" tabindex="0"><code># A tibble: 9 × 8
   expression     n     k      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 gl(n, k)      10   100  10.99µs  11.88µs    79230.   15.93KB    15.8
-2 gl(n, k)     100   100  78.62µs   79.9µs    12090.   81.36KB    24.9
-3 gl(n, k)    1000   100  797.5µs 815.07µs     1186.  809.06KB    26.6
-4 gl(n, k)      10    10   4.56µs   5.33µs   181575.      896B     0
-5 gl(n, k)     100    10   16.3µs  17.24µs    55815.   11.05KB    16.7
-6 gl(n, k)    1000    10 173.99µs 177.45µs     5505.  105.94KB    15.8
-7 gl(n, k)      10     1   3.82µs   4.14µs   230069.        0B     0
-8 gl(n, k)     100     1   9.82µs  10.47µs    91885.    4.02KB     9.19
-9 gl(n, k)    1000     1  111.2µs 113.24µs     8595.   35.62KB     6.19</code></pre>
+1 gl(n, k)      10   100   6.23µs   7.27µs   134268.   15.93KB     26.9
+2 gl(n, k)     100   100  45.21µs  49.54µs    18866.   81.36KB     39.9
+3 gl(n, k)    1000   100 436.35µs 482.69µs     1973.  809.06KB     40.8
+4 gl(n, k)      10    10   2.66µs   3.69µs   265195.      896B     26.5
+5 gl(n, k)     100    10   9.56µs  10.69µs    91953.   11.05KB     27.6
+6 gl(n, k)    1000    10 100.56µs 106.36µs     9257.  105.94KB     25.8
+7 gl(n, k)      10     1   2.19µs   2.84µs   337327.        0B      0
+8 gl(n, k)     100     1   5.84µs    6.6µs   146460.    4.02KB     14.6
+9 gl(n, k)    1000     1  65.63µs  68.56µs    14431.   35.62KB     12.6</code></pre>
 </div>
 <div id="challenge-2" class="callout challenge">
 <div class="callout-square">
@@ -1368,7 +1368,7 @@ performance of <code>gl()</code>?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <p>You can rearrange the order of the rows (e.g. by <code>n</code> or
 <code>k</code> or <code>median</code>) to see patterns a different
@@ -1565,7 +1565,7 @@ takes:</p>
 </h3>
 <pre class="output" tabindex="0"><code>56 B</code></pre>
 </div>
-<p>An integer in R uses 56 bytes, for more than the 4 bytes an
+<p>An integer in R uses 56 bytes, far more than the 4 bytes an
 <code>int</code> uses in C.</p>
 </div>
 </div>
@@ -1624,75 +1624,66 @@ statements can be interspersed with other code (e.g. to prepare some
 results for testing). The purpose of testing is to gather evidence
 (data) that builds confidence in the quality of software. Unit tests
 consist of expressions where an expected result is compared with the
-result of a program or function. For example:</p>
+result of a program or function. The test <code>expect_equal()</code>
+(and other <code>expect_*()</code> <a href="https://github.com/markvanderloo/tinytest/blob/master/pkg/README.md" class="external-link">tests
+provided by tinytest</a>) show whether the test passed or failed, with
+useful information if there is a failure.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">add_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span>
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tinytest</span><span class="op">)</span></span>
+<span><span class="va">add_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span>
 <span><span class="va">sub_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">-</span> <span class="fl">2</span></span>
 <span></span>
 <span><span class="co"># this test should pass</span></span>
-<span><span class="fu">tinytest</span><span class="fu">::</span><span class="fu">expect_equal</span><span class="op">(</span><span class="fu">add_one</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># this test will fail</span></span>
-<span><span class="fu">tinytest</span><span class="fu">::</span><span class="fu">expect_equal</span><span class="op">(</span><span class="fu">sub_one</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span> </span></code></pre>
+<span><span class="fu">expect_equal</span><span class="op">(</span><span class="fu">add_one</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
-<p>The test <code>expect_equal()</code> (and other
-<code>expect_*()</code> <a href="https://github.com/markvanderloo/tinytest/blob/master/pkg/README.md" class="external-link">tests
-provided by tinytest</a>) evaluate to a boolean, though have a print
-method that reveals whether the test passed or failed, with useful
-information if there is a failure. Unlike with <strong>testtest</strong>
-tests, a failed test does not cause an exception (i.e. stop the
-evaluation of the script):</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>----- PASSED      : &lt;--&gt;
+ call| expect_equal(add_one(1), 2) </code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tinytest</span><span class="op">)</span></span>
-<span><span class="fu">expect_equal</span><span class="op">(</span><span class="fu">add_one</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span> </span></code></pre>
+<code class="sourceCode R"><span><span class="co"># this test will fail</span></span>
+<span><span class="fu">expect_equal</span><span class="op">(</span><span class="fu">sub_one</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span> </span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in `add_one()`:
-! could not find function "add_one"</code></pre>
+<pre class="output" tabindex="0"><code>----- FAILED[data]: &lt;--&gt;
+ call| expect_equal(sub_one(2), 1)
+ diff| Expected '1', got '0' </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb8">
+<p>In <strong>tinytest</strong>, the <code>expect_*()</code> functions
+evaluate to a boolean, rather than the <strong>testthat</strong>
+approach of causing an exception (i.e. stopping the evaluation of the
+script):</p>
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">isTRUE</span><span class="op">(</span><span class="fu">expect_equal</span><span class="op">(</span><span class="fu">add_one</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in `add_one()`:
-! could not find function "add_one"</code></pre>
+<pre class="output" tabindex="0"><code>[1] TRUE</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb10">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">expect_equal</span><span class="op">(</span><span class="fu">sub_one</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in `sub_one()`:
-! could not find function "sub_one"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">isTRUE</span><span class="op">(</span><span class="fu">expect_equal</span><span class="op">(</span><span class="fu">sub_one</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in `sub_one()`:
-! could not find function "sub_one"</code></pre>
+<pre class="output" tabindex="0"><code>[1] FALSE</code></pre>
 </div>
 <p>If you have passing tests for <code>some_function()</code>, when you
 optimise the code inside <code>some_function()</code>, rerunning the
