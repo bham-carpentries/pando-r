@@ -123,7 +123,7 @@
     <a id="search-button-nav" class="btn btn-primary" href="aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div><!--/div.container-fluid -->
 </nav><aside class="col-md-12 lesson-progress"><div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 73%" aria-valuenow="73" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">73%</div>
+    <div class="progress-bar incubator" role="progressbar" style="width: 57%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">57%</div>
   </div>
 </aside><div class="container">
       <div class="row">
@@ -244,6 +244,15 @@
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="optimisation-introduction.html">4. Introduction to Optimisation</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -301,7 +310,7 @@
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter Top"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="profiling-profvis.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="index.html" rel="next">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="optimisation-introduction.html" rel="next">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -309,8 +318,8 @@
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: Profiling with profvis...
         </a>
-        <a class="chapter-link float-end" href="index.html" rel="next">
-          Home
+        <a class="chapter-link float-end" href="optimisation-introduction.html" rel="next">
+          Next: Introduction to Optimisation...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
@@ -392,8 +401,8 @@ a vector of numbers:</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 sqrt(x)      8.47µs   11.9µs    80960.    7.86KB     8.10
-2 x^0.5          19µs   19.4µs    47822.    7.86KB     9.57</code></pre>
+1 sqrt(x)      8.46µs     12µs    79385.    7.86KB     7.94
+2 x^0.5       19.09µs   19.4µs    47529.    7.86KB     9.51</code></pre>
 </div>
 <p>By default, <code>bench::mark()</code> runs each expression enough
 times to take 0.5 seconds. It also checks that each run returns the same
@@ -497,10 +506,10 @@ rank on speed? Use microbenchmarking to check your intuition.</p>
 <pre class="output" tabindex="0"><code># A tibble: 4 × 6
   expression         min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt;    &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 sqrt(x)         8.46µs   8.92µs    95258.    7.86KB    19.1
-2 exp(log(x)/2)  12.66µs  12.79µs    76866.    7.86KB    15.4
-3 x^0.5          19.08µs  19.34µs    49398.    7.86KB     4.94
-4 x^(1/2)        19.17µs  19.47µs    50377.    7.86KB    10.1 </code></pre>
+1 sqrt(x)         8.46µs   9.27µs    93007.    7.86KB    18.6
+2 exp(log(x)/2)  12.55µs  12.73µs    77042.    7.86KB    15.4
+3 x^0.5           19.1µs  19.39µs    49244.    7.86KB     4.92
+4 x^(1/2)        19.16µs  19.52µs    49734.    7.86KB     9.95</code></pre>
 </div>
 </div>
 </div>
@@ -562,15 +571,15 @@ code to benchmark is then given by one unnamed expression</p>
 <pre class="output" tabindex="0"><code># A tibble: 9 × 8
   expression     n     k      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 gl(n, k)      10   100  10.74µs  11.63µs    82616.   15.93KB    16.5
-2 gl(n, k)     100   100  78.09µs  79.33µs    11458.   81.36KB    24.9
-3 gl(n, k)    1000   100 794.51µs 809.53µs     1197.  809.06KB    24.0
-4 gl(n, k)      10    10   4.42µs   5.25µs   185228.      896B    18.5
-5 gl(n, k)     100    10  15.96µs  16.79µs    57497.   11.05KB    17.3
-6 gl(n, k)    1000    10 172.78µs 174.76µs     5564.  105.94KB    13.5
-7 gl(n, k)      10     1    3.7µs   4.03µs   236927.        0B     0
-8 gl(n, k)     100     1   9.47µs  10.03µs    96387.    4.02KB     0
-9 gl(n, k)    1000     1 109.92µs 111.75µs     8733.   35.62KB     8.20</code></pre>
+1 gl(n, k)      10   100  10.99µs  11.88µs    79230.   15.93KB    15.8
+2 gl(n, k)     100   100  78.62µs   79.9µs    12090.   81.36KB    24.9
+3 gl(n, k)    1000   100  797.5µs 815.07µs     1186.  809.06KB    26.6
+4 gl(n, k)      10    10   4.56µs   5.33µs   181575.      896B     0
+5 gl(n, k)     100    10   16.3µs  17.24µs    55815.   11.05KB    16.7
+6 gl(n, k)    1000    10 173.99µs 177.45µs     5505.  105.94KB    15.8
+7 gl(n, k)      10     1   3.82µs   4.14µs   230069.        0B     0
+8 gl(n, k)     100     1   9.82µs  10.47µs    91885.    4.02KB     9.19
+9 gl(n, k)    1000     1  111.2µs 113.24µs     8595.   35.62KB     6.19</code></pre>
 </div>
 <div id="challenge-2" class="callout challenge">
 <div class="callout-square">
@@ -642,7 +651,7 @@ any links that you are not going to use.
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter Bottom"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="profiling-profvis.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="optimisation-introduction.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -650,8 +659,8 @@ any links that you are not going to use.
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: Profiling with profvis...
         </a>
-        <a class="chapter-link float-end" href="index.html" rel="next">
-          Home
+        <a class="chapter-link float-end" href="optimisation-introduction.html" rel="next">
+          Next: Introduction to Optimisation...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
