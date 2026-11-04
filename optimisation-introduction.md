@@ -85,7 +85,7 @@ lobstr::obj_size(1L) # An integer
 56 B
 ```
 
-An integer in R uses 56 bytes, for more than the 4 bytes an `int` uses in C.
+An integer in R uses 56 bytes, far more than the 4 bytes an `int` uses in C.
 
 ::::::::::::::::::::::::::::
 
@@ -115,57 +115,51 @@ For getting started with unit testing in R, there is also the low-dependency [**
 
 ## Brief introduction to **tinytest**
 
-In **tinytest**, tests are simple R scripts where test statements can be interspersed with other code (e.g. to prepare some results for testing). The purpose of testing is to gather evidence (data) that builds confidence in the quality of software. Unit tests consist of expressions where an expected result is compared with the result of a program or function. For example:
-
-```r
-add_one <- function(x) x + 1
-sub_one <- function(x) x - 2
-
-# this test should pass
-tinytest::expect_equal(add_one(1), 2)
-
-# this test will fail
-tinytest::expect_equal(sub_one(2), 1) 
-```
-
-The test `expect_equal()` (and other `expect_*()` [tests provided by tinytest](https://github.com/markvanderloo/tinytest/blob/master/pkg/README.md)) evaluate to a boolean, though have a print method that reveals whether the test passed or failed, with useful information if there is a failure. Unlike with **testtest** tests, a failed test does not cause an exception (i.e. stop the evaluation of the script):
+In **tinytest**, tests are simple R scripts where test statements can be interspersed with other code (e.g. to prepare some results for testing). The purpose of testing is to gather evidence (data) that builds confidence in the quality of software. Unit tests consist of expressions where an expected result is compared with the result of a program or function. The test `expect_equal()` (and other `expect_*()` [tests provided by tinytest](https://github.com/markvanderloo/tinytest/blob/master/pkg/README.md)) show whether the test passed or failed, with useful information if there is a failure.
 
 
 ``` r
 library(tinytest)
-expect_equal(add_one(1), 2) 
+add_one <- function(x) x + 1
+sub_one <- function(x) x - 2
+
+# this test should pass
+expect_equal(add_one(1), 2)
 ```
 
-``` error
-Error in `add_one()`:
-! could not find function "add_one"
+``` output
+----- PASSED      : <-->
+ call| expect_equal(add_one(1), 2) 
 ```
+
+``` r
+# this test will fail
+expect_equal(sub_one(2), 1) 
+```
+
+``` output
+----- FAILED[data]: <-->
+ call| expect_equal(sub_one(2), 1)
+ diff| Expected '1', got '0' 
+```
+
+In **tinytest**, the `expect_*()` functions evaluate to a boolean, rather than the **testthat** approach of causing an exception (i.e. stopping the evaluation of the script):
+
 
 ``` r
 isTRUE(expect_equal(add_one(1), 2))
 ```
 
-``` error
-Error in `add_one()`:
-! could not find function "add_one"
-```
-
-``` r
-expect_equal(sub_one(2), 1)
-```
-
-``` error
-Error in `sub_one()`:
-! could not find function "sub_one"
+``` output
+[1] TRUE
 ```
 
 ``` r
 isTRUE(expect_equal(sub_one(2), 1))
 ```
 
-``` error
-Error in `sub_one()`:
-! could not find function "sub_one"
+``` output
+[1] FALSE
 ```
 
 If you have passing tests for `some_function()`, when you optimise the code inside `some_function()`, rerunning the tests on the updated implemantation gives you the data you need to be confident that the optimisations have not introduced bugs into the code, leading to incorrect results (or, if the tests now fail, you know the function implementation needs correcting).
