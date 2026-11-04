@@ -80,7 +80,7 @@ Objects store both their raw data (like an integer or string) and some internal 
 lobstr::obj_size(1L) # An integer
 ```
 
-An integer in R uses 56 bytes, for more than the 4 bytes an `int` uses in C.
+An integer in R uses 56 bytes, far more than the 4 bytes an `int` uses in C.
 
 ::::::::::::::::::::::::::::
 
