@@ -45,10 +45,10 @@ Any code that will run for more than a few minutes over its lifetime and isn’t
 ## All Programmers Can Benefit
 
 <!-- Everyone benefits (why) -->
-Even professional programmers make oversights that can lead to poor performance, and can be identified through profiling.
+Even professional programmers make oversights that can lead to poor performance, and which can be identified through profiling.
 
-For example Grand Theft Auto Online, which has allegedly earned over $7bn since its 2013 release, was notorious for slow loading times.
-8 years after its release [a 'hacker'](https://nee.lv/2021/02/28/How-I-cut-GTA-Online-loading-times-by-70/) had enough, they reverse engineered and profiled the code to enable a 70% speedup!
+For example, Grand Theft Auto Online, which has allegedly earned over $7bn since its 2013 release, was notorious for slow loading times.
+8 years after its release [a 'hacker'](https://nee.lv/2021/02/28/How-I-cut-GTA-Online-loading-times-by-70/) had enough. They reverse engineered and profiled the code to enable a 70% speedup!
 
 *How much revenue did that unnecessary bottleneck cost, through user churn?*
 
@@ -97,7 +97,7 @@ paste("C:", t_d - t_c, "seconds")
 
 Whilst this can be appropriate for profiling narrow sections of code, it becomes increasingly impractical as a project grows in size and complexity.
 
-Furthermore, it's also unproductive to be routinely adding and removing these small changes if they interfere with the required outputs of a project.
+Furthermore, it is also unproductive to be routinely adding and removing these small changes, especially if they interfere with the required outputs of a project.
 
 ::: callout
 We can use benchmarking to more accurately time our code. We will return to this in the episode on [microbenchmarking](microbenchmarking.Rmd).
@@ -105,7 +105,7 @@ We can use benchmarking to more accurately time our code. We will return to this
 
 ### Function-level profiling and line-level profiling
 
-Software is typically comprised of a hierarchy of function calls, both functions written by the developer and those used from the language’s standard library and third party packages.
+Software is typically comprised of a hierarchy of function calls, both functions written by the developer and those used from the language’s standard library and third-party packages.
 
 Function-level profiling analyses where time is being spent with respect to functions. Typically, function-level profiling will calculate the number of times each function is called and the total time spent executing each function, inclusive and exclusive of child function calls.
 
@@ -123,11 +123,11 @@ If you are familiar with other programming languages, you may be aware that they
 The act of profiling your code, collecting additional timing metrics during execution, will cause your program to execute slower. The slowdown is dependent on many variables related to both your code and the granularity of metrics being collected.
 
 <!-- Profiling may generate large amounts of data -->
-Similarly, the longer your code runs, the more code that is being executed, the more data that will be collected. A profile that runs for hours could produce gigabytes of output data!
+Similarly, the longer your code runs, the more code that is being executed, the more data that will be collected. A profile that runs for hours could produce gigabytes of output data.
 
 <!-- Important to select appropriate test-case/s -->
 Therefore, it is important to select an appropriate test-case that is both representative of a typical workload and small enough that it can be quickly iterated. 
-Ideally, it should take no more than a few minutes to run the profiled test-case from start to finish, however you may have circumstances where something that short is not possible. Be aware, though, that if the test case runs too quickly, or is too small, it may not reveal the bottlenecks that affect the full run.
+Ideally, it should take no more than a few minutes to run the profiled test-case from start to finish, though there may have circumstances where something that short is not possible. Be aware, though, that if the test case runs too quickly, or is too small, it may not reveal the bottlenecks that affect the full run.
 
 <!-- For example -->
 <!-- I don't really like this paragraph -->
