@@ -370,13 +370,9 @@ quickly.</li>
 <hr class="half-width">
 <ul>
 <li>R code can be profiled with the <code>profvis()</code> function from
-the <strong>profvis</strong> package</li>
-<li>Profiling output displays… <strong>SOMETHING ABOUT THE FLAME
-GRAPH</strong>
-</li>
-<li>Profiling output displays… <strong>SOMETHING ABOUT MEMORY AND
-TIME</strong>
-</li>
+the <strong>profvis</strong> package.</li>
+<li>Profiling output displays the nested call hierarchy, along with time
+taken to run and memory allocated and released.</li>
 </ul></section><section id="microbenchmarking"><h2 class="section-heading"><a href="microbenchmarking.html">Microbenchmarking with bench</a></h2>
 <hr class="half-width">
 <ul>
@@ -385,6 +381,10 @@ time of different R expressions that produce the same result</li>
 <li>
 <strong>bench</strong> is a powerful package for microbenchmarking R
 code</li>
+<li>Use <code>bench::mark()</code> to compare the performance of
+different expressions</li>
+<li>Use <code>bench::press()</code> to compare the performance of the
+same expression over a grid of different parameters</li>
 </ul></section>
 </div>
     </main>
@@ -435,8 +435,8 @@ code</li>
   "url": "https://bham-carpentries.github.io/pando-r/instructor/key-points.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/key-points.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-03",
-  "datePublished": "2026-11-03"
+  "dateModified": "2026-11-04",
+  "datePublished": "2026-11-04"
 }
 
   </script><script>

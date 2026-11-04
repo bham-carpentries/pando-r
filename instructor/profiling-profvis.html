@@ -228,6 +228,9 @@
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#introduction">Introduction</a></li>
+<li><a href="#example">Example</a></li>
+<li><a href="#using-profvis">Using profvis</a></li>
+<li><a href="#memory-profiling">Memory profiling</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -315,7 +318,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Profiling with profvis</h1>
-        <p>Last updated on 2026-11-03 |
+        <p>Last updated on 2026-11-04 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/profiling-profvis.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -359,50 +362,245 @@ which result in heavy memory allocation</li>
 </div>
 </div>
 <section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a></h2>
-<hr class="half-width"><div id="challenge-1-can-you-do-it" class="callout challenge">
+<hr class="half-width"><p>To make our code more efficient, we first need to identify the
+bottlenecks, in terms of time and/or memory usage.</p>
+<p>Software is typically comprised of a hierarchy of function calls,
+both functions written by the developer and those used from the
+language’s standard library and third-party packages.</p>
+<p>We will use the <a href="https://profvis.r-lib.org" class="external-link"><strong>profvis</strong></a> package to
+profile code and visualise the results. <strong>profvis</strong> is a
+<em>sampling profiler</em>. It stops the execution of code every few
+milliseconds and records:</p>
+<ul><li>The call stack: the function currently being executed, the function
+that it was called from and so on up to the top-level function
+call.</li>
+<li>The memory allocated and released since the last record.</li>
+</ul><div id="callout1" class="callout">
 <div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
+<i class="callout-icon" data-feather="bell"></i>
 </div>
-<span class="callout-header">Challenge</span>
-<div id="challenge-1-can-you-do-it" class="callout-inner">
-<h3 class="callout-title">Challenge 1: Can you do it?</h3>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
 <div class="callout-content">
-<p>What is the output of this command?</p>
+<p>A sampling profiler makes a trade-off between accuracy and
+performance. There is always variability in the time it takes a function
+to run and the accuracy of the timer. Each time you profile, you’ll get
+a slightly different answer, though the variability is most pronounced
+in the functions that take the shortest amount of time to run,
+i.e. those that are of the least interest to us.</p>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a></h2>
+<hr class="half-width"><p>Below are some nested functions. The <code>profvis::pause()</code>
+function provides a synthetic bottleneck by holding up execution of the
+code for the specified number of seconds.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">paste</span><span class="op">(</span><span class="st">"This"</span>, <span class="st">"new"</span>, <span class="st">"lesson"</span>, <span class="st">"looks"</span>, <span class="st">"good"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">top_level</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">profvis</span><span class="fu">::</span><span class="fu">pause</span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span></span>
+<span>  <span class="fu">middle_level</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu">bottom_level</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">middle_level</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">profvis</span><span class="fu">::</span><span class="fu">pause</span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span></span>
+<span>  <span class="fu">bottom_level</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">bottom_level</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">profvis</span><span class="fu">::</span><span class="fu">pause</span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre>
 </div>
+<p>If we profile the execution of <code>top_level</code>, after 0.1
+secs, we’d record the call stack: <code>"pause"</code>,
+<code>"top_level"</code>, i.e. we’re in the execution of
+<code>"pause"</code>, which was called from <code>"top_level"</code>.
+After 0.2 secs, we’d record: <code>"pause"</code>,
+<code>"middle_level"</code>, <code>"top_level"</code>, i.e. we’re in
+<code>"pause"</code>, as called from <code>"middle_level"</code>, which
+is turn was called from <code>"top_level"</code></p>
+<div id="exercise-1" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<span class="callout-header">Challenge</span>
+<div id="exercise-1" class="callout-inner">
+<h3 class="callout-title">Exercise 1</h3>
+<div class="callout-content">
+<p>Continuing the example above, write down the call stack from calling
+<code>top_level()</code> after 0.3 secs and after 0.4 seconds.</p>
 </div>
 </div>
 </div>
 <div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1"> Output </h4>
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<p>After 0.3 secs: <code>"pause"</code>, <code>"bottom_level"</code>,
+<code>"middle_level"</code>, <code>"top_level"</code></p>
+<p>After 0.4 secs: <code>"pause"</code>, <code>"bottom_level"</code>,
+<code>"top_level"</code></p>
+</div>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="using-profvis">Using profvis<a class="anchor" aria-label="anchor" href="#using-profvis"></a></h2>
+<hr class="half-width"><div id="follow-along" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="follow-along" class="callout-inner">
+<h3 class="callout-title">Follow along</h3>
+<div class="callout-content">
+<p>Download the <a href="../files/profiling-example-1.R" download>R source
+for the example</a> and follow along with the worked example on your own
+machine. Save it into an RStudio project.</p>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div class="accordion-body">
+<p>Demo how to create an RStudio project</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>You should have installed the <strong>profvis</strong> package as
+part of the setup for this lesson. In the RStudio project where you have
+saved the example R script, create a <code>profiling.R</code> script
+with the following:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] "This new lesson looks good"</code></pre>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">profvis</span><span class="op">)</span></span>
+<span><span class="kw">source</span><span class="op">(</span><span class="st">"profiling-example-1.R"</span><span class="op">)</span></span>
+<span><span class="fu">profvis</span><span class="op">(</span><span class="fu">top_level</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Storing code in its own script then calling it with
+<code>source()</code> ensures the best connection between profiling data
+and source code.</p>
+<div id="caution1" class="callout caution">
+<div class="callout-square">
+<i class="callout-icon" data-feather="alert-triangle"></i>
+</div>
+<span class="callout-header">Caution</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p>Note that at the time of writing, profvis appears to work in
+Positron, but gives unexpected results. Use RStudio for profiling R
+code.</p>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="interpretting-the-flame-graph">Interpretting the flame graph<a class="anchor" aria-label="anchor" href="#interpretting-the-flame-graph"></a></h3>
+<p>An interactive HTML document will open with the results. In RStudio
+this will open in the source pane; click “show in new window” button to
+open the document in a new window. It should look something like
+this:</p>
+<figure><img src="../fig/profiling-example-output.png" alt="Screenshot of the profvis HTML output. At the bottom, a stacked set of horizontal bars along a time axis, representing the length of time in each function. At a given time, the top-level function is at the bottom of the stack with each nested function stacked on top. The source code is shown at the top of the screenshot, with a horizontal bar for each line, showing the time spent." class="figure mx-auto d-block"><div class="figcaption">Screenshot of the profvis HTML output. At the
+bottom, a stacked set of horizontal bars along a time axis, representing
+the length of time in each function. At a given time, the top-level
+function is at the bottom of the stack with each nested function stacked
+on top. The source code is shown at the top of the screenshot, with a
+horizontal bar for each line, showing the time spent.</div>
+</figure><p>In the <em>flame graph</em> the yellow bars correspond to lines in
+the source file shown above the graph. The HTML is interactive. Hover
+over a bar for further details, and to see its corresponding line in the
+script.</p>
+<p>In the overall time of 360ms we see:</p>
+<ul><li>Four equal-sized blocks for each pause of 90ms (0.09 seconds)</li>
+<li>All time is spent in the top-level function</li>
+<li>Half the time is spent in the mid-level function</li>
+<li>Half the time is also spent in the bottom-level function</li>
+</ul><p>No objects are created or deleted: no memory changes.</p>
+<div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p>Why might the calls to <code>pause(0.1)</code> show as taking 90ms,
+rather than 100ms?</p>
 </div>
 </div>
 </div>
 </div>
+<div class="section level3">
+<h3 id="interpretting-the-data-tab">Interpretting the data tab<a class="anchor" aria-label="anchor" href="#interpretting-the-data-tab"></a></h3>
+<p>The Data tab shows a table with the memory and time usage for each
+function call. The nested calls can be expanded/collapsed to show/hide
+the corresponding lines. It contains the same information as the flame
+graph, but is useful for large or deeply nested call stacks.</p>
+<figure><img src="../fig/profiling-example-output-data.png" alt="Screenshot of the data tab in the profvis HTML output. A table with columns “Code” (function name), “File” (name of source file containing function), “Memory (MB)” and “Time (ms)”." class="figure mx-auto d-block"><div class="figcaption">Screenshot of the data tab in the profvis HTML
+output. A table with columns “Code” (function name), “File” (name of
+source file containing function), “Memory (MB)” and “Time (ms)”.</div>
+</figure></div>
+</section><section><h2 class="section-heading" id="memory-profiling">Memory profiling<a class="anchor" aria-label="anchor" href="#memory-profiling"></a></h2>
+<hr class="half-width"><p>Profiling also records memory usage. Creating unnecessary objects is
+not efficient: it takes time as well as compute resources.</p>
+<p>To demonstrate memory profiling we can consider a loop that combines
+values. As it is a small code snippet, we can pass to
+<code>profvis()</code> directly:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">profvis</span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">integer</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">50000</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="va">x</span>, <span class="va">i</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="challenge-2-how-do-you-nest-solutions-within-challenge-blocks" class="callout challenge">
+<figure><img src="../fig/memory-profiling.png" alt="Flame graph for profiling the contenation example" class="figure mx-auto d-block"><div class="figcaption">Flame graph for profiling the contenation
+example</div>
+</figure><p>As expected, the majority of the time is spent within
+<code>c()</code>, but we also see a lot time spent in
+<code>&lt;GC&gt;</code>. This is a special entry on the flame graph
+showing when the garbage collector is running. It is usually an
+indication that many short-lived objects are being created. We can also
+see this from the memory column. In the memory column next to the
+corresponding line in the source code, we see a bar to left labelled
+-762.0 and a bar to the right labelled 803.0. This means that 803 MB of
+memory was allocated and 762 MB of memory was released. Each call to
+<code>c()</code> causes a new copy of x to be created. Memory profiling
+can help to identify short-lived objects that might be avoided by
+changes to the code. We will see how to avoid this in the episode
+<strong>REF AND LINK</strong>.</p>
+<div id="exercise-2-monopoly" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="challenge-2-how-do-you-nest-solutions-within-challenge-blocks" class="callout-inner">
-<h3 class="callout-title">Challenge 2: how do you nest solutions within
-challenge blocks?</h3>
+<div id="exercise-2-monopoly" class="callout-inner">
+<h3 class="callout-title">Exercise 2: Monopoly</h3>
 <div class="callout-content">
-
+<p>In the game of Monopoly, players roll two die to move round the
+board. Players buy assets on which they can charge rent or taxes and aim
+to make the most money. The squares on the board represent:</p>
+<ul><li>Properties, train stations or utility companies to buy</li>
+<li>Events that trigger an action, e.g. paying a tax or going to jail
+The <strong>efficient</strong> package contains the
+<code>simulate_monopoly()</code> function to simulate game play; we’ll
+use this to practice profiling.</li>
+</ul><p>See <strong>SETUP</strong> for instructions on installing
+<strong>efficient</strong>.</p>
+<p>Use <code>profvis()</code> to profile
+<code>simulate_monopoly(10000)</code>.</p>
+<p>Explore the output. Which parts of the code are slow?</p>
 </div>
 </div>
 </div>
@@ -411,10 +609,66 @@ challenge blocks?</h3>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
-<p>You can add a line with at least three colons and a
-<code>solution</code> tag.</p>
+<p>Most time is spent in <code>move_square()</code> and, within that, in
+<code>data.frame()</code></p>
+</div>
+</div>
+</div>
+</div>
+<div id="exercise-3-travelling-salesman" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<span class="callout-header">Challenge</span>
+<div id="exercise-3-travelling-salesman" class="callout-inner">
+<h3 class="callout-title">Exercise 3: Travelling salesman</h3>
+<div class="callout-content">
+<p>Download <a href="../files/travelling-salesman.R" download>the
+travelling salesman R script</a>.</p>
+<blockquote>
+<p>The travelling salesperson problem aims to optimise the route for a
+scenario where a salesperson is requires to travel between N locations.
+They wish to travel to each location exactly once, in any order, whilst
+minimising the total distance travelled.</p>
+<p>The provided implementation uses a naive brute-force approach.</p>
+</blockquote>
+<p>Profile the code with
+<code>profvis(travelling_salesman(n_cities))</code>. The value of
+<code>n_cities</code> should be a positive integer. This algorithm has
+poor scaling so larger numbers take significantly longer to run.</p>
+<ul><li>In which function call(s) are are majority of the execution time
+being spent?</li>
+<li>Which parts of the code are memory intensive?</li>
+<li>Which number of cities do you think makes the best test size?</li>
+</ul></div>
+</div>
+</div>
+<div id="accordionHint1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
+  <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
+</button>
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div class="accordion-body">
+<ul><li>Think about the speed at which the profiling code runs, whether the
+output identifies any bottlenecks, and how easy they are to
+identify.</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div class="accordion-body">
+<p>The <code>total_distance</code> function accounts for a substantial
+percentage of the time, and <code>distance</code> appears to be the
+bottleneck within that.</p>
 </div>
 </div>
 </div>
@@ -427,13 +681,9 @@ challenge blocks?</h3>
 <div class="callout-inner">
 <div class="callout-content">
 <ul><li>R code can be profiled with the <code>profvis()</code> function from
-the <strong>profvis</strong> package</li>
-<li>Profiling output displays… <strong>SOMETHING ABOUT THE FLAME
-GRAPH</strong>
-</li>
-<li>Profiling output displays… <strong>SOMETHING ABOUT MEMORY AND
-TIME</strong>
-</li>
+the <strong>profvis</strong> package.</li>
+<li>Profiling output displays the nested call hierarchy, along with time
+taken to run and memory allocated and released.</li>
 </ul></div>
 </div>
 </div>
@@ -501,8 +751,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/instructor/profiling-profvis.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/profiling-profvis.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-03",
-  "datePublished": "2026-11-03"
+  "dateModified": "2026-11-04",
+  "datePublished": "2026-11-04"
 }
 
   </script><script>

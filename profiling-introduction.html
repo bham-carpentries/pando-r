@@ -318,7 +318,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to Profiling</h1>
-        <p>Last updated on 2026-11-03 |
+        <p>Last updated on 2026-11-04 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/profiling-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -401,11 +401,11 @@ and isn’t a quick one-off script can benefit from profiling.</p>
 <div class="callout-content">
 <!-- Everyone benefits (why) -->
 <p>Even professional programmers make oversights that can lead to poor
-performance, and can be identified through profiling.</p>
-<p>For example Grand Theft Auto Online, which has allegedly earned over
+performance, and which can be identified through profiling.</p>
+<p>For example, Grand Theft Auto Online, which has allegedly earned over
 $7bn since its 2013 release, was notorious for slow loading times. 8
 years after its release <a href="https://nee.lv/2021/02/28/How-I-cut-GTA-Online-loading-times-by-70/" class="external-link">a
-‘hacker’</a> had enough, they reverse engineered and profiled the code
+‘hacker’</a> had enough. They reverse engineered and profiled the code
 to enable a 70% speedup!</p>
 <p><em>How much revenue did that unnecessary bottleneck cost, through
 user churn?</em></p>
@@ -445,9 +445,9 @@ R code. There are other similar techniques.</em></p>
 <p>Whilst this can be appropriate for profiling narrow sections of code,
 it becomes increasingly impractical as a project grows in size and
 complexity.</p>
-<p>Furthermore, it’s also unproductive to be routinely adding and
-removing these small changes if they interfere with the required outputs
-of a project.</p>
+<p>Furthermore, it is also unproductive to be routinely adding and
+removing these small changes, especially if they interfere with the
+required outputs of a project.</p>
 <div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -465,7 +465,7 @@ return to this in the episode on <a href="microbenchmarking.html">microbenchmark
 <h3 id="function-level-profiling-and-line-level-profiling">Function-level profiling and line-level profiling<a class="anchor" aria-label="anchor" href="#function-level-profiling-and-line-level-profiling"></a></h3>
 <p>Software is typically comprised of a hierarchy of function calls,
 both functions written by the developer and those used from the
-language’s standard library and third party packages.</p>
+language’s standard library and third-party packages.</p>
 <p>Function-level profiling analyses where time is being spent with
 respect to functions. Typically, function-level profiling will calculate
 the number of times each function is called and the total time spent
@@ -507,13 +507,13 @@ the granularity of metrics being collected.</p>
 <!-- Profiling may generate large amounts of data -->
 <p>Similarly, the longer your code runs, the more code that is being
 executed, the more data that will be collected. A profile that runs for
-hours could produce gigabytes of output data!</p>
+hours could produce gigabytes of output data.</p>
 <!-- Important to select appropriate test-case/s -->
 <p>Therefore, it is important to select an appropriate test-case that is
 both representative of a typical workload and small enough that it can
 be quickly iterated. Ideally, it should take no more than a few minutes
-to run the profiled test-case from start to finish, however you may have
-circumstances where something that short is not possible. Be aware,
+to run the profiled test-case from start to finish, though there may
+have circumstances where something that short is not possible. Be aware,
 though, that if the test case runs too quickly, or is too small, it may
 not reveal the bottlenecks that affect the full run.</p>
 <!-- For example -->
@@ -641,8 +641,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/profiling-introduction.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/profiling-introduction.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-03",
-  "datePublished": "2026-11-03"
+  "dateModified": "2026-11-04",
+  "datePublished": "2026-11-04"
 }
 
   </script><script>
