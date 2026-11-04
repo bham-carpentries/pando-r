@@ -69,6 +69,7 @@ episodes:
 - profiling-introduction.md
 - profiling-profvis.md
 - microbenchmarking.Rmd
+- optimisation-introduction.Rmd
 
 # Information for Learners
 learners: 
