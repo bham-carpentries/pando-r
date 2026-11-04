@@ -22,42 +22,153 @@ exercises: 2
 
 ## Introduction
 
+Microbenchmarking measures the performance of a very small piece of code, 
+typically something that might take milliseconds (ms), microseconds (μs) or nanoseconds (ns), where, if a microbenchmark takes:
+
+- 1 ms, then one thousand calls take a second.
+- 1 µs, then one million calls take a second.
+- 1 ns, then one billion calls take a second.
+
+In R, the package [**bench**](https://bench.r-lib.org/) uses a high precision timer, making it possible to compare the speed of operations that run extremely quickly.
+
+## Using the bench package
+
+### `bench::mark()`
+
+We can use the `bench::mark()` function to compare approaches to solving the same problem, e.g. finding the square roots of a vector of numbers:
+
+```{r}
+x <- runif(1000)
+sqrt_bench <- bench::mark(
+  sqrt(x),
+  x ^ 0.5
+)
+
+sqrt_bench
+```
+
+By default, `bench::mark()` runs each expression enough times to take 0.5 seconds. 
+It also checks that each run returns the same value. 
+
+`bench::mark()` returns results as a tibble, with one row per expression. Although the print version of `sqrt_bench` above only shows 6 columns, there are in-fact `r ncol(sqrt_bench)`:
+
+```{r}
+colnames(sqrt_bench)
+```
+
+- To compare time taken, the `min`, `median` and `itr/sec` (estimated number of executions performed per second) summarise the time taken by the expression, `n_itr` gives number of iterations and `total_time` gives the total time to perform the benchmarks. 
+- To compare memory usage, `mem_alloc` is the total amount of memory allocated by R while running the expression, `n_gc` gives the total number of garbage collections and `gc/sec` give the number per second. 
+- `result`, `memory`, `time` and `gc` are list-columns that store the underlying raw data.
+
+
+We can visualise the distribution of the individual timings with `plot()`:
+
+```{r}
+plot(sqrt_bench) # requires ggplot2, tidyr and ggbeeswarm to be installed 
+```
+
+
+
+:::::: discussion
+
+## Useful columns
+
+Which columns in the output of `bench::mark()` do you think are most useful in determining the best-performing expression? Why?
+
+::::::
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 1: Can you do it?
 
-What is the output of this command?
+## Challenge 1
 
-```r
-paste("This", "new", "lesson", "looks", "good")
+Here are two other ways to compute the square root of a vector. Of these along with the two methods already seen, how do you think they'll rank on speed? Use microbenchmarking to check your intuition.
+
+```
+x ^ (1/2)
+exp(log(x) / 2)
 ```
 
-:::::::::::::::::::::::: solution 
+:::: solution
+```{r}
+bm <- bench::mark(
+  sqrt(x),
+  x ^ 0.5,
+  x ^ (1 / 2),
+  exp(log(x) / 2)
+)
 
-## Output
- 
-```output
-[1] "This new lesson looks good"
+bm[order(bm$median), ]
 ```
+::::
+
 
 :::::::::::::::::::::::::::::::::
 
+::: callout
+If the code is more than a single expression, create function wrappers for each alternative (the functions can also take arguments):
 
-## Challenge 2: how do you nest solutions within challenge blocks?
+```
+fun1 <- function() {
+  # some code
+}
 
-:::::::::::::::::::::::: solution 
+fun2 <- function() {
+  # some other code
+}
 
-You can add a line with at least three colons and a `solution` tag.
+bench::mark(fun1(), fun2)
+```
+:::
 
-:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::
 
+### Scaling and `bench::press()`
+
+Benchmarking can be difficult as the best option can depend on the size of the data, e.g. memory allocation can overshadow run time for small objects.
+
+When thinking about how our code scales to bigger, we need to consider what we mean by "big"
+
+- number of rows or number of columns?
+- number of observations or number of factor levels?
+
+`bench::press()` compares a function over a grid of parameters.
+The parameter you want to set are given as named arguments and a grid of all possible combinations is automatically created. 
+The code to benchmark is then given by one unnamed expression
+
+
+```{r}
+bp <- bench::press(
+  n = c(10, 100, 1000), 
+  k = c(100, 10, 1),
+  bench::mark(gl(n, k)), # gl generates factor levels 
+  .quiet = TRUE # don't print progress messages
+)
+
+bp
+```
+
+::::::: challenge
+## Challenge 2
+
+`gl(n, k)` generate factors by specifying the pattern of their levels, where `n` is the number of levels and `k` is the number of replications, e.g.
+
+```{r}
+gl(2, 3)
+```
+
+Looking at `bp` created above, increasing which of `n` or `k` has the biggest impact on the performance of `gl()`?
+
+::: hint
+You can rearrange the order of the rows (e.g. by `n` or `k` or `median`) to see patterns a different way.
+:::
+:::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Microbenchmarking is the most accurate way to compare the execution time of different R expressions that produce the same result
 - **bench** is a powerful package for microbenchmarking R code
+- Use `bench::mark()` to compare the performance of different expressions
+- Use `bench::press()` to compare the performance of the same expression over a grid of different parameters
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
