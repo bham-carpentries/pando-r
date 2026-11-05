@@ -70,6 +70,8 @@ episodes:
 - profiling-profvis.md
 - microbenchmarking.Rmd
 - optimisation-introduction.Rmd
+- software-engineering.md
+- optimisation-base-r.Rmd
 
 # Information for Learners
 learners: 
