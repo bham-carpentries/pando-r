@@ -64,6 +64,9 @@
     <loc>https://bham-carpentries.github.io/pando-r/instructor/microbenchmarking.html</loc>
   </url>
   <url>
+    <loc>https://bham-carpentries.github.io/pando-r/instructor/optimisation-base-r.html</loc>
+  </url>
+  <url>
     <loc>https://bham-carpentries.github.io/pando-r/instructor/optimisation-introduction.html</loc>
   </url>
   <url>
@@ -77,6 +80,9 @@
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/pando-r/instructor/reference.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/pando-r/instructor/software-engineering.html</loc>
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/pando-r/instructor-notes.html</loc>
@@ -94,6 +100,9 @@
     <loc>https://bham-carpentries.github.io/pando-r/microbenchmarking.html</loc>
   </url>
   <url>
+    <loc>https://bham-carpentries.github.io/pando-r/optimisation-base-r.html</loc>
+  </url>
+  <url>
     <loc>https://bham-carpentries.github.io/pando-r/optimisation-introduction.html</loc>
   </url>
   <url>
@@ -107,5 +116,8 @@
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/pando-r/reference.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/pando-r/software-engineering.html</loc>
   </url>
 </urlset>
