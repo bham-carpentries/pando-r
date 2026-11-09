@@ -21,7 +21,7 @@ exercises: 2
 
 ## Introduction
 
-Much of the core R codebase is written in C and Fortran. C, as a compiled language, is much faster to run. Calling an R function always ends up calling some underlying C or Fortran code. We can inspect the source code for an R function by entering its name in the console, *not* followed by parentheses. The base R function `runif`, for example, only contains a single line, which consists of a call, via `.Call`, to an implementation written in C, `C_runif`:
+Much of the core R codebase is written in C and Fortran. As compiled languages, this code is much faster to run. Calling an R function always ends up calling some underlying C or Fortran code. We can inspect the source code for an R function by entering its name in the console, *not* followed by parentheses. The base R function `runif`, for example, only contains a single line, which consists of a call, via `.Call`, to an implementation written in C, `C_runif`:
 
 ```r
 function (n, min = 0, max = 1) 
@@ -46,19 +46,22 @@ for (i in seq_along(x)) {
 
 How many function calls are there in the above `for` loop?
 
-:::::: solution
+::::::
+
+:::::: instructor
 - `n` function calls to +;
 - `n` function calls to the `[` function;
 - `n` function calls to the `[<-` function (used in the assignment operation);
 - Two function calls: one to `for` and another to `seq_len()`.
 ::::::
 
-::::::
 
 `for` loops tend to be slow in R, not because `for` itself is slow, but because loops have far more function calls than their vectorised alternatives, each with overhead.
 
 :::::: challenge
 Use `bench::mark()` to compare the performance of the vectorised `x <- x + 1` vs. `for` loop version. Try varying the size of the input vector. 
+
+Note that you need to set `check = FALSE` in the call to `bench::mark()` because whichever of the approaches you run first changes the value of `x`, so other has a different starting and, therefore, end values.
 
 ::: solution
 
@@ -83,8 +86,8 @@ bench::mark(
 # A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 vect(x)      4.93µs   38.1µs    25979.    78.2KB    42.5 
-2 loop(x)    526.89µs  575.2µs     1734.   101.5KB     2.03
+1 vect(x)       5.2µs   38.2µs    25792.    78.2KB    42.3 
+2 loop(x)     521.3µs  564.4µs     1757.   101.5KB     2.03
 ```
 
 :::
@@ -92,7 +95,7 @@ bench::mark(
 
 ## Vectorised code
 
-In the above section, `x <- x + 1` is an example of a vectorised operation. Vectorisation is operating on vectors (or vector-like objects) as a whole, rather than individual elements. This whole-object approach has a number of benefits:
+In the above section, `x <- x + 1` is an example of a vectorised operation. *Vectorisation* is operating on vectors (or vector-like objects) as a whole, rather than individual elements. This whole-object approach has a number of benefits:
 
 - It makes problems simpler to think about entire vectors, rather than individual elements
 - Loops in vectorised functions are written in C, and are much faster than loops in R because they have less overhead
@@ -132,18 +135,41 @@ a b
 
 :::::: challenge
 
-Write a function, `variance` to compute the variance of a numeric vector, `x`, of length `n, making use of R's built in vectorisation.
+Write a function, `variance` to compute the variance of a numeric vector, `x`, of length `n`, making use of R's built in vectorisation.
 
 $$
 Var(x) = \frac{1}{n-1}\sum_{i=1}^n(x_i - \bar{x})^2
 $$
+Microbenchmark your approach compared to the base R `var()` implementation, with `x <- runif(10000)`. Why do you think the built-in version is faster?
+
+::: hint
+Look at the source code for `var`.
+:::
+
 
 ::: solution
-```r
+
+``` r
 variance <- function(x) {
   1/(length(x) - 1) * sum((x - mean(x))^2)
 }
+
+x <- runif(10000)
+bench::mark(
+   variance(x),
+   var(x)
+)
 ```
+
+``` output
+# A tibble: 2 × 6
+  expression       min   median `itr/sec` mem_alloc `gc/sec`
+  <bch:expr>  <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
+1 variance(x)   74.5µs   79.5µs    10952.    78.2KB    17.1 
+2 var(x)        70.1µs   72.9µs    13349.    15.3KB     2.04
+```
+
+`var()` performs the variance calculation in C.
 :::
 
 ::::::
@@ -188,22 +214,25 @@ There are several functions available for implementing efficient row/column-wise
 
 ## Faster common operations
 
-There are often many different ways to achieve the same result in R. Here are some examples of fast ways to solve common problems:
+There are often many different ways to achieve the same result in R. Looking at the help page for a function is a good way to check whether there are any arguments to the function, or any faster implementations for certain cases. Here are some examples of fast ways to solve common problems:
 
 - Sorting
-   - Use `sort(x, partial = 1:10)[1:10]` instead of `sort(x)[1:10]` to get the top 10
-   - Use `sort(x, decreasing = TRUE) instead of rev(sort(x))
+   - Use `sort(x, partial = 1:10)[10]` instead of `sort(x)[1:10]` to get the top 10
+   - Use `sort(x, decreasing = TRUE)` instead of `rev(sort(x))`
 
 - Generating numeric vectors
-   - seq.int(), seq_along(x), seq_len(n) vs seq()
-   - rep.int() or rep_len(n) vs rep()
+   - `seq.int()`, `seq_along(x)`, `seq_len(n)` instead of `seq()`
+   - `rep.int()` or `rep_len(x, length.out)` vs `rep()`
 
-- `which.min()`, `which.max()` vs e.g. `which(x == min(x))`
+- `which.min()`, `which.max()` instead of e.g. `which(x == min(x))`
+
+- `anyNA(x)` instead of `any(is.na(x))`
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Avoid extraneous function calls - get to the underlying C code as fast as possible
 - Think in terms of whole vectors rather than individual elements, and take advantage of R's built-in vectorisation
+- Look at the help pages for base R functions to see if they contain any arguments or alternative versions which might speed-up calculations.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
