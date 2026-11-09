@@ -429,7 +429,23 @@ time to profiling and fixing the issue?</p>
 <br></section><section id="microbenchmarking"><h2 class="section-heading"><a href="microbenchmarking.html">Microbenchmarking with bench</a></h2>
 <hr class="half-width"></section><section id="optimisation-introduction"><h2 class="section-heading"><a href="optimisation-introduction.html">Introduction to Optimisation</a></h2>
 <hr class="half-width"></section><section id="optimisation-base-r"><h2 class="section-heading"><a href="optimisation-base-r.html">Base R optimisations</a></h2>
-<hr class="half-width"></section><section id="software-engineering"><h2 class="section-heading"><a href="software-engineering.html">Good software engineering practices</a></h2>
+<hr class="half-width">
+<h3 id="optimisation-base-r-headingInstructor1">
+<a href="optimisation-base-r.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#optimisation-base-r-headingInstructor1"></a>
+</h3>
+<ul>
+<li>
+<code>n</code> function calls to +;</li>
+<li>
+<code>n</code> function calls to the <code>[</code> function;</li>
+<li>
+<code>n</code> function calls to the <code>[&lt;-</code> function
+(used in the assignment operation);</li>
+<li>Two function calls: one to <code>for</code> and another to
+<code>seq_len()</code>.</li>
+</ul>
+<hr>
+<br></section><section id="software-engineering"><h2 class="section-heading"><a href="software-engineering.html">Good software engineering practices</a></h2>
 <hr class="half-width"></section></section>
 </div>
     </main>
@@ -480,8 +496,8 @@ time to profiling and fixing the issue?</p>
   "url": "https://bham-carpentries.github.io/pando-r/instructor/instructor-notes.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/instructor-notes.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-05",
-  "datePublished": "2026-11-05"
+  "dateModified": "2026-11-09",
+  "datePublished": "2026-11-09"
 }
 
   </script><script>
