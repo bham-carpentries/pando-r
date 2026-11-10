@@ -61,6 +61,9 @@
     <loc>https://bham-carpentries.github.io/pando-r/instructor/keypoints.html</loc>
   </url>
   <url>
+    <loc>https://bham-carpentries.github.io/pando-r/instructor/memory-management.html</loc>
+  </url>
+  <url>
     <loc>https://bham-carpentries.github.io/pando-r/instructor/microbenchmarking.html</loc>
   </url>
   <url>
@@ -95,6 +98,9 @@
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/pando-r/keypoints.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/pando-r/memory-management.html</loc>
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/pando-r/microbenchmarking.html</loc>
