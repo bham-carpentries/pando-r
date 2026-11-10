@@ -52,8 +52,8 @@ sqrt_bench
 # A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 sqrt(x)      8.48µs   11.9µs    80953.    7.86KB     8.10
-2 x^0.5       18.73µs   19.4µs    47403.    7.86KB     9.48
+1 sqrt(x)      8.47µs   12.1µs    78603.    7.86KB     7.86
+2 x^0.5       19.05µs   19.4µs    47583.    7.86KB     9.52
 ```
 
 By default, `bench::mark()` runs each expression enough times to take 0.5 seconds. 
@@ -128,10 +128,10 @@ bm[order(bm$median), ]
 # A tibble: 4 × 6
   expression         min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr>    <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 sqrt(x)         8.45µs   8.87µs    93931.    7.86KB    18.8 
-2 exp(log(x)/2)  12.65µs  12.82µs    76351.    7.86KB    15.3 
-3 x^0.5          18.77µs  19.36µs    49444.    7.86KB     4.94
-4 x^(1/2)        18.88µs  19.47µs    50263.    7.86KB    10.1 
+1 sqrt(x)         8.46µs   9.97µs    93918.    7.86KB    18.8 
+2 exp(log(x)/2)  12.67µs  12.86µs    75507.    7.86KB    15.1 
+3 x^0.5          19.07µs  19.37µs    49373.    7.86KB     4.94
+4 x^(1/2)        19.22µs  19.52µs    49728.    7.86KB     9.95
 ```
 ::::
 
@@ -185,15 +185,15 @@ bp
 # A tibble: 9 × 8
   expression     n     k      min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr> <dbl> <dbl> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 gl(n, k)      10   100  10.87µs   11.7µs    82588.   15.93KB    16.5 
-2 gl(n, k)     100   100   78.1µs  79.37µs    11675.   81.36KB    24.8 
-3 gl(n, k)    1000   100 798.75µs 814.25µs     1190.  809.06KB    24.1 
-4 gl(n, k)      10    10   4.55µs   5.19µs   186323.      896B    18.6 
-5 gl(n, k)     100    10  16.05µs   16.8µs    57666.   11.05KB    17.3 
-6 gl(n, k)    1000    10 176.36µs  179.1µs     5466.  105.94KB    13.4 
-7 gl(n, k)      10     1    3.8µs   4.09µs   222307.        0B    22.2 
-8 gl(n, k)     100     1   9.53µs  10.21µs    95129.    4.02KB     9.51
-9 gl(n, k)    1000     1 114.33µs 116.24µs     8368.   35.62KB     6.15
+1 gl(n, k)      10   100  10.92µs   11.8µs    80820.   15.93KB    16.2 
+2 gl(n, k)     100   100  78.31µs  79.67µs    12038.   81.36KB    24.8 
+3 gl(n, k)    1000   100 798.69µs 816.95µs     1191.  809.06KB    26.7 
+4 gl(n, k)      10    10   4.51µs   5.23µs   182269.      896B     0   
+5 gl(n, k)     100    10  16.08µs  17.03µs    57121.   11.05KB    17.1 
+6 gl(n, k)    1000    10  175.7µs 178.64µs     5434.  105.94KB    13.9 
+7 gl(n, k)      10     1    3.8µs   4.08µs   226525.        0B    22.7 
+8 gl(n, k)     100     1   9.58µs  10.32µs    93898.    4.02KB     9.39
+9 gl(n, k)    1000     1 113.17µs 114.86µs     8493.   35.62KB     6.17
 ```
 
 ::::::: challenge

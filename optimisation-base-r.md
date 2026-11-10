@@ -86,8 +86,8 @@ bench::mark(
 # A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 vect(x)       5.2µs   38.2µs    25792.    78.2KB    42.3 
-2 loop(x)     521.3µs  564.4µs     1757.   101.5KB     2.03
+1 vect(x)       5.1µs   37.9µs    26090.    78.2KB    43.2 
+2 loop(x)       556µs  599.7µs     1661.   101.5KB     2.04
 ```
 
 :::
@@ -165,8 +165,8 @@ bench::mark(
 # A tibble: 2 × 6
   expression       min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr>  <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 variance(x)   74.5µs   79.5µs    10952.    78.2KB    17.1 
-2 var(x)        70.1µs   72.9µs    13349.    15.3KB     2.04
+1 variance(x)   74.4µs  107.6µs    10024.    78.2KB    17.4 
+2 var(x)        69.8µs   72.8µs    13358.    15.3KB     2.05
 ```
 
 `var()` performs the variance calculation in C.
