@@ -345,7 +345,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Base R optimisations</h1>
-        <p>Last updated on 2026-11-09 |
+        <p>Last updated on 2026-11-10 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/optimisation-base-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -507,8 +507,8 @@ starting and, therefore, end values.</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 vect(x)       5.2µs   38.2µs    25792.    78.2KB    42.3
-2 loop(x)     521.3µs  564.4µs     1757.   101.5KB     2.03</code></pre>
+1 vect(x)       5.1µs   37.9µs    26090.    78.2KB    43.2
+2 loop(x)       556µs  599.7µs     1661.   101.5KB     2.04</code></pre>
 </div>
 </div>
 </div>
@@ -621,8 +621,8 @@ is faster?</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression       min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt;  &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 variance(x)   74.5µs   79.5µs    10952.    78.2KB    17.1
-2 var(x)        70.1µs   72.9µs    13349.    15.3KB     2.04</code></pre>
+1 variance(x)   74.4µs  107.6µs    10024.    78.2KB    17.4
+2 var(x)        69.8µs   72.8µs    13358.    15.3KB     2.05</code></pre>
 </div>
 <p><code>var()</code> performs the variance calculation in C.</p>
 </div>
@@ -787,8 +787,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/instructor/optimisation-base-r.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/optimisation-base-r.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-09",
-  "datePublished": "2026-11-09"
+  "dateModified": "2026-11-10",
+  "datePublished": "2026-11-10"
 }
 
   </script><script>
