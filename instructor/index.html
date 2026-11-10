@@ -196,12 +196,20 @@
                   <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         Summary and Schedule
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#motivation">Motivation</a></li>
+<li><a href="#learning-objectives">Learning objectives</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
 
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -325,12 +333,78 @@
     </nav><main id="main-content" class="main-content"><h1 class="schedule-heading">Summary and Schedule</h1>
       
 
-<p>Learning objectives:</p>
+<div id="callout1" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p>This course is still under active development.</p>
+</div>
+</div>
+</div>
+<p><strong>Welcome to Performance Profiling &amp; Optimisation (R)
+Training!</strong></p>
+<p>This course is designed for researchers who want to write efficient R
+code. It focuses on practical skills for identifying computationally
+expensive functions and lines of code through profiling, applying best
+practices for writing performant code, and measuring improvements
+through benchmarking. You may already be working with large datasets,
+complex simulations, or have R scripts which take a while to run and you
+expect that it is possible that the code could be faster. Whether you
+want to speed up your code because you are frustrated with its slowness,
+care about the environmental impact of compute, or because you want to
+reduce the resources you require on HPC, this course will help you adopt
+coding practices that are more efficient and sustainable.</p>
+<p>If you are comfortable using R but lack formal computer science
+training. this course may be of interest to supplement and advance your
+programming knowledge. This course is particularly relevant if you are
+writing research code and desire greater confidence that your code is
+both performant and suitable for publication.</p>
+<section><h2 class="section-heading" id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a></h2>
+<hr class="half-width"><p>Why might you want to profile and optimise your code?</p>
+<p>The simplest answer is that optimisation let you get results faster.
+It may also allow you to scale up your code to perform larger analyses
+that would otherwise have taken too long to be practical.</p>
+<p>Making your code faster can have additional benefits: faster software
+uses less compute power. If you use paid-for compute resources, such as
+cloud computing or some HPC facilities, optimising your code can
+therefore reduce your costs.</p>
+<p>Using less computing power also helps make your software more
+environmentally sustainable. As funders and research institutions set
+Net Zero goals, and computationally-intensive research expands,
+sustainability is increasingly becoming a concern for researchers.</p>
+<div id="green-computing" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="green-computing" class="callout-inner">
+<h3 class="callout-title">Green computing</h3>
+<div class="callout-content">
+<p>To find out more about sustainable computing, visit the <a href="https://www.software.ac.uk/GreenDiSC" class="external-link">Green DiSC</a> website or
+see this <a href="https://learn.greensoftware.foundation/" class="external-link">online
+training</a> from the Green Software Foundation.</p>
+</div>
+</div>
+</div>
+<p>It is sensible to focus your optimisation efforts on the parts of the
+code that take the longest. This is where profiling comes in: by
+profiling your code, you can identify which parts contribute the most to
+its runtime, and target these for optimisation.</p>
+<p>Even if you don’t find any major performance gains, profiling can
+give you a better understanding of what your code is doing, or give you
+confidence that the performance of your code matches your
+expectations.</p>
+</section><section><h2 class="section-heading" id="learning-objectives">Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives"></a></h2>
+<hr class="half-width"><p>After attending this training, participants will be able to:</p>
 <ul><li>Identify the most computationally expensive functions and lines of
-code in an R script using <code>profvis</code>
-</li>
-<li>Use <code>bench</code> to compare the execution time of different R
-expressions that produce the same result</li>
+code in an R script using the <a href="https://profvis.r-lib.org" class="external-link"><strong>profvis</strong></a>
+package</li>
+<li>Use the <a href="https://bench.r-lib.org/" class="external-link"><strong>bench</strong></a> package to
+compare the execution time of different R expressions that produce the
+same result</li>
 <li>Identify coding patterns in R that are known to cause slow
 performance</li>
 <li>Rewrite a profiled bottleneck using established optimisation
@@ -357,9 +431,7 @@ frames</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-
-
-      <section id="schedule"><table class="table table schedule table-striped" role="presentation"><tbody><tr><td></td><td><a href="#setup">Setup Instructions</a></td><td> Download files required for the lesson</td>
+</section><section id="schedule"><table class="table table schedule table-striped" role="presentation"><tbody><tr><td></td><td><a href="#setup">Setup Instructions</a></td><td> Download files required for the lesson</td>
           </tr><tr><td>
 <span class="visually-hidden">Duration: </span>00h 00m
 </td>
@@ -438,29 +510,16 @@ any links that you are not going to use.
  --></tbody></table><p>
       The actual schedule may vary slightly depending on the topics and exercises chosen by the instructor.
       </p>
-      </section><section id="setup"><p>FIXME: Setup instructions live in this document. Please specify the
-tools and the data sets the Learner needs to have installed.</p>
-<section><h2 class="section-heading" id="data-sets">Data Sets<a class="anchor" aria-label="anchor" href="#data-sets"></a></h2>
-<hr class="half-width"><!--
-FIXME: place any data you want learners to use in `episodes/data` and then use
-       a relative link ( [data zip file](data/lesson-data.zip) ) to provide a
-       link to it, replacing the example.com link.
---><p>Download the <a href="https://example.com/FIXME" class="external-link">data zip file</a>
-and unzip it to your Desktop</p>
-</section><section><h2 class="section-heading" id="software-setup">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
-<hr class="half-width"><div id="details" class="callout discussion">
+      </section><section id="setup"><section><h2 class="section-heading" id="software-setup">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
+<hr class="half-width"><div id="discussion1" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <span class="callout-header">Discussion</span>
-<div id="details" class="callout-inner">
-<h3 class="callout-title">Details</h3>
+<div class="callout-inner">
 <div class="callout-content">
-<p>Setup for different systems can be presented in dropdown menus via a
-<code>spoiler</code> tag. They will join to this discussion block, so
-you can give a general overview of the software used in this lesson here
-and fill out the individual operating systems (and potentially add more,
-e.g. online setup) in the solutions blocks.</p>
+<p>This lesson assumes you have R and RStudio installed on your
+computer. Please follow the setup instructions below.</p>
 </div>
 </div>
 </div>
@@ -469,12 +528,21 @@ e.g. online setup) in the solutions blocks.</p>
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
   <h3 class="accordion-header" id="headingSpoiler1">
   <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Windows
+  Personal Laptop
   </h3>
 </button>
 <div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
-<p>Use PuTTY</p>
+<p>To install R and RStudio on a personal laptop</p>
+<div class="section level4">
+<h4 id="windowsmac">Windows/Mac<a class="anchor" aria-label="anchor" href="#windowsmac"></a></h4>
+<ul><li><p><a href="https://cran.ma.imperial.ac.uk" class="external-link">R can be downloaded
+here</a>. Select the precompiled binary distribution for your operating
+system.</p></li>
+<li><p>RStudio is an environment for code development using R. <a href="https://docs.posit.co/ide/user/download.html" class="external-link">RStudio can be
+downloaded here</a>. You will need the Desktop version for your
+computer.</p></li>
+</ul></div>
 </div>
 </div>
 </div>
@@ -484,30 +552,53 @@ e.g. online setup) in the solutions blocks.</p>
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler2" aria-expanded="false" aria-controls="collapseSpoiler2">
   <h3 class="accordion-header" id="headingSpoiler2">
   <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  MacOS
+  University of Birmingham Managed Laptop
   </h3>
 </button>
 <div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
 <div class="accordion-body">
-<p>Use Terminal.app</p>
+<div class="section level4">
+<h4 id="windows">Windows<a class="anchor" aria-label="anchor" href="#windows"></a></h4>
+<p>To install R and RStudio on a University managed Windows machine:</p>
+<ul><li><p>Connect your computer to the university network and open the
+Software Centre from the Start Menu</p></li>
+<li><p>Search for and install “RStudio”.</p></li>
+<li><p>This will also automatically install R for Windows and
+Rtools.</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="mac">Mac<a class="anchor" aria-label="anchor" href="#mac"></a></h4>
+<p>To install R and RStudio on a University managed Mac machine:</p>
+<ul><li><p>Connect your computer to the university network and open the
+Software Centre from the Start Menu</p></li>
+<li><p>Search for and install “R Language”.</p></li>
+<li><p>Search for and install “RStudio”.</p></li>
+</ul></div>
 </div>
 </div>
 </div>
 </div>
-<div id="accordionSpoiler3" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler3" aria-expanded="false" aria-controls="collapseSpoiler3">
-  <h3 class="accordion-header" id="headingSpoiler3">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Linux
-  </h3>
-</button>
-<div id="collapseSpoiler3" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler3" aria-labelledby="headingSpoiler3">
-<div class="accordion-body">
-<p>Use Terminal</p>
+</section><section><h2 class="section-heading" id="packages">Packages<a class="anchor" aria-label="anchor" href="#packages"></a></h2>
+<hr class="half-width"><p>This course requires a number of R packages, which should be
+installed in advance. You can do this by starting RStudio, and
+entering:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span></span>
+<span>       <span class="fu">c</span><span class="op">(</span><span class="st">"profvis"</span>, <span class="st">"bench"</span>, <span class="st">"ggplot2"</span>, <span class="st">"ggbeeswarm"</span>, <span class="st">"tinytest"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-</div>
-</div>
+<p>We will also use the <a href="https://github.com/csgillespie/efficient" class="external-link"><strong>efficient</strong></a>
+package. It can be installed directly from GitHub, which should be done
+by:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"csgillespie/efficient"</span>,</span>
+<span>                         INSTALL_opts <span class="op">=</span> <span class="st">"--with-keep.source"</span><span class="op">)</span></span></code></pre>
 </div>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
