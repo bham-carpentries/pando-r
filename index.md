@@ -52,3 +52,7 @@ Learners should have **at least six months of experience using R** and be comfor
 - Installing and using R packages
 - Familiarity with an IDE (the course will be taught in RStudio)
 :::
+
+## Acknowledgments
+
+This lesson is adapted from [Performance Profiling and Optimisation (Python)](https://carpentries-incubator.github.io/pando-python/). The R-specific content draws heavily from material in [Advanced R](https://adv-r.hadley.nz) by Hadley Wickham and [Efficient R Programming](https://csgillespie.github.io/efficientR/) by Colin Gillespie & Robin Lovelace.
