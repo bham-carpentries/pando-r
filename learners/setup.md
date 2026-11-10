@@ -2,53 +2,69 @@
 title: Setup
 ---
 
-FIXME: Setup instructions live in this document. Please specify the tools and
-the data sets the Learner needs to have installed.
-
-## Data Sets
-
-<!--
-FIXME: place any data you want learners to use in `episodes/data` and then use
-       a relative link ( [data zip file](data/lesson-data.zip) ) to provide a
-       link to it, replacing the example.com link.
--->
-Download the [data zip file](https://example.com/FIXME) and unzip it to your Desktop
 
 ## Software Setup
 
 ::::::::::::::::::::::::::::::::::::::: discussion
 
-### Details
+This lesson assumes you have R and RStudio installed on your computer.
+Please follow the setup instructions below.
 
-Setup for different systems can be presented in dropdown menus via a `spoiler`
-tag. They will join to this discussion block, so you can give a general overview
-of the software used in this lesson here and fill out the individual operating
-systems (and potentially add more, e.g. online setup) in the solutions blocks.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::: spoiler
 
-### Windows
+### Personal Laptop
 
-Use PuTTY
+To install R and RStudio on a personal laptop
+
+#### Windows/Mac
+
+- [R can be downloaded here](https://cran.ma.imperial.ac.uk). Select the precompiled binary distribution for your operating system.
+
+- RStudio is an environment for code development using R. [RStudio can be downloaded here](https://docs.posit.co/ide/user/download.html). You will need the Desktop version for your computer.
 
 ::::::::::::::::::::::::
 
 :::::::::::::::: spoiler
 
-### MacOS
+### University of Birmingham Managed Laptop
 
-Use Terminal.app
+#### Windows
+To install R and RStudio on a University managed Windows machine:
+
+- Connect your computer to the university network and open the Software Centre from the Start Menu
+
+- Search for and install "RStudio". 
+
+- This will also automatically install R for Windows and Rtools.
+
+#### Mac
+
+To install R and RStudio on a University managed Mac machine:
+
+- Connect your computer to the university network and open the Software Centre from the Start Menu
+
+- Search for and install "R Language". 
+
+- Search for and install "RStudio". 
 
 ::::::::::::::::::::::::
 
+## Packages
 
-:::::::::::::::: spoiler
+This course requires a number of R packages, which should be installed in advance. You can do this by starting RStudio, and entering:
 
-### Linux
+```r
+install.packages(
+       c("profvis", "bench", "ggplot2", "ggbeeswarm", "tinytest"))
+```
 
-Use Terminal
+We will also use the [**efficient**](https://github.com/csgillespie/efficient) package. It can be installed directly from GitHub, which should be done by:
 
-::::::::::::::::::::::::
-
+```r
+install.packages("remotes")
+remotes::install_github("csgillespie/efficient",
+                         INSTALL_opts = "--with-keep.source")
+```
