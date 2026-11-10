@@ -71,8 +71,8 @@ episodes:
 - microbenchmarking.Rmd
 - optimisation-introduction.Rmd
 - optimisation-base-r.Rmd
+- memory-management.Rmd
 - software-engineering.md
-
 
 # Information for Learners
 learners: 
