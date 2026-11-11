@@ -356,7 +356,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to Optimisation</h1>
-        <p>Last updated on 2026-11-10 |
+        <p>Last updated on 2026-11-11 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/optimisation-introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -506,7 +506,7 @@ takes:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu">obj_size</span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span> <span class="co"># An integer</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu">obj_size</span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span> <span class="co"># The L makes the 1 an integer rather than a double</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -523,10 +523,11 @@ performance. Most of the time, computers are “fast enough” so this is
 the right trade-off, as Donald Knuth said.</p>
 <p>However, there are the few other cases where code performance really
 matters. To handle these cases, R has the capability to integrate with
-code written in lower-level programming language (like C, Fortran or
-Rust) under the hood. Some performance-sensitive libraries therefore
-perform a lot of the work in such low-level code, before returning an R
-object back to you.</p>
+code written in lower-level programming language (like C, C++, Fortran
+or Rust) under the hood. Some performance-sensitive packages, such as
+<strong>data.table</strong> and <strong>dplyr</strong> therefore perform
+a lot of the work in such low-level code, before returning an R object
+back to you.</p>
 <p>Therefore, <strong>it is often best to tell the interpreter/library
 at a high level <em>what you want</em>, and let it figure out <em>how to
 do it</em>.</strong></p>
@@ -553,12 +554,13 @@ correctness of your code.</p>
 tests. If you are writing your code as part of a package, the
 infrastructure provided by <a href="https://testthat.r-lib.org" class="external-link"><strong>testthat</strong></a> package
 is very good and very easy to use, particularly in conjunction with the
-[<strong>usethis</strong>]((<a href="https://testthat.r-lib.org" class="external-link uri">https://testthat.r-lib.org</a>) package. The <a href="https://r-pkgs.org/testing-basics.html" class="external-link">testing basics chapter</a>
-in the R Packages book gives a good introduction.</p>
+<a href="https://usethis.r-lib.org" class="external-link"><strong>usethis</strong></a>
+package. The <a href="https://r-pkgs.org/testing-basics.html" class="external-link">testing
+basics chapter</a> in the R Packages book gives a good introduction.</p>
 <p>For getting started with unit testing in R, there is also the
 low-dependency <a href="https://github.com/markvanderloo/tinytest" class="external-link"><strong>tinytest</strong></a>
-package, which is also easy to use within individual R scripts, as well
-as in packages.</p>
+package, which is easy to use within individual R scripts, as well as in
+packages.</p>
 </section><section><h2 class="section-heading" id="brief-introduction-to-tinytest">Brief introduction to <strong>tinytest</strong>
 <a class="anchor" aria-label="anchor" href="#brief-introduction-to-tinytest"></a></h2>
 <hr class="half-width"><p>In <strong>tinytest</strong>, tests are simple R scripts where test
@@ -576,7 +578,7 @@ useful information if there is a failure.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tinytest</span><span class="op">)</span></span>
 <span><span class="va">add_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span>
-<span><span class="va">sub_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">-</span> <span class="fl">2</span></span>
+<span><span class="va">sub_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">-</span> <span class="fl">2</span> <span class="co"># deliberate mistake (to catch with a test)</span></span>
 <span></span>
 <span><span class="co"># this test should pass</span></span>
 <span><span class="fu">expect_equal</span><span class="op">(</span><span class="fu">add_one</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre>
@@ -603,7 +605,7 @@ useful information if there is a failure.</p>
 </div>
 <p>In <strong>tinytest</strong>, the <code>expect_*()</code> functions
 evaluate to a boolean, rather than the <strong>testthat</strong>
-approach of causing an exception (i.e. stopping the evaluation of the
+approach of causing an exception (i.e., stopping the evaluation of the
 script):</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -633,6 +635,67 @@ tests on the updated implemantation gives you the data you need to be
 confident that the optimisations have not introduced bugs into the code,
 leading to incorrect results (or, if the tests now fail, you know the
 function implementation needs correcting).</p>
+<div id="challenge1" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<span class="callout-header">Challenge</span>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge</h3>
+<div class="callout-content">
+<p>Here are two functions and (part-written) associated tests. Which
+functions from the <code>expect_*()</code> family do you need to make
+these tests pass?</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1" aria-label="code-block-13-1"></a>is_bigger <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1" aria-label="code-block-13-2"></a>  a <span class="sc">&gt;</span> b</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1" aria-label="code-block-13-3"></a>}</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1" aria-label="code-block-13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1" aria-label="code-block-13-5"></a>greeting <span class="ot">&lt;-</span> <span class="cf">function</span>(name) {</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1" aria-label="code-block-13-6"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.character</span>(name))</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1" aria-label="code-block-13-7"></a>  <span class="fu">paste</span>(<span class="st">"Hello"</span>, name)</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1" aria-label="code-block-13-8"></a>}</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1" aria-label="code-block-13-9"></a></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1" aria-label="code-block-13-10"></a>expect_<span class="sc">*</span>(<span class="fu">is_bigger</span>(<span class="dv">6</span>, <span class="dv">3</span>))</span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1" aria-label="code-block-13-11"></a>expect_<span class="sc">*</span>(<span class="fu">greeting</span>(<span class="dv">6</span>))</span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1" aria-label="code-block-13-12"></a>expect_<span class="sc">*</span>(<span class="fu">greeting</span>(<span class="st">"Ella"</span>), <span class="st">"Hello Ella"</span>)</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionHint1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
+  <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
+</button>
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div class="accordion-body">
+<p>The functions in the <code>expect_*()</code> family are listed in the
+<a href="https://github.com/markvanderloo/tinytest/blob/master/pkg/README.md" class="external-link">tinytest
+documentation</a></p>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<ul><li><code>expect_true(is_bigger(6, 3))</code></li>
+<li><code>expect_error(greeting(6))</code></li>
+<li>
+<code>expect_equal(greeting("Ella"), "Hello Ella")</code>
+(<code>expect_identical()</code> and <code>expect_equivalent()</code>
+also pass)</li>
+</ul></div>
+</div>
+</div>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -714,8 +777,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/instructor/optimisation-introduction.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/optimisation-introduction.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-10",
-  "datePublished": "2026-11-10"
+  "dateModified": "2026-11-11",
+  "datePublished": "2026-11-11"
 }
 
   </script><script>

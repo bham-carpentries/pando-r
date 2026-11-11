@@ -476,7 +476,7 @@ interpreted?
 </td>
 <td>
 What is microbenchmarking?<br>How can the <strong>bench</strong>
-packages be used to time R code?<br>How can I visualise and interpret
+package be used to time R code?<br>How can I visualise and interpret
 the results of microbenchmarking?
 </td>
 </tr><tr><td>
@@ -555,7 +555,7 @@ computer. Please follow the setup instructions below.</p>
   Personal Laptop
   </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
 <div class="accordion-body">
 <p>To install R and RStudio on a personal laptop</p>
 <div class="section level4">
@@ -579,7 +579,7 @@ computer.</p></li>
   University of Birmingham Managed Laptop
   </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
 <div class="accordion-body">
 <div class="section level4">
 <h4 id="windows">Windows<a class="anchor" aria-label="anchor" href="#windows"></a></h4>
@@ -610,13 +610,21 @@ entering:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span></span>
-<span>       <span class="fu">c</span><span class="op">(</span><span class="st">"profvis"</span>, <span class="st">"bench"</span>, <span class="st">"ggplot2"</span>, <span class="st">"ggbeeswarm"</span>, <span class="st">"tinytest"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">"profvis"</span>, <span class="st">"bench"</span>, <span class="st">"tinytest"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Additionally, you need to have the following pacakges installed. We
+won’t be using them directly, but they are needed to create plots with
+<strong>bench</strong>:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">"ggplot2"</span>, <span class="st">"ggbeeswarm"</span>, <span class="st">"tidyr"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <p>We will also use the <a href="https://github.com/csgillespie/efficient" class="external-link"><strong>efficient</strong></a>
 package. It can be installed directly from GitHub, which should be done
 by:</p>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -679,8 +687,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/instructor/index.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/index.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-10",
-  "datePublished": "2026-11-10"
+  "dateModified": "2026-11-11",
+  "datePublished": "2026-11-11"
 }
 
   </script><script>

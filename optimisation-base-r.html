@@ -354,7 +354,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Base R optimisations</h1>
-        <p>Last updated on 2026-11-10 |
+        <p>Last updated on 2026-11-11 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/optimisation-base-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -469,24 +469,27 @@ starting and, therefore, end values.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">vect</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">}</span></span>
+<code class="sourceCode R"><span><span class="va">vect</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>   <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>   <span class="va">x</span></span>
+<span><span class="op">}</span></span>
 <span><span class="va">loop</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu">seq_along</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="fl">1</span></span>
-<span>   <span class="op">}</span>   </span>
+<span>   <span class="op">}</span></span>
+<span>   <span class="va">x</span>   </span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">runif</span><span class="op">(</span><span class="fl">10000</span><span class="op">)</span></span>
 <span><span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span></span>
 <span>   <span class="fu">vect</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span>   <span class="fu">loop</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span>   check <span class="op">=</span> <span class="cn">FALSE</span> <span class="co"># necessary because running vect(x) changes the value of x</span></span>
+<span>   <span class="fu">loop</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -495,8 +498,8 @@ starting and, therefore, end values.</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 vect(x)      5.37µs   31.1µs    32552.    78.2KB    52.2
-2 loop(x)    471.15µs  511.5µs     1972.   101.5KB     4.11</code></pre>
+1 vect(x)      3.35µs   26.4µs    38571.    78.2KB    61.8
+2 loop(x)    268.91µs  288.4µs     3417.   101.5KB     6.19</code></pre>
 </div>
 </div>
 </div>
@@ -575,7 +578,7 @@ is faster?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <p>Look at the source code for <code>var</code>.</p>
 </div>
@@ -587,7 +590,7 @@ is faster?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -609,8 +612,8 @@ is faster?</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression       min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt;  &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 variance(x)   70.4µs   93.4µs    11432.    78.2KB    17.5
-2 var(x)        61.4µs     65µs    15151.    15.3KB     4.05</code></pre>
+1 variance(x)   46.7µs   51.2µs    17093.    78.2KB     28.8
+2 var(x)        44.7µs   47.1µs    21011.    15.3KB      0  </code></pre>
 </div>
 <p><code>var()</code> performs the variance calculation in C.</p>
 </div>
@@ -671,15 +674,14 @@ Looking at the help page for a function is a good way to check whether
 there are any arguments to the function, or any faster implementations
 for certain cases. Here are some examples of fast ways to solve common
 problems:</p>
-<ul><li>
-<p>Sorting</p>
-<ul><li>Use <code>sort(x, partial = 1:10)[10]</code> instead of
+<ul><li>Sorting
+<ul><li>Use <code>sort(x, partial = 1:10)[1:10]</code> instead of
 <code>sort(x)[1:10]</code> to get the top 10</li>
 <li>Use <code>sort(x, decreasing = TRUE)</code> instead of
 <code>rev(sort(x))</code>
 </li>
 </ul></li>
-<li>
+</ul><ul><li>
 <p>Generating numeric vectors</p>
 <ul><li>
 <code>seq.int()</code>, <code>seq_along(x)</code>,
@@ -775,8 +777,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/optimisation-base-r.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/optimisation-base-r.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-10",
-  "datePublished": "2026-11-10"
+  "dateModified": "2026-11-11",
+  "datePublished": "2026-11-11"
 }
 
   </script><script>

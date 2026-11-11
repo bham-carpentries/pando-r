@@ -402,7 +402,7 @@
         
 <section id="aio-profiling-introduction"><p>Content from <a href="profiling-introduction.html">Introduction to Profiling</a></p>
 <hr>
-<p>Last updated on 2026-11-10 |
+<p>Last updated on 2026-11-11 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/profiling-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 20 minutes</p>
@@ -545,13 +545,13 @@ sections of code can provide a rudimentary form of profiling.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_a</span> <span class="op">&lt;-</span> <span class="fu">proc.time</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"elapsed"</span><span class="op">]</span><span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">t_a</span> <span class="op">&lt;-</span> <span class="fu">proc.time</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="st">"elapsed"</span><span class="op">]</span></span>
 <span><span class="co"># A: Do something</span></span>
-<span><span class="va">t_b</span> <span class="op">&lt;-</span> <span class="fu">proc.time</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"elapsed"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">t_b</span> <span class="op">&lt;-</span> <span class="fu">proc.time</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="st">"elapsed"</span><span class="op">]</span></span>
 <span><span class="co"># B: Do something else</span></span>
-<span><span class="va">t_c</span> <span class="op">&lt;-</span> <span class="fu">proc.time</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"elapsed"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">t_c</span> <span class="op">&lt;-</span> <span class="fu">proc.time</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="st">"elapsed"</span><span class="op">]</span></span>
 <span><span class="co"># C: Do another thing</span></span>
-<span><span class="va">t_d</span> <span class="op">&lt;-</span> <span class="fu">proc.time</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"elapsed"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">t_d</span> <span class="op">&lt;-</span> <span class="fu">proc.time</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="st">"elapsed"</span><span class="op">]</span></span>
 <span></span>
 <span><span class="fu">paste</span><span class="op">(</span><span class="st">"A:"</span>, <span class="va">t_b</span> <span class="op">-</span> <span class="va">t_a</span>, <span class="st">"seconds"</span><span class="op">)</span></span>
 <span><span class="fu">paste</span><span class="op">(</span><span class="st">"B:"</span>, <span class="va">t_c</span> <span class="op">-</span> <span class="va">t_b</span>, <span class="st">"seconds"</span><span class="op">)</span></span>
@@ -707,7 +707,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-profiling-profvis"><p>Content from <a href="profiling-profvis.html">Profiling with profvis</a></p>
 <hr>
-<p>Last updated on 2026-11-10 |
+<p>Last updated on 2026-11-11 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/profiling-profvis.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -811,7 +811,7 @@ secs, we’d record the call stack: <code>"pause"</code>,
 After 0.2 secs, we’d record: <code>"pause"</code>,
 <code>"middle_level"</code>, <code>"top_level"</code>, i.e. we’re in
 <code>"pause"</code>, as called from <code>"middle_level"</code>, which
-is turn was called from <code>"top_level"</code></p>
+in turn was called from <code>"top_level"</code>.</p>
 <div id="exercise-1" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -830,7 +830,7 @@ is turn was called from <code>"top_level"</code></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>After 0.3 secs: <code>"pause"</code>, <code>"bottom_level"</code>,
 <code>"middle_level"</code>, <code>"top_level"</code></p>
@@ -859,7 +859,7 @@ machine. Save it into an RStudio project.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Demo how to create an RStudio project</p>
 </div>
@@ -891,14 +891,14 @@ and source code.</p>
 <span class="callout-header">Caution</span>
 <div class="callout-inner">
 <div class="callout-content">
-<p>Note that at the time of writing, profvis appears to work in
-Positron, but gives unexpected results. Use RStudio for profiling R
-code.</p>
+<p>Note that at the time of writing, <strong>profvis</strong> appears to
+work in Positron, but gives unexpected results. Use RStudio for
+profiling R code.</p>
 </div>
 </div>
 </div>
 <div class="section level3">
-<h3 id="interpretting-the-flame-graph">Interpretting the flame graph<a class="anchor" aria-label="anchor" href="#interpretting-the-flame-graph"></a>
+<h3 id="interpreting-the-flame-graph">Interpreting the flame graph<a class="anchor" aria-label="anchor" href="#interpreting-the-flame-graph"></a>
 </h3>
 <p>An interactive HTML document will open with the results. In RStudio
 this will open in the source pane; click “show in new window” button to
@@ -993,13 +993,13 @@ changes to the code. We will see how to avoid this in the episode
 board. Players buy assets on which they can charge rent or taxes and aim
 to make the most money. The squares on the board represent:</p>
 <ul>
-<li>Properties, train stations or utility companies to buy</li>
-<li>Events that trigger an action, e.g. paying a tax or going to jail
+<li>Properties, train stations or utility companies to buy.</li>
+<li>Events that trigger an action, e.g., paying a tax or going to jail
 The <strong>efficient</strong> package contains the
 <code>simulate_monopoly()</code> function to simulate game play; we’ll
 use this to practice profiling.</li>
 </ul>
-<p>See <strong>SETUP</strong> for instructions on installing
+<p>See the <a href="index.html#setup">setup</a> for instructions on installing
 <strong>efficient</strong>.</p>
 <p>Use <code>profvis()</code> to profile
 <code>simulate_monopoly(10000)</code>.</p>
@@ -1012,7 +1012,7 @@ use this to practice profiling.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Most time is spent in <code>move_square()</code> and, within that, in
 <code>data.frame()</code></p>
@@ -1020,16 +1020,16 @@ use this to practice profiling.</li>
 </div>
 </div>
 </div>
-<div id="exercise-3-travelling-salesman" class="callout challenge">
+<div id="exercise-3-travelling-salesperson" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="exercise-3-travelling-salesman" class="callout-inner">
-<h3 class="callout-title">Exercise 3: Travelling salesman</h3>
+<div id="exercise-3-travelling-salesperson" class="callout-inner">
+<h3 class="callout-title">Exercise 3: Travelling salesperson</h3>
 <div class="callout-content">
-<p>Download <a href="../files/travelling-salesman.R" download>the
-travelling salesman R script</a>.</p>
+<p>Download <a href="../files/travelling-salesperson.R" download>the
+travelling salesperson R script</a>.</p>
 <blockquote>
 <p>The travelling salesperson problem aims to optimise the route for a
 scenario where a salesperson is requires to travel between N locations.
@@ -1038,7 +1038,7 @@ minimising the total distance travelled.</p>
 <p>The provided implementation uses a naive brute-force approach.</p>
 </blockquote>
 <p>Profile the code with
-<code>profvis(travelling_salesman(n_cities))</code>. The value of
+<code>profvis(travelling_salesperson(n_cities))</code>. The value of
 <code>n_cities</code> should be a positive integer. This algorithm has
 poor scaling so larger numbers take significantly longer to run.</p>
 <ul>
@@ -1055,12 +1055,15 @@ being spent?</li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <ul>
 <li>Think about the speed at which the profiling code runs, whether the
 output identifies any bottlenecks, and how easy they are to
 identify.</li>
+<li>If the computation is taking too long, in RStudio you can stop it by
+pressing the red “stop” button that appears at the top of the console,
+or by entering Ctrl + C.</li>
 </ul>
 </div>
 </div>
@@ -1071,7 +1074,7 @@ identify.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>The <code>total_distance</code> function accounts for a substantial
 percentage of the time, and <code>distance</code> appears to be the
@@ -1102,7 +1105,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-microbenchmarking"><p>Content from <a href="microbenchmarking.html">Microbenchmarking with bench</a></p>
 <hr>
-<p>Last updated on 2026-11-10 |
+<p>Last updated on 2026-11-11 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/microbenchmarking.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -1118,7 +1121,7 @@ any links that you are not going to use.
 <h3 class="card-title">Questions</h3>
 <ul>
 <li>What is microbenchmarking?</li>
-<li>How can the <strong>bench</strong> packages be used to time R
+<li>How can the <strong>bench</strong> package be used to time R
 code?</li>
 <li>How can I visualise and interpret the results of
 microbenchmarking?</li>
@@ -1185,15 +1188,15 @@ a vector of numbers:</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 sqrt(x)      7.15µs   10.5µs    93016.    7.86KB     9.30
-2 x^0.5       13.41µs   13.6µs    66042.    7.86KB    13.2 </code></pre>
+1 sqrt(x)      5.16µs   7.57µs   126982.    7.86KB     12.7
+2 x^0.5        9.27µs   9.36µs    95846.    7.86KB     19.2</code></pre>
 </div>
 <p>By default, <code>bench::mark()</code> runs each expression enough
 times to take 0.5 seconds. It also checks that each run returns the same
 value.</p>
 <p><code>bench::mark()</code> returns results as a tibble, with one row
 per expression. Although the print version of <code>sqrt_bench</code>
-above only shows 6 columns, there are in-fact 13:</p>
+above only shows 6 columns, there are in fact 13:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1230,13 +1233,7 @@ data.</li>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">sqrt_bench</span><span class="op">)</span> <span class="co"># requires ggplot2, tidyr and ggbeeswarm to be installed </span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in `ggplot2::autoplot()` at bench/R/autoplot.R:126:3:
-! The package "ggbeeswarm" is required to use `type = "beeswarm".</code></pre>
-</div>
-<div id="useful-columns" class="callout discussion">
+<figure><img src="../fig/microbenchmarking-rendered-unnamed-chunk-4-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="useful-columns" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
@@ -1273,7 +1270,7 @@ rank on speed? Use microbenchmarking to check your intuition.</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1292,10 +1289,10 @@ rank on speed? Use microbenchmarking to check your intuition.</p>
 <pre class="output" tabindex="0"><code># A tibble: 4 × 6
   expression         min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt;    &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 sqrt(x)         7.14µs   7.53µs   110046.    7.86KB    22.0
-2 exp(log(x)/2)   9.93µs  10.43µs    94266.    7.86KB    18.9
-3 x^0.5          13.41µs  13.56µs    70267.    7.86KB     7.03
-4 x^(1/2)        13.51µs  13.69µs    72022.    7.86KB    14.4 </code></pre>
+1 sqrt(x)         5.17µs   5.22µs   168266.    7.86KB     67.3
+2 exp(log(x)/2)   6.81µs   7.81µs   118687.    7.86KB     35.6
+3 x^0.5           9.27µs   9.32µs   100372.    7.86KB     30.1
+4 x^(1/2)         9.34µs   9.52µs    96105.    7.86KB     28.8</code></pre>
 </div>
 </div>
 </div>
@@ -1319,7 +1316,7 @@ arguments):</p>
 <span>  <span class="co"># some other code</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span><span class="fu">fun1</span><span class="op">(</span><span class="op">)</span>, <span class="va">fun2</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span><span class="fu">fun1</span><span class="op">(</span><span class="op">)</span>, <span class="fu">fun2</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1338,17 +1335,17 @@ consider what we mean by “big”</p>
 <li>number of observations or number of factor levels?</li>
 </ul>
 <p><code>bench::press()</code> compares a function over a grid of
-parameters. The parameter you want to set are given as named arguments
+parameters. The parameters you want to set are given as named arguments
 and a grid of all possible combinations is automatically created. The
 code to benchmark is then given by one unnamed expression</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu">press</span><span class="op">(</span></span>
 <span>  n <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">1000</span><span class="op">)</span>, </span>
 <span>  k <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">100</span>, <span class="fl">10</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>  <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span><span class="fu">gl</span><span class="op">(</span><span class="va">n</span>, <span class="va">k</span><span class="op">)</span><span class="op">)</span>, <span class="co"># gl generates factor levels </span></span>
+<span>  <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span><span class="fu">gl</span><span class="op">(</span><span class="va">n</span>, <span class="va">k</span><span class="op">)</span><span class="op">)</span>, <span class="co"># gl creates a factor with repeated levels</span></span>
 <span>  .quiet <span class="op">=</span> <span class="cn">TRUE</span> <span class="co"># don't print progress messages</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -1360,15 +1357,15 @@ code to benchmark is then given by one unnamed expression</p>
 <pre class="output" tabindex="0"><code># A tibble: 9 × 8
   expression     n     k      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 gl(n, k)      10   100    8.4µs    9.5µs   102890.   15.93KB    20.6
-2 gl(n, k)     100   100   59.6µs  63.78µs    15386.   81.36KB    31.1
-3 gl(n, k)    1000   100 604.57µs 672.84µs     1413.  809.06KB    31.3
-4 gl(n, k)      10    10   3.35µs   4.28µs   229115.      896B     0
-5 gl(n, k)     100    10   12.4µs  13.45µs    72533.   11.05KB    21.8
-6 gl(n, k)    1000    10  137.3µs 142.07µs     6920.  105.94KB    16.9
-7 gl(n, k)      10     1   2.79µs   3.19µs   297879.        0B     0
-8 gl(n, k)     100     1   7.33µs   7.95µs   121459.    4.02KB     0
-9 gl(n, k)    1000     1  85.85µs  89.11µs    10266.   35.62KB     8.40</code></pre>
+1 gl(n, k)      10   100   6.07µs   7.26µs   134823.   15.93KB     40.5
+2 gl(n, k)     100   100  40.49µs   45.1µs    20413.   81.36KB     45.5
+3 gl(n, k)    1000   100 414.68µs 456.86µs     1978.  809.06KB     46.8
+4 gl(n, k)      10    10   2.46µs   2.96µs   328545.      896B      0
+5 gl(n, k)     100    10   8.95µs   9.88µs    99010.   11.05KB     29.7
+6 gl(n, k)    1000    10   94.8µs 101.39µs     9727.  105.94KB     28.0
+7 gl(n, k)      10     1   2.08µs   2.55µs   376214.        0B     37.6
+8 gl(n, k)     100     1   5.54µs    6.2µs   155280.    4.02KB     15.5
+9 gl(n, k)    1000     1  63.66µs  65.49µs    14886.   35.62KB     14.7</code></pre>
 </div>
 <div id="challenge-2" class="callout challenge">
 <div class="callout-square">
@@ -1378,10 +1375,10 @@ code to benchmark is then given by one unnamed expression</p>
 <div id="challenge-2" class="callout-inner">
 <h3 class="callout-title">Challenge 2</h3>
 <div class="callout-content">
-<p><code>gl(n, k)</code> generate factors by specifying the pattern of
-their levels, where <code>n</code> is the number of levels and
+<p><code>gl(n, k)</code> generates a factor by specifying the pattern of
+its levels, where <code>n</code> is the number of levels and
 <code>k</code> is the number of replications, e.g.</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1409,6 +1406,20 @@ performance of <code>gl()</code>?</p>
 <p>You can rearrange the order of the rows (e.g. by <code>n</code> or
 <code>k</code> or <code>median</code>) to see patterns a different
 way.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
+<p>Increasing <code>n</code> has the biggest impact. An order of
+magnitude increase in <code>n</code> for a fixed <code>k</code> leads to
+an order of magnitude increase in time.</p>
 </div>
 </div>
 </div>
@@ -1441,7 +1452,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-optimisation-introduction"><p>Content from <a href="optimisation-introduction.html">Introduction to Optimisation</a></p>
 <hr>
-<p>Last updated on 2026-11-10 |
+<p>Last updated on 2026-11-11 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/optimisation-introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -1594,7 +1605,7 @@ takes:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu">obj_size</span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span> <span class="co"># An integer</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu">obj_size</span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span> <span class="co"># The L makes the 1 an integer rather than a double</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1611,10 +1622,11 @@ performance. Most of the time, computers are “fast enough” so this is
 the right trade-off, as Donald Knuth said.</p>
 <p>However, there are the few other cases where code performance really
 matters. To handle these cases, R has the capability to integrate with
-code written in lower-level programming language (like C, Fortran or
-Rust) under the hood. Some performance-sensitive libraries therefore
-perform a lot of the work in such low-level code, before returning an R
-object back to you.</p>
+code written in lower-level programming language (like C, C++, Fortran
+or Rust) under the hood. Some performance-sensitive packages, such as
+<strong>data.table</strong> and <strong>dplyr</strong> therefore perform
+a lot of the work in such low-level code, before returning an R object
+back to you.</p>
 <p>Therefore, <strong>it is often best to tell the interpreter/library
 at a high level <em>what you want</em>, and let it figure out <em>how to
 do it</em>.</strong></p>
@@ -1645,12 +1657,13 @@ correctness of your code.</p>
 tests. If you are writing your code as part of a package, the
 infrastructure provided by <a href="https://testthat.r-lib.org" class="external-link"><strong>testthat</strong></a> package
 is very good and very easy to use, particularly in conjunction with the
-[<strong>usethis</strong>]((<a href="https://testthat.r-lib.org" class="external-link uri">https://testthat.r-lib.org</a>) package. The <a href="https://r-pkgs.org/testing-basics.html" class="external-link">testing basics chapter</a>
-in the R Packages book gives a good introduction.</p>
+<a href="https://usethis.r-lib.org" class="external-link"><strong>usethis</strong></a>
+package. The <a href="https://r-pkgs.org/testing-basics.html" class="external-link">testing
+basics chapter</a> in the R Packages book gives a good introduction.</p>
 <p>For getting started with unit testing in R, there is also the
 low-dependency <a href="https://github.com/markvanderloo/tinytest" class="external-link"><strong>tinytest</strong></a>
-package, which is also easy to use within individual R scripts, as well
-as in packages.</p>
+package, which is easy to use within individual R scripts, as well as in
+packages.</p>
 </section><section><h2 class="section-heading" id="brief-introduction-to-tinytest">Brief introduction to <strong>tinytest</strong>
 <a class="anchor" aria-label="anchor" href="#brief-introduction-to-tinytest"></a>
 </h2>
@@ -1670,7 +1683,7 @@ useful information if there is a failure.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tinytest</span><span class="op">)</span></span>
 <span><span class="va">add_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span>
-<span><span class="va">sub_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">-</span> <span class="fl">2</span></span>
+<span><span class="va">sub_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">-</span> <span class="fl">2</span> <span class="co"># deliberate mistake (to catch with a test)</span></span>
 <span></span>
 <span><span class="co"># this test should pass</span></span>
 <span><span class="fu">expect_equal</span><span class="op">(</span><span class="fu">add_one</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre>
@@ -1697,7 +1710,7 @@ useful information if there is a failure.</p>
 </div>
 <p>In <strong>tinytest</strong>, the <code>expect_*()</code> functions
 evaluate to a boolean, rather than the <strong>testthat</strong>
-approach of causing an exception (i.e. stopping the evaluation of the
+approach of causing an exception (i.e., stopping the evaluation of the
 script):</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1727,6 +1740,69 @@ tests on the updated implemantation gives you the data you need to be
 confident that the optimisations have not introduced bugs into the code,
 leading to incorrect results (or, if the tests now fail, you know the
 function implementation needs correcting).</p>
+<div id="challenge1" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<span class="callout-header">Challenge</span>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge</h3>
+<div class="callout-content">
+<p>Here are two functions and (part-written) associated tests. Which
+functions from the <code>expect_*()</code> family do you need to make
+these tests pass?</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1" aria-label="code-block-13-1"></a>is_bigger <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1" aria-label="code-block-13-2"></a>  a <span class="sc">&gt;</span> b</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1" aria-label="code-block-13-3"></a>}</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1" aria-label="code-block-13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1" aria-label="code-block-13-5"></a>greeting <span class="ot">&lt;-</span> <span class="cf">function</span>(name) {</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1" aria-label="code-block-13-6"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.character</span>(name))</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1" aria-label="code-block-13-7"></a>  <span class="fu">paste</span>(<span class="st">"Hello"</span>, name)</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1" aria-label="code-block-13-8"></a>}</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1" aria-label="code-block-13-9"></a></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1" aria-label="code-block-13-10"></a>expect_<span class="sc">*</span>(<span class="fu">is_bigger</span>(<span class="dv">6</span>, <span class="dv">3</span>))</span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1" aria-label="code-block-13-11"></a>expect_<span class="sc">*</span>(<span class="fu">greeting</span>(<span class="dv">6</span>))</span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1" aria-label="code-block-13-12"></a>expect_<span class="sc">*</span>(<span class="fu">greeting</span>(<span class="st">"Ella"</span>), <span class="st">"Hello Ella"</span>)</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionHint1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
+  <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
+</button>
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div class="accordion-body">
+<p>The functions in the <code>expect_*()</code> family are listed in the
+<a href="https://github.com/markvanderloo/tinytest/blob/master/pkg/README.md" class="external-link">tinytest
+documentation</a></p>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<ul>
+<li><code>expect_true(is_bigger(6, 3))</code></li>
+<li><code>expect_error(greeting(6))</code></li>
+<li>
+<code>expect_equal(greeting("Ella"), "Hello Ella")</code>
+(<code>expect_identical()</code> and <code>expect_equivalent()</code>
+also pass)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -1752,7 +1828,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-optimisation-base-r"><p>Content from <a href="optimisation-base-r.html">Base R optimisations</a></p>
 <hr>
-<p>Last updated on 2026-11-10 |
+<p>Last updated on 2026-11-11 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/optimisation-base-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -1845,7 +1921,7 @@ loop?</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <ul>
 <li>
@@ -1856,7 +1932,7 @@ loop?</p>
 <code>n</code> function calls to the <code>[&lt;-</code> function
 (used in the assignment operation);</li>
 <li>Two function calls: one to <code>for</code> and another to
-<code>seq_len()</code>.</li>
+<code>seq_along()</code>.</li>
 </ul>
 </div>
 </div>
@@ -1889,24 +1965,27 @@ starting and, therefore, end values.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">vect</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">}</span></span>
+<code class="sourceCode R"><span><span class="va">vect</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>   <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>   <span class="va">x</span></span>
+<span><span class="op">}</span></span>
 <span><span class="va">loop</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu">seq_along</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="fl">1</span></span>
-<span>   <span class="op">}</span>   </span>
+<span>   <span class="op">}</span></span>
+<span>   <span class="va">x</span>   </span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">runif</span><span class="op">(</span><span class="fl">10000</span><span class="op">)</span></span>
 <span><span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span></span>
 <span>   <span class="fu">vect</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span>   <span class="fu">loop</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span>   check <span class="op">=</span> <span class="cn">FALSE</span> <span class="co"># necessary because running vect(x) changes the value of x</span></span>
+<span>   <span class="fu">loop</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -1915,8 +1994,8 @@ starting and, therefore, end values.</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 vect(x)      5.37µs   31.1µs    32552.    78.2KB    52.2
-2 loop(x)    471.15µs  511.5µs     1972.   101.5KB     4.11</code></pre>
+1 vect(x)      3.35µs   26.4µs    38571.    78.2KB    61.8
+2 loop(x)    268.91µs  288.4µs     3417.   101.5KB     6.19</code></pre>
 </div>
 </div>
 </div>
@@ -1999,7 +2078,7 @@ is faster?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <p>Look at the source code for <code>var</code>.</p>
 </div>
@@ -2011,7 +2090,7 @@ is faster?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2033,8 +2112,8 @@ is faster?</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression       min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt;  &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 variance(x)   70.4µs   93.4µs    11432.    78.2KB    17.5
-2 var(x)        61.4µs     65µs    15151.    15.3KB     4.05</code></pre>
+1 variance(x)   46.7µs   51.2µs    17093.    78.2KB     28.8
+2 var(x)        44.7µs   47.1µs    21011.    15.3KB      0  </code></pre>
 </div>
 <p><code>var()</code> performs the variance calculation in C.</p>
 </div>
@@ -2100,16 +2179,66 @@ there are any arguments to the function, or any faster implementations
 for certain cases. Here are some examples of fast ways to solve common
 problems:</p>
 <ul>
-<li>
-<p>Sorting</p>
+<li>Sorting
 <ul>
-<li>Use <code>sort(x, partial = 1:10)[10]</code> instead of
+<li>Use <code>sort(x, partial = 1:10)[1:10]</code> instead of
 <code>sort(x)[1:10]</code> to get the top 10</li>
 <li>Use <code>sort(x, decreasing = TRUE)</code> instead of
 <code>rev(sort(x))</code>
 </li>
 </ul>
 </li>
+</ul>
+<div id="accordionInstructor2" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
+  <h3 class="accordion-header" id="headingInstructor2">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
+</button>
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div class="accordion-body">
+<p>Show the difference between the following:</p>
+<div class="codewrapper sourceCode" id="cb20">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="fl">50</span><span class="op">)</span></span>
+<span><span class="va">x</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code> [1] 48 40 12 18 46 50  1 33  2 22 35 21 19 30 29 11  8 45 16 34 41 13 24 27 43
+[26] 14 17  3 47  7 42 28  4 15  6 44 49 36 37 26 20 38  5 32 39 25 23  9 31 10</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb22">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sort</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code> [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+[26] 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb24">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sort</span><span class="op">(</span><span class="va">x</span>, partial<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code> [1]  1  2  3  4  5  6  7  8  9 10 12 11 13 14 19 21 15 17 16 20 18 41 24 27 43
+[26] 34 45 29 47 30 42 28 35 22 33 44 49 36 37 26 50 38 46 32 39 25 23 40 31 48</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
 <li>
 <p>Generating numeric vectors</p>
 <ul>
@@ -2153,7 +2282,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-memory-management"><p>Content from <a href="memory-management.html">Memory Management</a></p>
 <hr>
-<p>Last updated on 2026-11-10 |
+<p>Last updated on 2026-11-11 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/memory-management.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -2320,7 +2449,7 @@ Which do you think will scale worst?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <p>In which method do you get to the underlying C code the fastest?</p>
 </div>
@@ -2332,7 +2461,7 @@ Which do you think will scale worst?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2395,7 +2524,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-software-engineering"><p>Content from <a href="software-engineering.html">Good software engineering practices</a></p>
 <hr>
-<p>Last updated on 2026-11-10 |
+<p>Last updated on 2026-11-11 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/software-engineering.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -2678,8 +2807,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/instructor/aio.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/aio.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-10",
-  "datePublished": "2026-11-10"
+  "dateModified": "2026-11-11",
+  "datePublished": "2026-11-11"
 }
 
   </script><script>
