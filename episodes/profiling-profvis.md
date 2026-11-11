@@ -56,7 +56,7 @@ bottom_level <- function() {
 }
 ```
 
-If we profile the execution of `top_level`, after 0.1 secs, we'd record the call stack: `"pause"`, `"top_level"`, i.e. we're in the execution of `"pause"`, which was called from `"top_level"`. After 0.2 secs, we'd record: `"pause"`, `"middle_level"`, `"top_level"`, i.e. we're in `"pause"`, as called from `"middle_level"`, which is turn was called from `"top_level"`
+If we profile the execution of `top_level`, after 0.1 secs, we'd record the call stack: `"pause"`, `"top_level"`, i.e. we're in the execution of `"pause"`, which was called from `"top_level"`. After 0.2 secs, we'd record: `"pause"`, `"middle_level"`, `"top_level"`, i.e. we're in `"pause"`, as called from `"middle_level"`, which in turn was called from `"top_level"`.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -100,11 +100,11 @@ profvis(top_level())
 Storing code in its own script then calling it with `source()` ensures the best connection between profiling data and source code.
 
 ::: caution
-Note that at the time of writing, profvis appears to work in Positron, but gives unexpected results. 
+Note that at the time of writing, **profvis** appears to work in Positron, but gives unexpected results. 
 Use RStudio for profiling R code.
 :::
 
-### Interpretting the flame graph
+### Interpreting the flame graph
 
 An interactive HTML document will open with the results. In RStudio this will open in the source pane; click “show in new window” button to open the document in a new window. It should look something like this:
 
@@ -167,11 +167,11 @@ In the game of Monopoly, players roll two die to move round the board.
 Players buy assets on which they can charge rent or taxes and aim to make the most money.
 The squares on the board represent:
 
-- Properties, train stations or utility companies to buy
-- Events that trigger an action, e.g. paying a tax or going to jail
+- Properties, train stations or utility companies to buy.
+- Events that trigger an action, e.g., paying a tax or going to jail
 The **efficient** package contains the `simulate_monopoly()` function to simulate game play; we’ll use this to practice profiling.
 
-See **SETUP** for instructions on installing **efficient**.
+See the [setup](learners/setup.md) for instructions on installing **efficient**.
 
 Use `profvis()` to profile `simulate_monopoly(10000)`. 
 
@@ -184,16 +184,16 @@ Most time is spent in `move_square()` and, within that, in `data.frame()`
 
 :::::::::::::::::::::::::::::::::
 
-## Exercise 3: Travelling salesman
+## Exercise 3: Travelling salesperson
 
-Download <a href="files/travelling-salesman.R" download>the travelling salesman R script</a>. 
+Download <a href="files/travelling-salesperson.R" download>the travelling salesperson R script</a>. 
 
 > The travelling salesperson problem aims to optimise the route for a scenario where a salesperson is requires to travel between N locations.
 > They wish to travel to each location exactly once, in any order, whilst minimising the total distance travelled.
 >
 > The provided implementation uses a naive brute-force approach.
 
-Profile the code with `profvis(travelling_salesman(n_cities))`. The value of `n_cities` should be a positive integer.
+Profile the code with `profvis(travelling_salesperson(n_cities))`. The value of `n_cities` should be a positive integer.
 This algorithm has poor scaling so larger numbers take significantly longer to run.
 
 
@@ -205,6 +205,7 @@ This algorithm has poor scaling so larger numbers take significantly longer to r
 :::::::::::::::::::::::: hint
 
 - Think about the speed at which the profiling code runs, whether the output identifies any bottlenecks, and how easy they are to identify.
+- If the computation is taking too long, in RStudio you can stop it by pressing the red "stop" button that appears at the top of the console, or by entering Ctrl + C.
 
 :::::::::::::::::::::::::::::::::
 

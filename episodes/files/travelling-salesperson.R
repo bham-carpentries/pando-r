@@ -1,7 +1,7 @@
-# Naive brute force travelling salesman
+# Naive brute force travelling salesperson
 #
 # Interactively (e.g. for profiling with profvis):
-#   source("travelling-salesman.R")
+#   source("travelling-salesperson.R")
 #   profvis::profvis(main(8))
 
 distance <- function(point1, point2) {
@@ -38,7 +38,7 @@ next_permutation <- function(order) {
   order
 }
 
-travelling_salesman_brute_force <- function(points) {
+travelling_salesperson_brute_force <- function(points) {
   min_distance <- Inf
   min_path <- NULL
   order <- seq_along(points)
@@ -53,7 +53,7 @@ travelling_salesman_brute_force <- function(points) {
   list(path = min_path, distance = min_distance)
 }
 
-travelling_salesman <- function(n_cities) {
+travelling_salesperson <- function(n_cities) {
   # Define the cities as (x, y) coordinates
   set.seed(12) # For reproducibility/consistency
   cities <- list(c(0, 0))
@@ -65,7 +65,7 @@ travelling_salesman <- function(n_cities) {
 
   # Find the shortest path
   start_time <- Sys.time()
-  result <- travelling_salesman_brute_force(cities)
+  result <- travelling_salesperson_brute_force(cities)
   end_time <- Sys.time()
 
   cat("Cities:", n_cities, "\n")

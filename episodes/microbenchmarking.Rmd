@@ -7,7 +7,7 @@ exercises: 2
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - What is microbenchmarking?
-- How can the **bench** packages be used to time R code?
+- How can the **bench** package be used to time R code?
 - How can I visualise and interpret the results of microbenchmarking?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -47,10 +47,9 @@ sqrt_bench <- bench::mark(
 sqrt_bench
 ```
 
-By default, `bench::mark()` runs each expression enough times to take 0.5 seconds. 
-It also checks that each run returns the same value. 
+By default, `bench::mark()` runs each expression enough times to take 0.5 seconds. It also checks that each run returns the same value. 
 
-`bench::mark()` returns results as a tibble, with one row per expression. Although the print version of `sqrt_bench` above only shows 6 columns, there are in-fact `r ncol(sqrt_bench)`:
+`bench::mark()` returns results as a tibble, with one row per expression. Although the print version of `sqrt_bench` above only shows 6 columns, there are in fact `r ncol(sqrt_bench)`:
 
 ```{r}
 colnames(sqrt_bench)
@@ -62,6 +61,12 @@ colnames(sqrt_bench)
 
 
 We can visualise the distribution of the individual timings with `plot()`:
+
+```{r echo=FALSE}
+library(ggplot2)
+library(ggbeeswarm)
+library(tidyr)
+```
 
 ```{r}
 plot(sqrt_bench) # requires ggplot2, tidyr and ggbeeswarm to be installed 
@@ -117,7 +122,7 @@ fun2 <- function() {
   # some other code
 }
 
-bench::mark(fun1(), fun2)
+bench::mark(fun1(), fun2())
 ```
 :::
 
@@ -132,7 +137,7 @@ When thinking about how our code scales to bigger, we need to consider what we m
 - number of observations or number of factor levels?
 
 `bench::press()` compares a function over a grid of parameters.
-The parameter you want to set are given as named arguments and a grid of all possible combinations is automatically created. 
+The parameters you want to set are given as named arguments and a grid of all possible combinations is automatically created. 
 The code to benchmark is then given by one unnamed expression
 
 
@@ -140,7 +145,7 @@ The code to benchmark is then given by one unnamed expression
 bp <- bench::press(
   n = c(10, 100, 1000), 
   k = c(100, 10, 1),
-  bench::mark(gl(n, k)), # gl generates factor levels 
+  bench::mark(gl(n, k)), # gl creates a factor with repeated levels
   .quiet = TRUE # don't print progress messages
 )
 
@@ -150,7 +155,7 @@ bp
 ::::::: challenge
 ## Challenge 2
 
-`gl(n, k)` generate factors by specifying the pattern of their levels, where `n` is the number of levels and `k` is the number of replications, e.g.
+`gl(n, k)` generates a factor by specifying the pattern of its levels, where `n` is the number of levels and `k` is the number of replications, e.g.
 
 ```{r}
 gl(2, 3)
@@ -160,6 +165,11 @@ Looking at `bp` created above, increasing which of `n` or `k` has the biggest im
 
 ::: hint
 You can rearrange the order of the rows (e.g. by `n` or `k` or `median`) to see patterns a different way.
+:::
+
+
+::: solution
+Increasing `n` has the biggest impact. An order of magnitude increase in `n` for a fixed `k` leads to an order of magnitude increase in time.
 :::
 :::::::
 

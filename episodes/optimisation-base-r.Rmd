@@ -52,7 +52,7 @@ How many function calls are there in the above `for` loop?
 - `n` function calls to +;
 - `n` function calls to the `[` function;
 - `n` function calls to the `[<-` function (used in the assignment operation);
-- Two function calls: one to `for` and another to `seq_len()`.
+- Two function calls: one to `for` and another to `seq_along()`.
 ::::::
 
 
@@ -66,18 +66,21 @@ Note that you need to set `check = FALSE` in the call to `bench::mark()` because
 ::: solution
 
 ```{r}
-vect <- function(x) {x <- x + 1}
+vect <- function(x) {
+   x <- x + 1
+   x
+}
 loop <- function(x) {
    for (i in seq_along(x)) {
       x[i] <- x[i] + 1
-   }   
+   }
+   x   
 }
 
 x <- runif(10000)
 bench::mark(
    vect(x),
-   loop(x),
-   check = FALSE # necessary because running vect(x) changes the value of x
+   loop(x)
 )
 ```
 
@@ -158,8 +161,18 @@ There are several functions available for implementing efficient row/column-wise
 There are often many different ways to achieve the same result in R. Looking at the help page for a function is a good way to check whether there are any arguments to the function, or any faster implementations for certain cases. Here are some examples of fast ways to solve common problems:
 
 - Sorting
-   - Use `sort(x, partial = 1:10)[10]` instead of `sort(x)[1:10]` to get the top 10
+   - Use `sort(x, partial = 1:10)[1:10]` instead of `sort(x)[1:10]` to get the top 10
    - Use `sort(x, decreasing = TRUE)` instead of `rev(sort(x))`
+
+::: instructor
+Show the difference between the following:
+```{r}
+x <- sample(50)
+x
+sort(x)
+sort(x, partial=1:10)
+```
+:::
 
 - Generating numeric vectors
    - `seq.int()`, `seq_along(x)`, `seq_len(n)` instead of `seq()`
