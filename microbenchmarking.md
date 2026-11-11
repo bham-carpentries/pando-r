@@ -7,7 +7,7 @@ exercises: 2
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - What is microbenchmarking?
-- How can the **bench** packages be used to time R code?
+- How can the **bench** package be used to time R code?
 - How can I visualise and interpret the results of microbenchmarking?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -52,14 +52,13 @@ sqrt_bench
 # A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 sqrt(x)      7.15µs   10.5µs    93016.    7.86KB     9.30
-2 x^0.5       13.41µs   13.6µs    66042.    7.86KB    13.2 
+1 sqrt(x)      5.16µs   7.57µs   126982.    7.86KB     12.7
+2 x^0.5        9.27µs   9.36µs    95846.    7.86KB     19.2
 ```
 
-By default, `bench::mark()` runs each expression enough times to take 0.5 seconds. 
-It also checks that each run returns the same value. 
+By default, `bench::mark()` runs each expression enough times to take 0.5 seconds. It also checks that each run returns the same value. 
 
-`bench::mark()` returns results as a tibble, with one row per expression. Although the print version of `sqrt_bench` above only shows 6 columns, there are in-fact 13:
+`bench::mark()` returns results as a tibble, with one row per expression. Although the print version of `sqrt_bench` above only shows 6 columns, there are in fact 13:
 
 
 ``` r
@@ -80,14 +79,13 @@ colnames(sqrt_bench)
 We can visualise the distribution of the individual timings with `plot()`:
 
 
+
+
 ``` r
 plot(sqrt_bench) # requires ggplot2, tidyr and ggbeeswarm to be installed 
 ```
 
-``` error
-Error in `ggplot2::autoplot()` at bench/R/autoplot.R:126:3:
-! The package "ggbeeswarm" is required to use `type = "beeswarm".
-```
+<img src="fig/microbenchmarking-rendered-unnamed-chunk-4-1.png" alt="" style="display: block; margin: auto;" />
 
 
 
@@ -128,10 +126,10 @@ bm[order(bm$median), ]
 # A tibble: 4 × 6
   expression         min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr>    <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 sqrt(x)         7.14µs   7.53µs   110046.    7.86KB    22.0 
-2 exp(log(x)/2)   9.93µs  10.43µs    94266.    7.86KB    18.9 
-3 x^0.5          13.41µs  13.56µs    70267.    7.86KB     7.03
-4 x^(1/2)        13.51µs  13.69µs    72022.    7.86KB    14.4 
+1 sqrt(x)         5.17µs   5.22µs   168266.    7.86KB     67.3
+2 exp(log(x)/2)   6.81µs   7.81µs   118687.    7.86KB     35.6
+3 x^0.5           9.27µs   9.32µs   100372.    7.86KB     30.1
+4 x^(1/2)         9.34µs   9.52µs    96105.    7.86KB     28.8
 ```
 ::::
 
@@ -150,7 +148,7 @@ fun2 <- function() {
   # some other code
 }
 
-bench::mark(fun1(), fun2)
+bench::mark(fun1(), fun2())
 ```
 :::
 
@@ -165,7 +163,7 @@ When thinking about how our code scales to bigger, we need to consider what we m
 - number of observations or number of factor levels?
 
 `bench::press()` compares a function over a grid of parameters.
-The parameter you want to set are given as named arguments and a grid of all possible combinations is automatically created. 
+The parameters you want to set are given as named arguments and a grid of all possible combinations is automatically created. 
 The code to benchmark is then given by one unnamed expression
 
 
@@ -174,7 +172,7 @@ The code to benchmark is then given by one unnamed expression
 bp <- bench::press(
   n = c(10, 100, 1000), 
   k = c(100, 10, 1),
-  bench::mark(gl(n, k)), # gl generates factor levels 
+  bench::mark(gl(n, k)), # gl creates a factor with repeated levels
   .quiet = TRUE # don't print progress messages
 )
 
@@ -185,21 +183,21 @@ bp
 # A tibble: 9 × 8
   expression     n     k      min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr> <dbl> <dbl> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 gl(n, k)      10   100    8.4µs    9.5µs   102890.   15.93KB    20.6 
-2 gl(n, k)     100   100   59.6µs  63.78µs    15386.   81.36KB    31.1 
-3 gl(n, k)    1000   100 604.57µs 672.84µs     1413.  809.06KB    31.3 
-4 gl(n, k)      10    10   3.35µs   4.28µs   229115.      896B     0   
-5 gl(n, k)     100    10   12.4µs  13.45µs    72533.   11.05KB    21.8 
-6 gl(n, k)    1000    10  137.3µs 142.07µs     6920.  105.94KB    16.9 
-7 gl(n, k)      10     1   2.79µs   3.19µs   297879.        0B     0   
-8 gl(n, k)     100     1   7.33µs   7.95µs   121459.    4.02KB     0   
-9 gl(n, k)    1000     1  85.85µs  89.11µs    10266.   35.62KB     8.40
+1 gl(n, k)      10   100   6.07µs   7.26µs   134823.   15.93KB     40.5
+2 gl(n, k)     100   100  40.49µs   45.1µs    20413.   81.36KB     45.5
+3 gl(n, k)    1000   100 414.68µs 456.86µs     1978.  809.06KB     46.8
+4 gl(n, k)      10    10   2.46µs   2.96µs   328545.      896B      0  
+5 gl(n, k)     100    10   8.95µs   9.88µs    99010.   11.05KB     29.7
+6 gl(n, k)    1000    10   94.8µs 101.39µs     9727.  105.94KB     28.0
+7 gl(n, k)      10     1   2.08µs   2.55µs   376214.        0B     37.6
+8 gl(n, k)     100     1   5.54µs    6.2µs   155280.    4.02KB     15.5
+9 gl(n, k)    1000     1  63.66µs  65.49µs    14886.   35.62KB     14.7
 ```
 
 ::::::: challenge
 ## Challenge 2
 
-`gl(n, k)` generate factors by specifying the pattern of their levels, where `n` is the number of levels and `k` is the number of replications, e.g.
+`gl(n, k)` generates a factor by specifying the pattern of its levels, where `n` is the number of levels and `k` is the number of replications, e.g.
 
 
 ``` r
@@ -215,6 +213,11 @@ Looking at `bp` created above, increasing which of `n` or `k` has the biggest im
 
 ::: hint
 You can rearrange the order of the rows (e.g. by `n` or `k` or `median`) to see patterns a different way.
+:::
+
+
+::: solution
+Increasing `n` has the biggest impact. An order of magnitude increase in `n` for a fixed `k` leads to an order of magnitude increase in time.
 :::
 :::::::
 

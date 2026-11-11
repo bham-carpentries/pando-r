@@ -52,7 +52,7 @@ How many function calls are there in the above `for` loop?
 - `n` function calls to +;
 - `n` function calls to the `[` function;
 - `n` function calls to the `[<-` function (used in the assignment operation);
-- Two function calls: one to `for` and another to `seq_len()`.
+- Two function calls: one to `for` and another to `seq_along()`.
 ::::::
 
 
@@ -67,18 +67,21 @@ Note that you need to set `check = FALSE` in the call to `bench::mark()` because
 
 
 ``` r
-vect <- function(x) {x <- x + 1}
+vect <- function(x) {
+   x <- x + 1
+   x
+}
 loop <- function(x) {
    for (i in seq_along(x)) {
       x[i] <- x[i] + 1
-   }   
+   }
+   x   
 }
 
 x <- runif(10000)
 bench::mark(
    vect(x),
-   loop(x),
-   check = FALSE # necessary because running vect(x) changes the value of x
+   loop(x)
 )
 ```
 
@@ -86,8 +89,8 @@ bench::mark(
 # A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 vect(x)      5.37µs   31.1µs    32552.    78.2KB    52.2 
-2 loop(x)    471.15µs  511.5µs     1972.   101.5KB     4.11
+1 vect(x)      3.35µs   26.4µs    38571.    78.2KB    61.8 
+2 loop(x)    268.91µs  288.4µs     3417.   101.5KB     6.19
 ```
 
 :::
@@ -165,8 +168,8 @@ bench::mark(
 # A tibble: 2 × 6
   expression       min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr>  <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 variance(x)   70.4µs   93.4µs    11432.    78.2KB    17.5 
-2 var(x)        61.4µs     65µs    15151.    15.3KB     4.05
+1 variance(x)   46.7µs   51.2µs    17093.    78.2KB     28.8
+2 var(x)        44.7µs   47.1µs    21011.    15.3KB      0  
 ```
 
 `var()` performs the variance calculation in C.
@@ -217,8 +220,40 @@ There are several functions available for implementing efficient row/column-wise
 There are often many different ways to achieve the same result in R. Looking at the help page for a function is a good way to check whether there are any arguments to the function, or any faster implementations for certain cases. Here are some examples of fast ways to solve common problems:
 
 - Sorting
-   - Use `sort(x, partial = 1:10)[10]` instead of `sort(x)[1:10]` to get the top 10
+   - Use `sort(x, partial = 1:10)[1:10]` instead of `sort(x)[1:10]` to get the top 10
    - Use `sort(x, decreasing = TRUE)` instead of `rev(sort(x))`
+
+::: instructor
+Show the difference between the following:
+
+``` r
+x <- sample(50)
+x
+```
+
+``` output
+ [1] 48 40 12 18 46 50  1 33  2 22 35 21 19 30 29 11  8 45 16 34 41 13 24 27 43
+[26] 14 17  3 47  7 42 28  4 15  6 44 49 36 37 26 20 38  5 32 39 25 23  9 31 10
+```
+
+``` r
+sort(x)
+```
+
+``` output
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+[26] 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50
+```
+
+``` r
+sort(x, partial=1:10)
+```
+
+``` output
+ [1]  1  2  3  4  5  6  7  8  9 10 12 11 13 14 19 21 15 17 16 20 18 41 24 27 43
+[26] 34 45 29 47 30 42 28 35 22 33 44 49 36 37 26 50 38 46 32 39 25 23 40 31 48
+```
+:::
 
 - Generating numeric vectors
    - `seq.int()`, `seq_along(x)`, `seq_len(n)` instead of `seq()`

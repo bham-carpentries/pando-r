@@ -57,8 +57,13 @@ To install R and RStudio on a University managed Mac machine:
 This course requires a number of R packages, which should be installed in advance. You can do this by starting RStudio, and entering:
 
 ```r
-install.packages(
-       c("profvis", "bench", "ggplot2", "ggbeeswarm", "tinytest"))
+install.packages(c("profvis", "bench", "tinytest"))
+```
+
+Additionally, you need to have the following pacakges installed. We won't be using them directly, but they are needed to create plots with **bench**:
+
+```r
+install.packages(c("ggplot2", "ggbeeswarm", "tidyr"))
 ```
 
 We will also use the [**efficient**](https://github.com/csgillespie/efficient) package. It can be installed directly from GitHub, which should be done by:

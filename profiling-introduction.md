@@ -80,13 +80,13 @@ There are multiple approaches to profiling. Most programming languages have one 
 Similar to using `print()` for debugging, manually timing sections of code can provide a rudimentary form of profiling.
 
 ```R
-t_a <- proc.time()[["elapsed"]]
+t_a <- proc.time()["elapsed"]
 # A: Do something
-t_b <- proc.time()[["elapsed"]]
+t_b <- proc.time()["elapsed"]
 # B: Do something else
-t_c <- proc.time()[["elapsed"]]
+t_c <- proc.time()["elapsed"]
 # C: Do another thing
-t_d <- proc.time()[["elapsed"]]
+t_d <- proc.time()["elapsed"]
 
 paste("A:", t_b - t_a, "seconds")
 paste("B:", t_c - t_b, "seconds")
