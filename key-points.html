@@ -454,10 +454,13 @@ calculations.</li>
 </ul></section><section id="memory-management"><h2 class="section-heading"><a href="memory-management.html">Memory Management</a></h2>
 <hr class="half-width">
 <ul>
-<li>Avoid creating objects unnecessarily</li>
-<li>Use the simplest data structure for your needs</li>
+<li>Names point to objects in memory. R copies an object only when you
+modify one that has more than one name (copy-on-modify).</li>
+<li>Use <code>tracemem()</code> to see when R copies an object.</li>
+<li>Avoid creating objects unnecessarily.</li>
+<li>Use the simplest data structure for your needs.</li>
 <li>Do not grow objects. Create them directly if you can. Otherwise,
-pre-allocate the memory prior to running a loop.</li>
+pre-allocate the memory before running a loop.</li>
 </ul></section><section id="software-engineering"><h2 class="section-heading"><a href="software-engineering.html">Good software engineering practices</a></h2>
 <hr class="half-width">
 <ul>
