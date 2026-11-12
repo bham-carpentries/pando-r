@@ -1,5 +1,5 @@
 ---
-title: 'Introduction to Profiling'
+title: 'Introduction to profiling'
 teaching: 15
 exercises: 5
 ---
