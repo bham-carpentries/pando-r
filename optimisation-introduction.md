@@ -1,5 +1,5 @@
 ---
-title: 'Introduction to Optimisation'
+title: 'Introduction to optimisation'
 teaching: 10
 exercises: 2
 ---

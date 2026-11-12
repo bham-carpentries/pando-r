@@ -1,0 +1,458 @@
+---
+title: "Data frames"
+teaching: 20
+exercises: 15
+---
+
+:::::::::::::::::::::::::::::::::::::: questions
+
+- How do `data.frame`, `tibble` and `data.table` differ in how they store and copy data?
+- Why are some ways of modifying a table so much slower than others?
+- Which data structure should I use for my own work?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Identify loop patterns that are slow for every table type, and rewrite them.
+- Compare the performance and memory use of common operations across the three structures with `bench::mark()`.
+- Benchmark different data structures fairly, avoiding common pitfalls.
+- Determine when a matrix can be used instead of a data frame and explain the performance benefits of doing so
+- Choose an appropriate data structure for a given task.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+``` r
+library(tibble)
+library(dplyr)
+library(data.table)
+library(bench)
+library(lobstr)
+```
+
+## Three ways to hold a table
+
+Most data analysis in R works with rectangular data: rows of observations and columns of variables. There are three widely used structures for data frames:
+
+- `data.frame` is built into base R.
+- `tbl_df` (pronounced *tibble diff*) comes from the [**tibble**](https://tibble.tidyverse.org) package and is the table structure of the [tidyverse](https://tidyverse.org) (which includes **dplyr**, **readr** and **tidyr**).
+- `data.table` comes from the [data.table](https://r-datatable.com) package, which is designed for speed and low memory use on large data.
+
+`data.frame`, `tbl_df`, and `data.table` have much in common. All three are **lists of columns**, where each column is an ordinary R vector of the same length. Both `tibble` and `data.table` are built *on top of* `data.frame`, i.e. they all inherit the class `data.frame`. This means that almost any function that accepts a `data.frame` will also accept a `tibble` or a `data.table`. 
+
+
+``` r
+df <- data.frame(x = 1:3, y = c("a", "b", "c"))
+tb <- as_tibble(df)
+dt <- as.data.table(df)
+
+class(df)
+```
+
+``` output
+[1] "data.frame"
+```
+
+``` r
+class(tb)
+```
+
+``` output
+[1] "tbl_df"     "tbl"        "data.frame"
+```
+
+``` r
+class(dt)
+```
+
+``` output
+[1] "data.table" "data.frame"
+```
+
+There are, however, notable differences between them. For example, tibbles are data.frames that are lazy and surly: they do less (i.e. they don’t change variable names or types, and don’t do partial matching) and complain more (e.g. when a variable does not exist). Tibbles also have an enhanced print() method which makes them easier to use with large datasets containing complex objects.
+
+What is most relevant for this lesson, though, is the differences is **how operations on them are implemented**. 
+
+Let's create some example data to work with: one million rows of measurements from 100,000 sites, each belonging to one of 26 groups.
+
+
+``` r
+set.seed(42)
+n <- 1e6
+make_data <- function(n) {
+   data.frame(
+      id    = sample(n),
+      group = sample(letters, n, replace = TRUE),
+      site  = sample(1e5, n, replace = TRUE),
+      value = runif(n)
+   )
+}
+df <- make_data(n)
+tb <- as_tibble(df)
+dt <- as.data.table(df)
+```
+
+
+::::::::::::::::::::::::::::::::::::: instructor
+
+Building this episode takes around a minute, mostly for the deliberately slow examples. If you live-code it, reduce `n` to `1e5` so learners aren't kept waiting. The ratios between approaches stay much the same.
+
+Timings will differ between your machine and learners' machines. That is fine, and worth pointing out: the *relative* differences are what matter.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## How much memory does a table use?
+
+For the same data, all three structures take up almost exactly the same space, because the columns are the same vectors underneath. What's more interesting is what happens when we convert between the different classes. 
+
+- `as_tibble()` reuses the columns of `df` without copying them, so `df` and `tb` together take no more space than `df` alone. 
+- `as.data.table()` makes a full copy, so `df` and `dt` together take twice the space.
+
+If you want to convert a `data.frame` to a `data.table` without copying, use `setDT()`. It converts the object **in place**:
+
+This matters because data takes up a large share of your computer's RAM. Making unnecessary copies uses more memory, and slows down performance.
+
+## Copy-on-modify vs modify-by-reference
+
+In the [episode on memory management](episodes/memory-management.Rmd), we discussed how R normally uses **copy-on-modify**: several names can point to the same object, and R only makes a copy when one of them is changed. That way, changing an object through one name never unexpectedly changes it through another. This has implications for data frames, with `data.frame` and `tbl_df` using **copy-on-modify**, whereas `data.table` uses **copy-on-reference**, modifying in place. This has implications for performance.
+
+### `data.frame` and `tibble`: copy-on-modify
+
+`data.frame` and `tbl_df` use copy-on-modify. Changing a single number caused the data frame to be copied. These copies are *shallow*: only the list of column pointers is copied, not every column. But the column being changed is copied in full. With our large data, that means copying all one million numbers in `value` to change one of them. The other columns are untouched, and stay shared with the original.
+
+### `data.table`: modify-by-reference
+
+`data.table` provides the `:=` operator and the `set()` function, which change a table **in place**: no copy is made. Compare the memory allocated to set 10 values to zero:
+
+
+``` r
+# helper to print only the most useful columns from `bench::mark()` results:
+show_bench <- function(b) b[, c("expression", "median", "mem_alloc")]
+
+idx <- 1:10
+b <- bench::mark(
+   base       = { d <- df; d$value[idx] <- 0; d },
+   dplyr      = mutate(tb, value = if_else(row_number() %in% idx, 0, value)),
+   data.table = dt[idx, value := 0],
+   check = FALSE, 
+   iterations = 20
+)
+show_bench(b)
+```
+
+``` output
+# A tibble: 3 × 3
+  expression   median mem_alloc
+  <bch:expr> <bch:tm> <bch:byt>
+1 base       351.38µs    7.63MB
+2 dplyr        4.55ms   22.08MB
+3 data.table 210.17µs    3.69MB
+```
+
+
+We wrap the base version in `{ d <- df; ...; d }` so that every iteration modifies a fresh copy of `df` and leaves the original unchanged, as the `dplyr` version does. `dt[idx, value := 0]`, in contrast, modifies `dt` itself, so this benchmark compares "make a modified copy" with "modify in place". Without the wrapper, `df$value[idx] <- 0` would modify `df` itself. After the first iteration nothing else would refer to the new column, so R could update it in place without copying, and the benchmark would hide the cost of copying.
+
+The base and dplyr versions each allocate at least a full copy of the `value` column (around 8 MB). The `data.table` version allocates much less and is correspondingly faster.
+
+::::::::::::::::::::::::::::::::::::: caution
+
+### By-reference changes are visible everywhere
+
+Modify-by-reference is efficient, but it breaks the usual R rule that changing one name never affects another:
+
+
+``` r
+a <- data.table(x = 1:3)
+b <- a           # b and a are the SAME table, not a copy
+b[, x := 0L]
+a$x              # a has changed too!
+```
+
+``` output
+[1] 0 0 0
+```
+
+The same happens inside functions. A function that uses `:=` on its argument will change the caller's table. If you need an independent table, make one explicitly with `copy()`:
+
+
+``` r
+a <- data.table(x = 1:3)
+b <- copy(a)
+b[, x := 0L]
+a$x
+```
+
+``` output
+[1] 1 2 3
+```
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Accessing and changing values one at a time
+
+Code that works on one element at a time, usually inside a loop, is where the choice of data structure, and how you use it, matters most.
+
+### Single-element access
+
+
+``` r
+b <- bench::mark(
+   df_bracket = df[500, "value"],
+   tb_bracket = tb[[500, "value"]], # `[` returns a tbl_df, not the value
+   dt_bracket = dt[500, value],
+   df_dollar  = df$value[500],
+   tb_dollar  = tb$value[500],
+   dt_dollar  = dt$value[500],
+   check = FALSE
+)
+show_bench(b)
+```
+
+``` output
+# A tibble: 6 × 3
+  expression   median mem_alloc
+  <bch:expr> <bch:tm> <bch:byt>
+1 df_bracket   7.07µs        0B
+2 tb_bracket  35.58µs     278KB
+3 dt_bracket    171µs     120KB
+4 df_dollar  722.12ns        0B
+5 tb_dollar    1.34µs        0B
+6 dt_dollar  761.12ns        0B
+```
+
+The `[` methods for tibbles and data.tables do a lot of work on every call: checking arguments, handling column names, and (for `data.table`) parsing the `i`, `j` and `by` expressions. That overhead is negligible once, but adds up when repeated millions of times in a loop. Extracting the column with `$` first and then indexing a vector is fast for all three.
+
+### Modifying elements in a loop
+
+This pattern is common in code written by people coming from other languages: loop over rows and update the table one cell at a time.
+
+
+``` r
+n_loop <- 200
+
+loop_df_tb <- function(d) {
+   for (i in seq_len(n_loop)) d[i, "value"] <- 0
+   d
+}
+loop_dt <- function(d) {
+   for (i in seq_len(n_loop)) set(d, i, "value", 0)
+   d
+}
+loop_vec <- function(d) {
+   v <- d$value                      # extract the column once
+   for (i in seq_len(n_loop)) v[i] <- 0
+   d$value <- v                      # put it back once
+   d
+}
+
+b <- bench::mark(
+   data.frame   = loop_df_tb(df),
+   tibble       = loop_df_tb(tb),
+   data.table   = loop_dt(copy(dt)),
+   plain_vector = loop_vec(df),
+   check = FALSE, iterations = 3
+)
+show_bench(b)
+```
+
+``` output
+# A tibble: 4 × 3
+  expression     median mem_alloc
+  <bch:expr>   <bch:tm> <bch:byt>
+1 data.frame   271.54ms    1.49GB
+2 tibble       288.76ms    1.49GB
+3 data.table     4.75ms   22.96MB
+4 plain_vector   3.35ms    7.65MB
+```
+
+::::::::::::::::::::::::::::::::::::: callout
+
+### "Some expressions had a GC in every iteration"
+
+When you run benchmarks like this one, `bench::mark()` may warn that *some expressions had a GC in every iteration*. GC stands for garbage collection: R pausing to free memory that is no longer used. Code that allocates a lot of memory triggers it often, so the warning is a hint that memory use is affecting the timings. We've hidden these warnings in the rest of this episode, but expect to see them when you run the code yourself.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+Look at `mem_alloc`. Every iteration in the `data.frame` and `tbl_df` loops copies the whole `value` column, so R allocates gigabytes of memory to change 200 numbers. `set()` on a `data.table` modifies in place and avoids this. (Most of its `mem_alloc` comes from the `copy(dt)`, which we added so that the benchmark doesn't change `dt` itself.) But the simple **extract-the-vector** approach is just as good, and works with any structure.
+
+::::::::::::::::::::::::::::::::::::: callout
+
+### The general lesson
+
+Slow table code is usually caused by *how* the table is used, not by *which* table it is. Before switching packages:
+
+1. Avoid modifying tables element by element inside loops.
+2. If you must loop, work on plain vectors and write the result back once.
+3. Better still, use a vectorised operation: here, `df$value[seq_len(n_loop)] <- 0`.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::: challenge
+
+### Challenge 1: speed up a loop
+
+This function flags measurements above a threshold. Use `bench::mark()` to compare it with a version you write that has no loop. How much faster is your version, and how much less memory does it allocate? Try it on the first 10000 rows of `df` and then on the first 10000 rows of `tb`.
+
+
+``` r
+flag_high <- function(d, threshold = 0.9) {
+   d$high <- FALSE
+   for (i in seq_len(nrow(d))) {
+      if (d$value[i] > threshold) d[i, "high"] <- TRUE
+   }
+   d
+}
+
+small_df <- df[1:10000, ]
+small_tb <- tb[1:10000, ]
+```
+
+::::::::::::::::::::::::::::::::: solution
+
+
+``` r
+flag_high_vec <- function(d, threshold = 0.9) {
+   d$high <- d$value > threshold
+   d
+}
+
+b_df <- bench::mark(loop = flag_high(small_df), vec = flag_high_vec(small_df))
+b_tb <- bench::mark(loop = flag_high(small_tb), vec = flag_high_vec(small_tb))
+
+show_bench(b_df)
+```
+
+``` output
+# A tibble: 2 × 3
+  expression   median mem_alloc
+  <bch:expr> <bch:tm> <bch:byt>
+1 loop         20.8ms    36.6MB
+2 vec            16µs    39.1KB
+```
+
+``` r
+show_bench(b_tb)
+```
+
+``` output
+# A tibble: 2 × 3
+  expression   median mem_alloc
+  <bch:expr> <bch:tm> <bch:byt>
+1 loop           45ms    36.5MB
+2 vec            36µs    39.1KB
+```
+
+The vectorised versions are about 1000 times faster. `bench::mark()` also confirms that the two versions give identical results, because `check` is left at its default of `TRUE`. In `data.table` syntax, the equivalent is `dt[, high := value > 0.9]`.
+
+:::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Reading files
+
+For larger files, reading data is often the slowest step of an analysis. The **readr** package is the tidyverse option for reading data, whilst **data.table** provides `fread`. The differences are notable:
+
+
+``` r
+csv_file <- tempfile(fileext = ".csv")
+fwrite(df, csv_file)
+
+b <- bench::mark(
+   read.csv = read.csv(csv_file),
+   readr    = readr::read_csv(csv_file, show_col_types = FALSE, progress = FALSE),
+   fread    = fread(csv_file),
+   check = FALSE, iterations = 2
+)
+show_bench(b)
+```
+
+``` output
+# A tibble: 3 × 3
+  expression   median mem_alloc
+  <bch:expr> <bch:tm> <bch:byt>
+1 read.csv      2.63s   130.9MB
+2 readr      508.27ms    35.3MB
+3 fread      110.92ms    25.9MB
+```
+
+`fread()` returns a `data.table`, but you can call `setDF()` on the result, or use `fread(..., data.table = FALSE)`, if you'd rather work with a `data.frame`.
+
+::::::::::::::::::::::::::::::::::::: callout
+
+### Multithreading
+
+`data.table` can use several CPU cores for some operations, including `fread()`, grouping and sorting. By default it uses half of the available cores; `getDTthreads()` shows how many:
+
+
+``` r
+getDTthreads()
+```
+
+``` output
+[1] 2
+```
+
+This means `data.table` timings depend more on the machine than base R or `dplyr` timings do. A laptop with 8 cores and a shared cluster node limited to 1 core can give quite different results. If you compare timings with someone else, record how many threads were used.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Benchmarking different structures fairly
+
+Benchmarking across data structures has a few traps of its own.
+
+1. **Results won't be identical.** `bench::mark()` checks by default that all expressions return the same value. Results with different classes, column orders or row orders fail that check. We used `check = FALSE` above, so verify the results separately, for example with `all.equal(as.data.frame(x), as.data.frame(y), check.attributes = FALSE)` after sorting both the same way.
+2. **By-reference code changes the input.** An expression like `dt[, value := 0]` modifies `dt` on the first iteration, so later iterations, and any later benchmarks, run on different data. Run it on `copy(dt)`, but remember the copy is then included in the timing. If that matters, make the copy in `bench::mark()`'s `setup` argument instead.
+3. **Repeated runs can get faster.** `data.table` automatically builds an *index* the first time you filter with `==` or `%in%` on a column, and reuses it afterwards. The median time from `bench::mark()` then reflects the indexed lookup, not the first one.
+4. **`mem_alloc` only counts R's own memory.** Memory allocated directly by compiled C code isn't included, so packages that do most of their work in C, including `data.table`, can look more frugal than they really are. For a full picture, watch total memory use with your operating system's tools (e.g. Activity Monitor, Task Manager or `top`).
+5. **Size matters.** On a few thousand rows, overheads dominate and `data.frame` often wins. On millions of rows, algorithms dominate. Benchmark with data of a similar size to your real data.
+
+
+## Choosing a data structure
+
+Here are some comparisons between the three classes, to guide a choice of which is appropriate:
+
+|                                  | `data.frame`                        | `tbl_df` (+ `dplyr`)                                  | `data.table`                                          |
+|----------------------------------|-------------------------------------|-------------------------------------------------------|-------------------------------------------------------|
+| Installation                     | Built in                            | Package with several dependencies                     | Single package, no hard dependencies                  |
+| Syntax                           | Base R                              | Readable verbs; tidyverse ecosystem                   | Compact `DT[i, j, by]`; steeper learning curve        |
+| Modifying data                   | Copy-on-modify                      | Copy-on-modify                                        | By reference (`:=`, `set()`), or copy                 |
+| Element-wise access (`[`)        | Fast                                | Slower (more checks per call)                         | Slowest per call; use `set()` in loops                |
+| Grouping, joins, sorting on large data | Often slow (`aggregate`, `merge`) | Good                                              | Usually fastest, especially with many groups          |
+| Reading large CSVs               | `read.csv()`: slow                  | `readr`: fast                                         | `fread()`: fastest                                    |
+| Multithreading                   | No                                  | Mostly no                                             | Yes                                                   |
+| Main pitfall                     | Partial matching, slow idioms       | Per-call overhead in loops                            | Unexpected changes through shared references          |
+
+Some rules of thumb:
+
+- **Small to medium data (up to around 100,000 rows):** use whatever you and your collaborators find clearest. Differences between structures will rarely be noticeable. Focus on avoiding element-by-element loops.
+- **Large data, or the same analysis run many times:** profile first. If the slow parts are grouping, joining, sorting or reading files, `data.table` (or `fread()` alone) is likely to give large gains.
+- **Memory is tight:** `data.table`'s modify-by-reference and `setDT()` let you avoid copies. You can also keep your current structure and simply avoid code that copies large columns repeatedly.
+- **Writing a package or long-lived code with few dependencies:** base `data.frame` (or `data.table`, which has no hard dependencies) keeps installation simple.
+
+You don't have to choose one structure for a whole project. Conversion is cheap, and in some cases free (`as_tibble()`, `setDT()`, `setDF()`), so you could, for example, read with `fread()`, do one heavy grouped summary in `data.table`, and continue in `dplyr`.
+
+:::::::::::::::::::::::::::::::::::::: discussion
+
+### Discussion: your own work
+
+Think about a project you're working on, or have recently worked on.
+
+- How big is the data, and which operations take the most time?
+- Based on this episode, would changing the data structure help, or would changing *how* you use your current structure help more?
+- What would it cost you (learning time, rewriting code, collaborators' familiarity) to switch?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints
+
+- `data.frame`, `tibble` and `data.table` are all lists of column vectors. `tibble` and `data.table` are both built on `data.frame`.
+- `data.frame` and `tibble` use copy-on-modify: changing one value copies the whole column. `data.table`'s `:=` and `set()` modify in place, which saves time and memory but means changes are visible through every name for that table.
+- Modifying a table element by element in a loop is slow for every structure. Extract the column as a vector or, better, use vectorised operations.
+- For grouping, joining, sorting and reading large files, `data.table` is usually fastest and `dplyr` is usually faster than base R. The gap grows with data size and number of groups.
+- When benchmarking across structures, check results separately, beware of by-reference changes and caching, and remember that `mem_alloc` misses memory allocated in C.
+- Profile first, then choose: for small data, readability matters more than the choice of structure.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
