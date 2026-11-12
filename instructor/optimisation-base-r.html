@@ -123,7 +123,7 @@
     <a id="search-button-nav" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div><!--/div.container-fluid -->
 </nav><aside class="col-md-12 lesson-progress"><div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 56%" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">56%</div>
+    <div class="progress-bar incubator" role="progressbar" style="width: 39%" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">39%</div>
   </div>
 </aside><div class="container">
       <div class="row">
@@ -208,7 +208,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="profiling-introduction.html">1. Introduction to Profiling</a>
+        <a href="profiling-introduction.html">1. Introduction to profiling</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -235,7 +235,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="optimisation-introduction.html">4. Introduction to Optimisation</a>
+        <a href="optimisation-introduction.html">4. Introduction to optimisation</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -267,7 +267,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="memory-management.html">6. Memory Management</a>
+        <a href="memory-management.html">6. Memory management</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -276,7 +276,25 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="software-engineering.html">7. Good software engineering practices</a>
+        <a href="optimisation-data-frames.html">7. Data frames</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush9">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading9">
+        <a href="software-engineering.html">8. Good software engineering practices</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush10">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading10">
+        <a href="next-steps.html">9. Next steps</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -345,16 +363,16 @@
       <div class="d-none d-sm-none d-md-block">
         <a class="chapter-link" href="../instructor/optimisation-introduction.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
-          Previous: Introduction to Optimisation...
+          Previous: Introduction to optimisation...
         </a>
         <a class="chapter-link float-end" href="../instructor/memory-management.html" rel="next">
-          Next: Memory Management...
+          Next: Memory management...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Base R optimisations</h1>
-        <p>Last updated on 2026-11-11 |
+        <p>Last updated on 2026-11-12 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/optimisation-base-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -448,7 +466,7 @@ loop?</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <ul><li>
 <code>n</code> function calls to +;</li>
@@ -490,7 +508,7 @@ starting and, therefore, end values.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -519,8 +537,8 @@ starting and, therefore, end values.</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 vect(x)      5.13µs   38.3µs    25790.    78.2KB    40.6
-2 loop(x)    524.97µs  539.9µs     1827.   101.5KB     4.10</code></pre>
+1 vect(x)      5.46µs   31.4µs    31768.    78.2KB    50.9
+2 loop(x)     458.4µs  475.9µs     2069.   101.5KB     4.09</code></pre>
 </div>
 </div>
 </div>
@@ -599,7 +617,7 @@ is faster?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <p>Look at the source code for <code>var</code>.</p>
 </div>
@@ -611,7 +629,7 @@ is faster?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -633,8 +651,8 @@ is faster?</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression       min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt;  &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 variance(x)   75.2µs   79.6µs    11836.    78.2KB    19.6
-2 var(x)        69.7µs   73.2µs    13343.    15.3KB     2.01</code></pre>
+1 variance(x)   69.9µs   78.8µs    11954.    78.2KB    19.7
+2 var(x)        61.4µs   65.1µs    15131.    15.3KB     2.01</code></pre>
 </div>
 <p><code>var()</code> performs the variance calculation in C.</p>
 </div>
@@ -707,7 +725,7 @@ problems:</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
   <h3 class="accordion-header" id="headingInstructor2">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
 <div class="accordion-body">
 <p>Show the difference between the following:</p>
 <div class="codewrapper sourceCode" id="cb20">
@@ -720,8 +738,8 @@ problems:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] 47 13  7 28 42 29  3  9 24  8 30  2 40 15 20 45 36 32 26 14 48 27 34 31 39
-[26] 19 46 35 23  4 12 16 41 44 10 17 37 18  5 21 22 38 25  6 50 33  1 43 11 49</code></pre>
+<pre class="output" tabindex="0"><code> [1] 48 27 29 31 37 35 40  8 28 10 25 15 22 36 18 45 43  5  7 26 33 42 34 39 41
+[26] 16 32  1 30  2 44 46  3  4 24 14 49 20 17 13 11  9 38 47 12  6 19 23 50 21</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -744,8 +762,8 @@ problems:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  1  2  3  4  5  6  7  8  9 10 13 22 21 15 20 18 17 11 16 14 12 23 19 31 39
-[26] 34 46 35 27 42 48 26 41 44 32 36 37 45 28 40 29 38 25 30 50 33 47 43 24 49</code></pre>
+<pre class="output" tabindex="0"><code> [1]  1  2  3  4  5  6  7  8  9 10 25 15 22 36 18 45 43 28 40 26 33 42 34 39 41
+[26] 16 32 35 30 37 44 46 31 29 24 14 49 20 17 13 11 27 38 47 12 48 19 23 50 21</code></pre>
 </div>
 </div>
 </div>
@@ -796,10 +814,10 @@ any links that you are not going to use.
       <div class="d-none d-sm-none d-md-block">
         <a class="chapter-link" href="../instructor/optimisation-introduction.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
-          Previous: Introduction to Optimisation...
+          Previous: Introduction to optimisation...
         </a>
         <a class="chapter-link float-end" href="../instructor/memory-management.html" rel="next">
-          Next: Memory Management...
+          Next: Memory management...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
@@ -847,8 +865,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/instructor/optimisation-base-r.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/optimisation-base-r.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-11",
-  "datePublished": "2026-11-11"
+  "dateModified": "2026-11-12",
+  "datePublished": "2026-11-12"
 }
 
   </script><script>

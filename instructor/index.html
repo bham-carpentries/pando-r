@@ -218,7 +218,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="profiling-introduction.html">1. Introduction to Profiling</a>
+        <a href="profiling-introduction.html">1. Introduction to profiling</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -245,7 +245,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="optimisation-introduction.html">4. Introduction to Optimisation</a>
+        <a href="optimisation-introduction.html">4. Introduction to optimisation</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -263,7 +263,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="memory-management.html">6. Memory Management</a>
+        <a href="memory-management.html">6. Memory management</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -272,7 +272,25 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="software-engineering.html">7. Good software engineering practices</a>
+        <a href="optimisation-data-frames.html">7. Data frames</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush9">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading9">
+        <a href="software-engineering.html">8. Good software engineering practices</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush10">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading10">
+        <a href="next-steps.html">9. Next steps</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -338,7 +356,7 @@
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link float-end" href="../instructor/profiling-introduction.html" rel="next">Next: Introduction to Profiling... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="../instructor/profiling-introduction.html" rel="next">Next: Introduction to profiling... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
     </nav><main id="main-content" class="main-content"><h1 class="schedule-heading">Summary and Schedule</h1>
       
@@ -451,7 +469,7 @@ any links that you are not going to use.
 <span class="visually-hidden">Duration: </span>00h 00m
 </td>
 <td>
- 1. <a href="profiling-introduction.html">Introduction to Profiling</a>
+ 1. <a href="profiling-introduction.html">Introduction to profiling</a>
 </td>
 <td>
 Why should you profile your code?<br>What are the options for profiling
@@ -484,7 +502,7 @@ the results of microbenchmarking?
 </td>
 <td>
  4. <a href="optimisation-introduction.html">Introduction to
-Optimisation</a>
+optimisation</a>
 </td>
 <td>
 Why could optimisation of code be harmful?
@@ -503,7 +521,7 @@ code more readable and faster?
 <span class="visually-hidden">Duration: </span>01h 08m
 </td>
 <td>
- 6. <a href="memory-management.html">Memory Management</a>
+ 6. <a href="memory-management.html">Memory management</a>
 </td>
 <td>
 How does R store objects in memory?<br>When does R copy an
@@ -513,7 +531,19 @@ object?<br>Why is growing an object in a loop so slow?
 <span class="visually-hidden">Duration: </span>01h 28m
 </td>
 <td>
- 7. <a href="software-engineering.html">Good software engineering
+ 7. <a href="optimisation-data-frames.html">Data frames</a>
+</td>
+<td>
+How do <code>data.frame</code>, <code>tibble</code> and
+<code>data.table</code> differ in how they store and copy data?<br>Why
+are some ways of modifying a table so much slower than others?<br>Which
+data structure should I use for my own work?
+</td>
+</tr><tr><td>
+<span class="visually-hidden">Duration: </span>02h 03m
+</td>
+<td>
+ 8. <a href="software-engineering.html">Good software engineering
 practices</a>
 </td>
 <td>
@@ -522,7 +552,17 @@ risks to updating R and packages?<br>Are faster implementations already
 available?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>01h 40m
+<span class="visually-hidden">Duration: </span>02h 15m
+</td>
+<td>
+ 9. <a href="next-steps.html">Next steps</a>
+</td>
+<td>
+Where can I learn more?<br>What can I do if I’ve optimised my R code
+but it is still too slow?
+</td>
+</tr><tr><td>
+<span class="visually-hidden">Duration: </span>02h 25m
 </td>
 <td>
 Finish
@@ -556,7 +596,7 @@ computer. Please follow the setup instructions below.</p>
   Personal Laptop
   </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p>To install R and RStudio on a personal laptop</p>
 <div class="section level4">
@@ -580,7 +620,7 @@ computer.</p></li>
   University of Birmingham Managed Laptop
   </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
 <div class="accordion-body">
 <div class="section level4">
 <h4 id="windows">Windows<a class="anchor" aria-label="anchor" href="#windows"></a></h4>
@@ -642,7 +682,7 @@ any links that you are not going to use.
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link float-end" href="../instructor/profiling-introduction.html" rel="next">Next: Introduction to Profiling... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="../instructor/profiling-introduction.html" rel="next">Next: Introduction to profiling... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
     </nav></div>
 <!-- END  : inst/pkgdown/templates/content-syllabus.html -->
@@ -688,8 +728,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/instructor/index.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/index.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-11",
-  "datePublished": "2026-11-11"
+  "dateModified": "2026-11-12",
+  "datePublished": "2026-11-12"
 }
 
   </script><script>

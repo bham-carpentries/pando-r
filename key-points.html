@@ -244,7 +244,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="profiling-introduction.html">1. Introduction to Profiling</a>
+        <a href="profiling-introduction.html">1. Introduction to profiling</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -280,7 +280,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="optimisation-introduction.html">4. Introduction to Optimisation</a>
+        <a href="optimisation-introduction.html">4. Introduction to optimisation</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -304,7 +304,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="memory-management.html">6. Memory Management</a>
+        <a href="memory-management.html">6. Memory management</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -316,7 +316,31 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="software-engineering.html">7. Good software engineering practices</a>
+        <a href="optimisation-data-frames.html">7. Data frames</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush9">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading9">
+        <a href="software-engineering.html">8. Good software engineering practices</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush10">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading10">
+        <a href="next-steps.html">9. Next steps</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -398,7 +422,7 @@
     <main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Key Points</h1>
         
-<section id="profiling-introduction"><h2 class="section-heading"><a href="profiling-introduction.html">Introduction to Profiling</a></h2>
+<section id="profiling-introduction"><h2 class="section-heading"><a href="profiling-introduction.html">Introduction to profiling</a></h2>
 <hr class="half-width">
 <ul>
 <li>Profiling is a relatively quick process to analyse where time is
@@ -431,7 +455,7 @@ code</li>
 different expressions</li>
 <li>Use <code>bench::press()</code> to compare the performance of the
 same expression over a grid of different parameters</li>
-</ul></section><section id="optimisation-introduction"><h2 class="section-heading"><a href="optimisation-introduction.html">Introduction to Optimisation</a></h2>
+</ul></section><section id="optimisation-introduction"><h2 class="section-heading"><a href="optimisation-introduction.html">Introduction to optimisation</a></h2>
 <hr class="half-width">
 <ul>
 <li>When considering optimisation it is important to focus on the
@@ -451,7 +475,7 @@ take advantage of R’s built-in vectorisation</li>
 <li>Look at the help pages for base R functions to see if they contain
 any arguments or alternative versions which might speed-up
 calculations.</li>
-</ul></section><section id="memory-management"><h2 class="section-heading"><a href="memory-management.html">Memory Management</a></h2>
+</ul></section><section id="memory-management"><h2 class="section-heading"><a href="memory-management.html">Memory management</a></h2>
 <hr class="half-width">
 <ul>
 <li>Names point to objects in memory. R copies an object only when you
@@ -461,6 +485,32 @@ modify one that has more than one name (copy-on-modify).</li>
 <li>Use the simplest data structure for your needs.</li>
 <li>Do not grow objects. Create them directly if you can. Otherwise,
 pre-allocate the memory before running a loop.</li>
+</ul></section><section id="optimisation-data-frames"><h2 class="section-heading"><a href="optimisation-data-frames.html">Data frames</a></h2>
+<hr class="half-width">
+<ul>
+<li>
+<code>data.frame</code>, <code>tibble</code> and
+<code>data.table</code> are all lists of column vectors.
+<code>tibble</code> and <code>data.table</code> are both built on
+<code>data.frame</code>.</li>
+<li>
+<code>data.frame</code> and <code>tibble</code> use copy-on-modify:
+changing one value copies the whole column. <code>data.table</code>’s
+<code>:=</code> and <code>set()</code> modify in place, which saves time
+and memory but means changes are visible through every name for that
+table.</li>
+<li>Modifying a table element by element in a loop is slow for every
+structure. Extract the column as a vector or, better, use vectorised
+operations.</li>
+<li>For grouping, joining, sorting and reading large files,
+<code>data.table</code> is usually fastest and <code>dplyr</code> is
+usually faster than base R. The gap grows with data size and number of
+groups.</li>
+<li>When benchmarking across structures, check results separately,
+beware of by-reference changes and caching, and remember that
+<code>mem_alloc</code> misses memory allocated in C.</li>
+<li>Profile first, then choose: for small data, readability matters more
+than the choice of structure.</li>
 </ul></section><section id="software-engineering"><h2 class="section-heading"><a href="software-engineering.html">Good software engineering practices</a></h2>
 <hr class="half-width">
 <ul>
@@ -469,6 +519,14 @@ pre-allocate the memory before running a loop.</li>
 bottlenecks you face</li>
 <li>Switch your BLAS library if your bottleneck is in linear
 algebra</li>
+</ul></section><section id="next-steps"><h2 class="section-heading"><a href="next-steps.html">Next steps</a></h2>
+<hr class="half-width">
+<ul>
+<li>Advanced R and Efficient R Programme are excellent books from which
+to learn more on the topics covered in this lesson</li>
+<li>When you have exhausted optimisation options in R, rewrite the
+bottleneck parts of your code in a compiled language and interface to it
+in R (either C++ with Rcpp or Rust with rextendr)</li>
 </ul></section>
 </div>
     </main>
@@ -519,8 +577,8 @@ algebra</li>
   "url": "https://bham-carpentries.github.io/pando-r/key-points.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/key-points.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-11",
-  "datePublished": "2026-11-11"
+  "dateModified": "2026-11-12",
+  "datePublished": "2026-11-12"
 }
 
   </script><script>
