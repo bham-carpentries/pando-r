@@ -1,5 +1,5 @@
 ---
-title: 'Memory Management'
+title: 'Memory management'
 teaching: 15
 exercises: 5
 ---

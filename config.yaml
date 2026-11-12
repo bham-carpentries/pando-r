@@ -72,7 +72,7 @@ episodes:
 - optimisation-introduction.Rmd
 - optimisation-base-r.Rmd
 - memory-management.Rmd
-- optimisation-data-structures.Rmd
+- optimisation-data-frames.Rmd
 - software-engineering.md
 - next-steps.md
 
