@@ -72,7 +72,9 @@ episodes:
 - optimisation-introduction.Rmd
 - optimisation-base-r.Rmd
 - memory-management.Rmd
+- optimisation-data-structures.Rmd
 - software-engineering.md
+- next-steps.md
 
 # Information for Learners
 learners: 
