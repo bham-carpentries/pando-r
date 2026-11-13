@@ -57,7 +57,7 @@ C++ is an extension of C, though with better memory management and with a large 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Advanced R and Efficient R Programme are excellent books from which to learn more on the topics covered in this lesson
+- [Advanced R](https://adv-r.hadley.nz) and [Efficient R Programming](https://csgillespie.github.io/efficientR/) are excellent books from which to learn more on the topics covered in this lesson
 - When you have exhausted optimisation options in R, rewrite the bottleneck parts of your code in a compiled language and interface to it in R (either C++ with Rcpp or Rust with rextendr)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

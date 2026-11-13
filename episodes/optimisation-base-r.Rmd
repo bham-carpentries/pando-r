@@ -154,7 +154,30 @@ M + 1.3
 round(M + 1.3)
 ```
 
+## The `apply()` family of functions
+
+The `apply` family of functions provides an alternative to writing loops. The general idea is to apply (or map) a function to each element of an object. Here, we'll focus on the four most commonly used: `apply()`, `lapply()`, sapply()` and `vapply()`. Each of these takes at least two arguments: the object to iterate over and the function to apply. Every `apply` function has the dots, `...`, argument that is used to pass on arguments to the function that is given as an argument.
+
+- `apply()` is used to apply a function to each row or column of a matrix or array. The first argument of `apply()` is the object of interest. The second argument is the `MARGIN`. This is a vector giving the subscripts which the function (the third argument) will be applied over. When the object is a matrix, a margin of `1` indicates rows and `2` indicates columns. 
+
+::: callout
 There are several functions available for implementing efficient row/column-wise operations on matrices (and numeric data frames), e.g.`colMeans()`, `rowMeans()`, `colSums()`, `rowSums()`. These provide a much faster alternative to iterating over rows or columns. 
+:::
+
+- `lapply()` applies a given function to each element of a list or vector and returns a list:
+
+```{r}
+x <- list(a = 1:3, b = c(4, NA, 5, 6))
+lapply(x, mean, na.rm = TRUE) # using ... to pass arg to mean
+```
+
+- `sapply()` is like `lapply()` but attempts to simplify the answer (e.g., provide a vector rather than a list). `vapply()` is like `sapply()`, but specifies the return type and length of each iteration, making it safer and faster - it is the better choice in efficient programming:
+
+```{r}
+sapply(x, mean, na.rm = TRUE) 
+vapply(x, mean, numeric(2), na.rm = TRUE)
+```
+
 
 ## Faster common operations
 

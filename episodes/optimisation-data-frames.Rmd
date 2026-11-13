@@ -88,7 +88,7 @@ For the same data, all three structures take up almost exactly the same space, b
 - `as_tibble()` reuses the columns of `df` without copying them, so `df` and `tb` together take no more space than `df` alone. 
 - `as.data.table()` makes a full copy, so `df` and `dt` together take twice the space.
 
-If you want to convert a `data.frame` to a `data.table` without copying, use `setDT()`. It converts the object **in place**:
+If you want to convert a `data.frame` to a `data.table` without copying, use `setDT()`. It converts the object **in place**.
 
 This matters because data takes up a large share of your computer's RAM. Making unnecessary copies uses more memory, and slows down performance.
 
@@ -111,7 +111,7 @@ show_bench <- function(b) b[, c("expression", "median", "mem_alloc")]
 idx <- 1:10
 b <- bench::mark(
    base       = { d <- df; d$value[idx] <- 0; d },
-   dplyr      = mutate(tb, value = if_else(row_number() %in% idx, 0, value)),
+   dplyr      = mutate(tb, value = replace(value, idx, 0)),
    data.table = dt[idx, value := 0],
    check = FALSE, 
    iterations = 20
@@ -161,8 +161,7 @@ b <- bench::mark(
    dt_bracket = dt[500, value],
    df_dollar  = df$value[500],
    tb_dollar  = tb$value[500],
-   dt_dollar  = dt$value[500],
-   check = FALSE
+   dt_dollar  = dt$value[500]
 )
 show_bench(b)
 ```
@@ -205,7 +204,7 @@ show_bench(b)
 
 ### "Some expressions had a GC in every iteration"
 
-When you run benchmarks like this one, `bench::mark()` may warn that *some expressions had a GC in every iteration*. GC stands for garbage collection: R pausing to free memory that is no longer used. Code that allocates a lot of memory triggers it often, so the warning is a hint that memory use is affecting the timings. We've hidden these warnings in the rest of this episode, but expect to see them when you run the code yourself.
+When you run benchmarks like this one, `bench::mark()` may warn that *some expressions had a GC in every iteration*. GC stands for garbage collection: R pausing to free memory that is no longer used. Code that allocates a lot of memory triggers it often, so the warning is a hint that memory use is affecting the timings. 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -280,7 +279,11 @@ b <- bench::mark(
 show_bench(b)
 ```
 
-`fread()` returns a `data.table`, but you can call `setDF()` on the result, or use `fread(..., data.table = FALSE)`, if you'd rather work with a `data.frame`.
+`fread()` returns a `data.table`, but you can call `setDF()` on the result, or use `fread(..., data.table = FALSE)`, if you'd rather work with a `data.frame`. If you want a `tbl_df`, reading in the data with `fread` and converting to a tibble is still more efficient than using **readr**:
+
+```r
+fread_tibble = as_tibble(fread(csv_file, data.table = FALSE))
+```
 
 ::::::::::::::::::::::::::::::::::::: callout
 
@@ -330,6 +333,12 @@ Some rules of thumb:
 - **Writing a package or long-lived code with few dependencies:** base `data.frame` (or `data.table`, which has no hard dependencies) keeps installation simple.
 
 You don't have to choose one structure for a whole project. Conversion is cheap, and in some cases free (`as_tibble()`, `setDT()`, `setDF()`), so you could, for example, read with `fread()`, do one heavy grouped summary in `data.table`, and continue in `dplyr`.
+
+::: callout
+### dtplyr
+
+Another option worth considering is [dtplyr](https://dtplyr.tidyverse.org/), which provides a **data.table** backend for **dplyr**. The goal of **dtplyr** is to allow you to write **dplyr** code that is automatically translated to the equivalent, but usually much faster, **data.table** code. This can provide a nice compromise between tidyverse style analysis and data.table efficiency.
+:::
 
 :::::::::::::::::::::::::::::::::::::: discussion
 
