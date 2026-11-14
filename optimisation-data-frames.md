@@ -109,7 +109,7 @@ For the same data, all three structures take up almost exactly the same space, b
 - `as_tibble()` reuses the columns of `df` without copying them, so `df` and `tb` together take no more space than `df` alone. 
 - `as.data.table()` makes a full copy, so `df` and `dt` together take twice the space.
 
-If you want to convert a `data.frame` to a `data.table` without copying, use `setDT()`. It converts the object **in place**:
+If you want to convert a `data.frame` to a `data.table` without copying, use `setDT()`. It converts the object **in place**.
 
 This matters because data takes up a large share of your computer's RAM. Making unnecessary copies uses more memory, and slows down performance.
 
@@ -133,7 +133,7 @@ show_bench <- function(b) b[, c("expression", "median", "mem_alloc")]
 idx <- 1:10
 b <- bench::mark(
    base       = { d <- df; d$value[idx] <- 0; d },
-   dplyr      = mutate(tb, value = if_else(row_number() %in% idx, 0, value)),
+   dplyr      = mutate(tb, value = replace(value, idx, 0)),
    data.table = dt[idx, value := 0],
    check = FALSE, 
    iterations = 20
@@ -145,9 +145,9 @@ show_bench(b)
 # A tibble: 3 × 3
   expression   median mem_alloc
   <bch:expr> <bch:tm> <bch:byt>
-1 base       351.38µs    7.63MB
-2 dplyr        4.55ms   22.08MB
-3 data.table 210.17µs    3.69MB
+1 base       441.67µs    89.8MB
+2 dplyr        1.07ms    92.7MB
+3 data.table 232.22µs    85.8MB
 ```
 
 
@@ -203,8 +203,7 @@ b <- bench::mark(
    dt_bracket = dt[500, value],
    df_dollar  = df$value[500],
    tb_dollar  = tb$value[500],
-   dt_dollar  = dt$value[500],
-   check = FALSE
+   dt_dollar  = dt$value[500]
 )
 show_bench(b)
 ```
@@ -213,12 +212,12 @@ show_bench(b)
 # A tibble: 6 × 3
   expression   median mem_alloc
   <bch:expr> <bch:tm> <bch:byt>
-1 df_bracket   7.07µs        0B
-2 tb_bracket  35.58µs     278KB
-3 dt_bracket    171µs     120KB
-4 df_dollar  722.12ns        0B
-5 tb_dollar    1.34µs        0B
-6 dt_dollar  761.12ns        0B
+1 df_bracket   7.24µs        0B
+2 tb_bracket  35.89µs     278KB
+3 dt_bracket  178.1µs     120KB
+4 df_dollar  671.13ns        0B
+5 tb_dollar    1.38µs        0B
+6 dt_dollar  871.14ns        0B
 ```
 
 The `[` methods for tibbles and data.tables do a lot of work on every call: checking arguments, handling column names, and (for `data.table`) parsing the `i`, `j` and `by` expressions. That overhead is negligible once, but adds up when repeated millions of times in a loop. Extracting the column with `$` first and then indexing a vector is fast for all three.
@@ -260,17 +259,17 @@ show_bench(b)
 # A tibble: 4 × 3
   expression     median mem_alloc
   <bch:expr>   <bch:tm> <bch:byt>
-1 data.frame   271.54ms    1.49GB
-2 tibble       288.76ms    1.49GB
-3 data.table     4.75ms   22.96MB
-4 plain_vector   3.35ms    7.65MB
+1 data.frame   275.76ms    1.49GB
+2 tibble       242.25ms    1.49GB
+3 data.table     5.86ms   22.96MB
+4 plain_vector 392.04µs    7.65MB
 ```
 
 ::::::::::::::::::::::::::::::::::::: callout
 
 ### "Some expressions had a GC in every iteration"
 
-When you run benchmarks like this one, `bench::mark()` may warn that *some expressions had a GC in every iteration*. GC stands for garbage collection: R pausing to free memory that is no longer used. Code that allocates a lot of memory triggers it often, so the warning is a hint that memory use is affecting the timings. We've hidden these warnings in the rest of this episode, but expect to see them when you run the code yourself.
+When you run benchmarks like this one, `bench::mark()` may warn that *some expressions had a GC in every iteration*. GC stands for garbage collection: R pausing to free memory that is no longer used. Code that allocates a lot of memory triggers it often, so the warning is a hint that memory use is affecting the timings. 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -319,7 +318,14 @@ flag_high_vec <- function(d, threshold = 0.9) {
 
 b_df <- bench::mark(loop = flag_high(small_df), vec = flag_high_vec(small_df))
 b_tb <- bench::mark(loop = flag_high(small_tb), vec = flag_high_vec(small_tb))
+```
 
+``` warning
+Warning: Some expressions had a GC in every iteration; so filtering is
+disabled.
+```
+
+``` r
 show_bench(b_df)
 ```
 
@@ -327,8 +333,8 @@ show_bench(b_df)
 # A tibble: 2 × 3
   expression   median mem_alloc
   <bch:expr> <bch:tm> <bch:byt>
-1 loop         20.8ms    36.6MB
-2 vec            16µs    39.1KB
+1 loop         20.5ms    36.6MB
+2 vec          15.8µs    39.1KB
 ```
 
 ``` r
@@ -339,7 +345,7 @@ show_bench(b_tb)
 # A tibble: 2 × 3
   expression   median mem_alloc
   <bch:expr> <bch:tm> <bch:byt>
-1 loop           45ms    36.5MB
+1 loop         47.6ms    36.5MB
 2 vec            36µs    39.1KB
 ```
 
@@ -371,12 +377,16 @@ show_bench(b)
 # A tibble: 3 × 3
   expression   median mem_alloc
   <bch:expr> <bch:tm> <bch:byt>
-1 read.csv      2.63s   130.9MB
-2 readr      508.27ms    35.3MB
-3 fread      110.92ms    25.9MB
+1 read.csv      2.71s   130.9MB
+2 readr      484.96ms    35.3MB
+3 fread      144.22ms    25.9MB
 ```
 
-`fread()` returns a `data.table`, but you can call `setDF()` on the result, or use `fread(..., data.table = FALSE)`, if you'd rather work with a `data.frame`.
+`fread()` returns a `data.table`, but you can call `setDF()` on the result, or use `fread(..., data.table = FALSE)`, if you'd rather work with a `data.frame`. If you want a `tbl_df`, reading in the data with `fread` and converting to a tibble is still more efficient than using **readr**:
+
+```r
+fread_tibble = as_tibble(fread(csv_file, data.table = FALSE))
+```
 
 ::::::::::::::::::::::::::::::::::::: callout
 
@@ -431,6 +441,12 @@ Some rules of thumb:
 - **Writing a package or long-lived code with few dependencies:** base `data.frame` (or `data.table`, which has no hard dependencies) keeps installation simple.
 
 You don't have to choose one structure for a whole project. Conversion is cheap, and in some cases free (`as_tibble()`, `setDT()`, `setDF()`), so you could, for example, read with `fread()`, do one heavy grouped summary in `data.table`, and continue in `dplyr`.
+
+::: callout
+### dtplyr
+
+Another option worth considering is [dtplyr](https://dtplyr.tidyverse.org/), which provides a **data.table** backend for **dplyr**. The goal of **dtplyr** is to allow you to write **dplyr** code that is automatically translated to the equivalent, but usually much faster, **data.table** code. This can provide a nice compromise between tidyverse style analysis and data.table efficiency.
+:::
 
 :::::::::::::::::::::::::::::::::::::: discussion
 

@@ -89,8 +89,8 @@ bench::mark(
 # A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 vect(x)      5.46µs   31.4µs    31768.    78.2KB    50.9 
-2 loop(x)     458.4µs  475.9µs     2069.   101.5KB     4.09
+1 vect(x)      5.74µs   31.7µs    31382.    78.2KB    50.3 
+2 loop(x)    465.16µs  477.5µs     2047.   101.5KB     4.10
 ```
 
 :::
@@ -168,14 +168,55 @@ bench::mark(
 # A tibble: 2 × 6
   expression       min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr>  <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 variance(x)   69.9µs   78.8µs    11954.    78.2KB    19.7 
-2 var(x)        61.4µs   65.1µs    15131.    15.3KB     2.01
+1 variance(x)   70.5µs   74.4µs    12265.    78.2KB    19.8 
+2 var(x)        61.4µs   64.9µs    15206.    15.3KB     2.01
 ```
 
 `var()` performs the variance calculation in C.
 :::
 
 ::::::
+
+## Logical operations
+
+Logical operators such as `&` and `|` are vectorized, e.g.
+
+
+``` r
+x <- c(0.3, 1, 0.6, 1.2, 0.4, 0.5)
+x > 0.4 & x < 0.8
+```
+
+``` output
+[1] FALSE FALSE  TRUE FALSE FALSE  TRUE
+```
+
+If we only want to compare vectors of length 1 the operators `&&` and `||` are more efficient as they only compute the RHS if needed
+
+
+``` r
+x[1] > 0.4 && x[1] < 0.8
+```
+
+``` output
+[1] FALSE
+```
+
+Make sure the vectors are of length 1, otherwise you get an error. This change was introduced in R >= 4.3. 
+
+
+``` r
+x > 0.4 && x < 0.8
+```
+
+``` error
+Error in `x > 0.4 && x < 0.8`:
+! 'length = 6' in coercion to 'logical(1)'
+```
+
+::: {.notes}
+In R >= 4.2.0 you get a warning but it still returns a comparison of only the first element. In earlier versions, there was no warning. 
+:::
 
 ## Vectorisation and matrices
 
@@ -213,7 +254,54 @@ round(M + 1.3)
 [2,]    3    5
 ```
 
+## The `apply()` family of functions
+
+The `apply` family of functions provides an alternative to writing loops. The general idea is to apply (or map) a function to each element of an object. Here, we'll focus on the four most commonly used: `apply()`, `lapply()`, sapply()` and `vapply()`. Each of these takes at least two arguments: the object to iterate over and the function to apply. Every `apply` function has the dots, `...`, argument that is used to pass on arguments to the function that is given as an argument.
+
+- `apply()` is used to apply a function to each row or column of a matrix or array. The first argument of `apply()` is the object of interest. The second argument is the `MARGIN`. This is a vector giving the subscripts which the function (the third argument) will be applied over. When the object is a matrix, a margin of `1` indicates rows and `2` indicates columns. 
+
+::: callout
 There are several functions available for implementing efficient row/column-wise operations on matrices (and numeric data frames), e.g.`colMeans()`, `rowMeans()`, `colSums()`, `rowSums()`. These provide a much faster alternative to iterating over rows or columns. 
+:::
+
+- `lapply()` applies a given function to each element of a list or vector and returns a list:
+
+
+``` r
+x <- list(a = 1:3, b = c(4, NA, 5, 6))
+lapply(x, mean, na.rm = TRUE) # using ... to pass arg to mean
+```
+
+``` output
+$a
+[1] 2
+
+$b
+[1] 5
+```
+
+- `sapply()` is like `lapply()` but attempts to simplify the answer (e.g., provide a vector rather than a list). `vapply()` is like `sapply()`, but specifies the return type and length of each iteration, making it safer and faster - it is the better choice in efficient programming:
+
+
+``` r
+sapply(x, mean, na.rm = TRUE) 
+```
+
+``` output
+a b 
+2 5 
+```
+
+``` r
+vapply(x, mean, numeric(2), na.rm = TRUE)
+```
+
+``` error
+Error in `vapply()`:
+! values must be length 2,
+ but FUN(X[[1]]) result is length 1
+```
+
 
 ## Faster common operations
 
@@ -232,8 +320,8 @@ x
 ```
 
 ``` output
- [1] 48 27 29 31 37 35 40  8 28 10 25 15 22 36 18 45 43  5  7 26 33 42 34 39 41
-[26] 16 32  1 30  2 44 46  3  4 24 14 49 20 17 13 11  9 38 47 12  6 19 23 50 21
+ [1] 32 24 36 16 20 22 12 34 30 19 43 40 42  4 18 50  3 11 47 15 39 25  7 46 35
+[26] 17 29 27 45 37 38  8  6  1 33 44 41 49  5  9 31 13 48 23 10 14 26 21 28  2
 ```
 
 ``` r
@@ -250,8 +338,8 @@ sort(x, partial=1:10)
 ```
 
 ``` output
- [1]  1  2  3  4  5  6  7  8  9 10 25 15 22 36 18 45 43 28 40 26 33 42 34 39 41
-[26] 16 32 35 30 37 44 46 31 29 24 14 49 20 17 13 11 27 38 47 12 48 19 23 50 21
+ [1]  1  2  3  4  5  6  7  8  9 10 11 14 13 12 15 18 17 16 47 50 39 25 42 46 35
+[26] 40 29 27 45 37 38 43 19 30 33 44 41 49 34 22 31 20 48 23 36 24 26 21 28 32
 ```
 :::
 

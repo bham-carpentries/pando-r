@@ -215,6 +215,75 @@ pretty much instantaneous.
 
 ::::::
 
+:::::: challenge
+
+### Monopoly revisted
+
+In [profiling with profvis](episodes/profiling-profvis.md), there was a challenge to profile the `simulate_monopoly()` function from the **efficient** package. You should have identified that most of the time is spent in the function move_square(). 
+
+1. Use `View(move_square)` to view the source code. Copy the code to a new .R file and rename the function move_square2. Edit `move_square2()` to speed up the slow parts of the code, taking into account the optimisations discussed in this episode and the previous one on [base R optimisations](episodes/optimisation-base-r.Rmd).
+2. Create a wrapper to run a specified move square function n times with different seeds:
+
+``` r
+run <- function(n, fun){
+  x <- numeric(n)
+  for (i in seq_len(n)) {
+    set.seed(i)
+    x[i] <- fun(1)
+  }
+  x
+}
+```
+3. Run `bench::mark(run(n, move_square)`, `run(n, move_square2))` with `n = 1000` to test your changes.
+4. Finally, compare `profvis(run(n, move_square))` with `profvis(run(n, move_square2))`.
+
+::: hint
+- What is the simplest data structure that could be used to store the roles of the dice?
+- Are there faster built-in functions that could be used?
+- Consider the logical operations
+:::
+
+::: solution
+
+
+``` r
+move_square2 <- function(current) {
+  # data.frame -> matrix
+  rolls = matrix(sample(1:6, 6, replace = TRUE), ncol = 2)
+  Total = rowSums(rolls) # rowSums instead of apply			
+  IsDouble = rolls[,1] == rolls[,2]
+  # && instead of &
+  if(IsDouble[1] && IsDouble[2] && IsDouble[3]) { 
+    current = 11#Go To Jail
+  } else if(IsDouble[1] && IsDouble[2]) {
+    current = current + sum(Total[1:3])
+  } else if(IsDouble[1]) {
+    current = current + sum(Total[1:2])
+  } else {
+    current = current + Total[1]
+  }
+  current ## don't need return()
+}
+
+n <- 1000
+bench::mark(run(n, efficient::move_square), run(n, move_square2))
+```
+
+``` warning
+Warning: Some expressions had a GC in every iteration; so filtering is
+disabled.
+```
+
+``` output
+# A tibble: 2 × 6
+  expression                          min   median `itr/sec` mem_alloc `gc/sec`
+  <bch:expr>                     <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
+1 run(n, efficient::move_square)  224.9ms    227ms      4.40    6.06MB     32.3
+2 run(n, move_square2)             12.5ms   17.3ms     61.7   150.14KB     36.6
+```
+:::
+::::::
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 

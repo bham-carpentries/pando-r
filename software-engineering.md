@@ -42,7 +42,9 @@ Before updating, it's worth checking the release notes: major releases occasiona
 
 ## Check for existing solutions
 
-There are over 25000 packages on CRAN, and there may already be existing solutions that address the same performance bottleneck that you are experiencing. [CRAN task views](https://cran.rstudio.com/web/views/) are a good place to look for packages related to particular problem domains. The [high performance and parallel computing with R](https://cran.rstudio.com/web/views/HighPerformanceComputing.html) task view in particular lists many packages where performance is optimised. Packages that depend on or import [**Rcpp**](https://CRAN.R-project.org/package=Rcpp) or [**cpp11**](https://CRAN.R-project.org/package=cpp11) are also likely to be fast, since they use C++. You can find these packages by looking at the reverse depends and imports listed on their CRAN pages.
+There are over 25000 packages on CRAN, and there may already be existing solutions that address the same performance bottleneck that you are experiencing. [CRAN task views](https://cran.rstudio.com/web/views/) are a good place to look for packages related to particular problem domains. The [high performance and parallel computing with R](https://cran.rstudio.com/web/views/HighPerformanceComputing.html) task view in particular lists many packages where performance is optimised. 
+
+Packages that depend on or import [**Rcpp**](https://CRAN.R-project.org/package=Rcpp) or [**cpp11**](https://CRAN.R-project.org/package=cpp11) are also likely to be fast, since they use C++. You can find all the packages that depend on **Rcpp** by looking at the reverse depends and reverse imports on the [Rcpp CRAN page](https://CRAN.R-project.org/package=Rcpp) (and similarly for **cpp11**). Going in the other direction, a package that lists **Rcpp** or *cpp11** under "Depends" or "Imports" in its DESCRIPTION file/on its CRAN page, is likely to be efficient.
 
 ## Linear algebra and BLAS
 
