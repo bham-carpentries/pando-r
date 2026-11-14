@@ -141,6 +141,32 @@ bench::mark(
 
 ::::::
 
+## Logical operations
+
+Logical operators such as `&` and `|` are vectorized, e.g.
+
+```{r}
+x <- c(0.3, 1, 0.6, 1.2, 0.4, 0.5)
+x > 0.4 & x < 0.8
+```
+
+If we only want to compare vectors of length 1 the operators `&&` and `||` are more efficient as they only compute the RHS if needed
+
+```{r}
+x[1] > 0.4 && x[1] < 0.8
+```
+
+Make sure the vectors are of length 1, otherwise you get an error. This change was introduced in R >= 4.3. 
+
+```{r}
+#| error: true
+x > 0.4 && x < 0.8
+```
+
+::: {.notes}
+In R >= 4.2.0 you get a warning but it still returns a comparison of only the first element. In earlier versions, there was no warning. 
+:::
+
 ## Vectorisation and matrices
 
 Vectorisation applies to matrices too, both for matrix algebra, and vectorised functions:
