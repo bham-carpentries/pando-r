@@ -3,3 +3,6 @@ dplyr
 data.table
 bench
 lobstr
+future
+futurize
+tictoc

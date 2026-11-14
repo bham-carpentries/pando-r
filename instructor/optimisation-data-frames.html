@@ -123,7 +123,7 @@
     <a id="search-button-nav" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div><!--/div.container-fluid -->
 </nav><aside class="col-md-12 lesson-progress"><div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 61%" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">61%</div>
+    <div class="progress-bar incubator" role="progressbar" style="width: 56%" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">56%</div>
   </div>
 </aside><div class="container">
       <div class="row">
@@ -288,7 +288,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="software-engineering.html">8. Good software engineering practices</a>
+        <a href="optimisation-parallel.html">8. Parallel computing</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -297,7 +297,16 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="next-steps.html">9. Next steps</a>
+        <a href="software-engineering.html">9. Good software engineering practices</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush11">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading11">
+        <a href="next-steps.html">10. Next steps</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -360,7 +369,7 @@
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter Top"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/memory-management.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="../instructor/software-engineering.html" rel="next">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="../instructor/optimisation-parallel.html" rel="next">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -368,14 +377,14 @@
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: Memory management...
         </a>
-        <a class="chapter-link float-end" href="../instructor/software-engineering.html" rel="next">
-          Next: Good software engineering practices...
+        <a class="chapter-link float-end" href="../instructor/optimisation-parallel.html" rel="next">
+          Next: Parallel computing...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Data frames</h1>
-        <p>Last updated on 2026-11-12 |
+        <p>Last updated on 2026-11-14 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/optimisation-data-frames.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -552,7 +561,7 @@ take no more space than <code>df</code> alone.</li>
 and <code>dt</code> together take twice the space.</li>
 </ul><p>If you want to convert a <code>data.frame</code> to a
 <code>data.table</code> without copying, use <code>setDT()</code>. It
-converts the object <strong>in place</strong>:</p>
+converts the object <strong>in place</strong>.</p>
 <p>This matters because data takes up a large share of your computer’s
 RAM. Making unnecessary copies uses more memory, and slows down
 performance.</p>
@@ -595,7 +604,7 @@ values to zero:</p>
 <span><span class="va">idx</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
 <span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span></span>
 <span>   base       <span class="op">=</span> <span class="op">{</span> <span class="va">d</span> <span class="op">&lt;-</span> <span class="va">df</span>; <span class="va">d</span><span class="op">$</span><span class="va">value</span><span class="op">[</span><span class="va">idx</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span>; <span class="va">d</span> <span class="op">}</span>,</span>
-<span>   dplyr      <span class="op">=</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">tb</span>, value <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu">row_number</span><span class="op">(</span><span class="op">)</span> <span class="op">%in%</span> <span class="va">idx</span>, <span class="fl">0</span>, <span class="va">value</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>   dplyr      <span class="op">=</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">tb</span>, value <span class="op">=</span> <span class="fu">replace</span><span class="op">(</span><span class="va">value</span>, <span class="va">idx</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>   data.table <span class="op">=</span> <span class="va">dt</span><span class="op">[</span><span class="va">idx</span>, <span class="va">value</span> <span class="op">:=</span> <span class="fl">0</span><span class="op">]</span>,</span>
 <span>   check <span class="op">=</span> <span class="cn">FALSE</span>, </span>
 <span>   iterations <span class="op">=</span> <span class="fl">20</span></span>
@@ -608,9 +617,9 @@ values to zero:</p>
 <pre class="output" tabindex="0"><code># A tibble: 3 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 base       351.38µs    7.63MB
-2 dplyr        4.55ms   22.08MB
-3 data.table 210.17µs    3.69MB</code></pre>
+1 base       441.67µs    89.8MB
+2 dplyr        1.07ms    92.7MB
+3 data.table 232.22µs    85.8MB</code></pre>
 </div>
 <p>We wrap the base version in <code>{ d &lt;- df; ...; d }</code> so
 that every iteration modifies a fresh copy of <code>df</code> and leaves
@@ -687,8 +696,7 @@ most.</p>
 <span>   dt_bracket <span class="op">=</span> <span class="va">dt</span><span class="op">[</span><span class="fl">500</span>, <span class="va">value</span><span class="op">]</span>,</span>
 <span>   df_dollar  <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">value</span><span class="op">[</span><span class="fl">500</span><span class="op">]</span>,</span>
 <span>   tb_dollar  <span class="op">=</span> <span class="va">tb</span><span class="op">$</span><span class="va">value</span><span class="op">[</span><span class="fl">500</span><span class="op">]</span>,</span>
-<span>   dt_dollar  <span class="op">=</span> <span class="va">dt</span><span class="op">$</span><span class="va">value</span><span class="op">[</span><span class="fl">500</span><span class="op">]</span>,</span>
-<span>   check <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>   dt_dollar  <span class="op">=</span> <span class="va">dt</span><span class="op">$</span><span class="va">value</span><span class="op">[</span><span class="fl">500</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu">show_bench</span><span class="op">(</span><span class="va">b</span><span class="op">)</span></span></code></pre>
 </div>
@@ -698,12 +706,12 @@ most.</p>
 <pre class="output" tabindex="0"><code># A tibble: 6 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 df_bracket   7.07µs        0B
-2 tb_bracket  35.58µs     278KB
-3 dt_bracket    171µs     120KB
-4 df_dollar  722.12ns        0B
-5 tb_dollar    1.34µs        0B
-6 dt_dollar  761.12ns        0B</code></pre>
+1 df_bracket   7.24µs        0B
+2 tb_bracket  35.89µs     278KB
+3 dt_bracket  178.1µs     120KB
+4 df_dollar  671.13ns        0B
+5 tb_dollar    1.38µs        0B
+6 dt_dollar  871.14ns        0B</code></pre>
 </div>
 <p>The <code>[</code> methods for tibbles and data.tables do a lot of
 work on every call: checking arguments, handling column names, and (for
@@ -753,10 +761,10 @@ languages: loop over rows and update the table one cell at a time.</p>
 <pre class="output" tabindex="0"><code># A tibble: 4 × 3
   expression     median mem_alloc
   &lt;bch:expr&gt;   &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 data.frame   271.54ms    1.49GB
-2 tibble       288.76ms    1.49GB
-3 data.table     4.75ms   22.96MB
-4 plain_vector   3.35ms    7.65MB</code></pre>
+1 data.frame   275.76ms    1.49GB
+2 tibble       242.25ms    1.49GB
+3 data.table     5.86ms   22.96MB
+4 plain_vector 392.04µs    7.65MB</code></pre>
 </div>
 <div id="some-expressions-had-a-gc-in-every-iteration" class="callout">
 <div class="callout-square">
@@ -771,9 +779,7 @@ iteration”</h3>
 warn that <em>some expressions had a GC in every iteration</em>. GC
 stands for garbage collection: R pausing to free memory that is no
 longer used. Code that allocates a lot of memory triggers it often, so
-the warning is a hint that memory use is affecting the timings. We’ve
-hidden these warnings in the rest of this episode, but expect to see
-them when you run the code yourself.</p>
+the warning is a hint that memory use is affecting the timings.</p>
 </div>
 </div>
 </div>
@@ -852,9 +858,19 @@ then on the first 10000 rows of <code>tb</code>.</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">b_df</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>loop <span class="op">=</span> <span class="fu">flag_high</span><span class="op">(</span><span class="va">small_df</span><span class="op">)</span>, vec <span class="op">=</span> <span class="fu">flag_high_vec</span><span class="op">(</span><span class="va">small_df</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">b_tb</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>loop <span class="op">=</span> <span class="fu">flag_high</span><span class="op">(</span><span class="va">small_tb</span><span class="op">)</span>, vec <span class="op">=</span> <span class="fu">flag_high_vec</span><span class="op">(</span><span class="va">small_tb</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">show_bench</span><span class="op">(</span><span class="va">b_df</span><span class="op">)</span></span></code></pre>
+<span><span class="va">b_tb</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>loop <span class="op">=</span> <span class="fu">flag_high</span><span class="op">(</span><span class="va">small_tb</span><span class="op">)</span>, vec <span class="op">=</span> <span class="fu">flag_high_vec</span><span class="op">(</span><span class="va">small_tb</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="warning" tabindex="0"><code>Warning: Some expressions had a GC in every iteration; so filtering is
+disabled.</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb22">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">show_bench</span><span class="op">(</span><span class="va">b_df</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -862,10 +878,10 @@ then on the first 10000 rows of <code>tb</code>.</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 loop         20.8ms    36.6MB
-2 vec            16µs    39.1KB</code></pre>
+1 loop         20.5ms    36.6MB
+2 vec          15.8µs    39.1KB</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -877,7 +893,7 @@ then on the first 10000 rows of <code>tb</code>.</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 loop           45ms    36.5MB
+1 loop         47.6ms    36.5MB
 2 vec            36µs    39.1KB</code></pre>
 </div>
 <p>The vectorised versions are about 1000 times faster.
@@ -895,7 +911,7 @@ identical results, because <code>check</code> is left at its default of
 analysis. The <strong>readr</strong> package is the tidyverse option for
 reading data, whilst <strong>data.table</strong> provides
 <code>fread</code>. The differences are notable:</p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -916,14 +932,22 @@ reading data, whilst <strong>data.table</strong> provides
 <pre class="output" tabindex="0"><code># A tibble: 3 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 read.csv      2.63s   130.9MB
-2 readr      508.27ms    35.3MB
-3 fread      110.92ms    25.9MB</code></pre>
+1 read.csv      2.71s   130.9MB
+2 readr      484.96ms    35.3MB
+3 fread      144.22ms    25.9MB</code></pre>
 </div>
 <p><code>fread()</code> returns a <code>data.table</code>, but you can
 call <code>setDF()</code> on the result, or use
 <code>fread(..., data.table = FALSE)</code>, if you’d rather work with a
-<code>data.frame</code>.</p>
+<code>data.frame</code>. If you want a <code>tbl_df</code>, reading in
+the data with <code>fread</code> and converting to a tibble is still
+more efficient than using <strong>readr</strong>:</p>
+<div class="codewrapper sourceCode" id="cb28">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fread_tibble</span> <span class="op">=</span> <span class="fu">as_tibble</span><span class="op">(</span><span class="fu">fread</span><span class="op">(</span><span class="va">csv_file</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
 <div id="multithreading" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -936,7 +960,7 @@ call <code>setDF()</code> on the result, or use
 operations, including <code>fread()</code>, grouping and sorting. By
 default it uses half of the available cores; <code>getDTthreads()</code>
 shows how many:</p>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1060,6 +1084,24 @@ Conversion is cheap, and in some cases free (<code>as_tibble()</code>,
 <code>setDT()</code>, <code>setDF()</code>), so you could, for example,
 read with <code>fread()</code>, do one heavy grouped summary in
 <code>data.table</code>, and continue in <code>dplyr</code>.</p>
+<div id="dtplyr" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="dtplyr" class="callout-inner">
+<h3 class="callout-title">dtplyr</h3>
+<div class="callout-content">
+<p>Another option worth considering is <a href="https://dtplyr.tidyverse.org/" class="external-link">dtplyr</a>, which provides a
+<strong>data.table</strong> backend for <strong>dplyr</strong>. The goal
+of <strong>dtplyr</strong> is to allow you to write
+<strong>dplyr</strong> code that is automatically translated to the
+equivalent, but usually much faster, <strong>data.table</strong> code.
+This can provide a nice compromise between tidyverse style analysis and
+data.table efficiency.</p>
+</div>
+</div>
+</div>
 <div id="discussion-your-own-work" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -1119,7 +1161,7 @@ any links that you are not going to use.
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter Bottom"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/memory-management.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="../instructor/software-engineering.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="../instructor/optimisation-parallel.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -1127,8 +1169,8 @@ any links that you are not going to use.
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: Memory management...
         </a>
-        <a class="chapter-link float-end" href="../instructor/software-engineering.html" rel="next">
-          Next: Good software engineering practices...
+        <a class="chapter-link float-end" href="../instructor/optimisation-parallel.html" rel="next">
+          Next: Parallel computing...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
@@ -1176,8 +1218,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/instructor/optimisation-data-frames.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/optimisation-data-frames.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-12",
-  "datePublished": "2026-11-12"
+  "dateModified": "2026-11-14",
+  "datePublished": "2026-11-14"
 }
 
   </script><script>

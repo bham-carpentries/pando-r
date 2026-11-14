@@ -123,7 +123,7 @@
     <a id="search-button-nav" class="btn btn-primary" href="aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div><!--/div.container-fluid -->
 </nav><aside class="col-md-12 lesson-progress"><div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 22%" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">22%</div>
+    <div class="progress-bar incubator" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">20%</div>
   </div>
 </aside><div class="container">
       <div class="row">
@@ -283,7 +283,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="software-engineering.html">8. Good software engineering practices</a>
+        <a href="optimisation-parallel.html">8. Parallel computing</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -292,7 +292,16 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="next-steps.html">9. Next steps</a>
+        <a href="software-engineering.html">9. Good software engineering practices</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush11">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading11">
+        <a href="next-steps.html">10. Next steps</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -370,7 +379,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Microbenchmarking with bench</h1>
-        <p>Last updated on 2026-11-12 |
+        <p>Last updated on 2026-11-14 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/microbenchmarking.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -446,8 +455,8 @@ a vector of numbers:</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 sqrt(x)      7.14µs   10.6µs    91904.    7.86KB     9.19
-2 x^0.5        13.4µs   13.7µs    66800.    7.86KB    13.4 </code></pre>
+1 sqrt(x)      7.14µs   10.6µs    92044.    7.86KB     9.21
+2 x^0.5       13.42µs   13.8µs    66663.    7.86KB    13.3 </code></pre>
 </div>
 <p>By default, <code>bench::mark()</code> runs each expression enough
 times to take 0.5 seconds. It also checks that each run returns the same
@@ -524,7 +533,7 @@ rank on speed? Use microbenchmarking to check your intuition.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -545,10 +554,10 @@ rank on speed? Use microbenchmarking to check your intuition.</p>
 <pre class="output" tabindex="0"><code># A tibble: 4 × 6
   expression         min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt;    &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 sqrt(x)         7.14µs   7.19µs   134906.    7.86KB     54.0
-2 exp(log(x)/2)   9.89µs   10.5µs    93275.    7.86KB     28.0
-3 x^0.5          13.39µs  13.59µs    72528.    7.86KB     29.0
-4 x^(1/2)        13.52µs  13.85µs    71209.    7.86KB     21.4</code></pre>
+1 sqrt(x)         7.13µs    7.3µs   130759.    7.86KB     52.3
+2 exp(log(x)/2)  10.06µs   10.5µs    92494.    7.86KB     27.8
+3 x^0.5           13.4µs   13.7µs    69407.    7.86KB     27.8
+4 x^(1/2)        13.61µs     14µs    69547.    7.86KB     20.9</code></pre>
 </div>
 </div>
 </div>
@@ -610,15 +619,15 @@ code to benchmark is then given by one unnamed expression</p>
 <pre class="output" tabindex="0"><code># A tibble: 9 × 8
   expression     n     k      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 gl(n, k)      10   100   8.95µs  11.18µs    82156.   15.93KB    24.7
-2 gl(n, k)     100   100  62.56µs  72.92µs    13621.   81.36KB    42.2
-3 gl(n, k)    1000   100 633.91µs 697.76µs     1412.  809.06KB    26.4
-4 gl(n, k)      10    10   3.48µs   4.01µs   242165.      896B    24.2
-5 gl(n, k)     100    10  12.74µs  14.08µs    69600.   11.05KB    13.9
-6 gl(n, k)    1000    10 137.14µs 144.11µs     6829.  105.94KB    17.0
-7 gl(n, k)      10     1   2.83µs   3.27µs   295926.        0B     0
-8 gl(n, k)     100     1   7.57µs   8.37µs   116094.    4.02KB    11.6
-9 gl(n, k)    1000     1  86.03µs  88.47µs    11104.   35.62KB     8.33</code></pre>
+1 gl(n, k)      10   100   8.63µs  10.49µs    92655.   15.93KB    27.8
+2 gl(n, k)     100   100  60.98µs  67.75µs    14470.   81.36KB    46.6
+3 gl(n, k)    1000   100  607.3µs  672.3µs     1333.  809.06KB    29.4
+4 gl(n, k)      10    10   3.38µs   3.93µs   247149.      896B     0
+5 gl(n, k)     100    10  12.48µs  13.69µs    70265.   11.05KB    14.1
+6 gl(n, k)    1000    10 135.94µs 143.09µs     6702.  105.94KB    17.3
+7 gl(n, k)      10     1   2.81µs   3.38µs   287999.        0B     0
+8 gl(n, k)     100     1   7.48µs   8.38µs   114313.    4.02KB    11.4
+9 gl(n, k)    1000     1  86.52µs  89.39µs    10981.   35.62KB     8.36</code></pre>
 </div>
 <div id="challenge-2" class="callout challenge">
 <div class="callout-square">
@@ -654,7 +663,7 @@ performance of <code>gl()</code>?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <p>You can rearrange the order of the rows (e.g. by <code>n</code> or
 <code>k</code> or <code>median</code>) to see patterns a different
@@ -668,7 +677,7 @@ way.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Increasing <code>n</code> has the biggest impact. An order of
 magnitude increase in <code>n</code> for a fixed <code>k</code> leads to
@@ -761,8 +770,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/microbenchmarking.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/microbenchmarking.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-12",
-  "datePublished": "2026-11-12"
+  "dateModified": "2026-11-14",
+  "datePublished": "2026-11-14"
 }
 
   </script><script>

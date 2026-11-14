@@ -123,7 +123,7 @@
     <a id="search-button-nav" class="btn btn-primary" href="aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div><!--/div.container-fluid -->
 </nav><aside class="col-md-12 lesson-progress"><div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 47%" aria-valuenow="47" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">47%</div>
+    <div class="progress-bar incubator" role="progressbar" style="width: 43%" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">43%</div>
   </div>
 </aside><div class="container">
       <div class="row">
@@ -285,7 +285,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="software-engineering.html">8. Good software engineering practices</a>
+        <a href="optimisation-parallel.html">8. Parallel computing</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -294,7 +294,16 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="next-steps.html">9. Next steps</a>
+        <a href="software-engineering.html">9. Good software engineering practices</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush11">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading11">
+        <a href="next-steps.html">10. Next steps</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -372,7 +381,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Memory management</h1>
-        <p>Last updated on 2026-11-12 |
+        <p>Last updated on 2026-11-14 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/memory-management.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -656,6 +665,113 @@ whereas method 3 is pretty much instantaneous.</p>
 </div>
 </div>
 </div>
+<div id="monopoly-revisted" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<span class="callout-header">Challenge</span>
+<div id="monopoly-revisted" class="callout-inner">
+<h3 class="callout-title">Monopoly revisted</h3>
+<div class="callout-content">
+<p>In <a href="profiling-profvis.html">profiling with profvis</a>, there
+was a challenge to profile the <code>simulate_monopoly()</code> function
+from the <strong>efficient</strong> package. You should have identified
+that most of the time is spent in the function move_square().</p>
+<ol style="list-style-type: decimal"><li>Use <code>View(move_square)</code> to view the source code. Copy the
+code to a new .R file and rename the function move_square2. Edit
+<code>move_square2()</code> to speed up the slow parts of the code,
+taking into account the optimisations discussed in this episode and the
+previous one on <a href="optimisation-base-r.html">base R
+optimisations</a>.</li>
+<li>Create a wrapper to run a specified move square function n times
+with different seeds:</li>
+</ol><div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">run</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span>, <span class="va">fun</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">numeric</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu">seq_len</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">set.seed</span><span class="op">(</span><span class="va">i</span><span class="op">)</span></span>
+<span>    <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">fun</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">x</span></span>
+<span><span class="op">}</span></span></code></pre>
+</div>
+<ol start="3" style="list-style-type: decimal"><li>Run <code>bench::mark(run(n, move_square)</code>,
+<code>run(n, move_square2))</code> with <code>n = 1000</code> to test
+your changes.</li>
+<li>Finally, compare <code>profvis(run(n, move_square))</code> with
+<code>profvis(run(n, move_square2))</code>.</li>
+</ol></div>
+</div>
+</div>
+<div id="accordionHint2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
+  <h4 class="accordion-header" id="headingHint2"> Give me a hint </h4>
+</button>
+<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
+<div class="accordion-body">
+<ul><li>What is the simplest data structure that could be used to store the
+roles of the dice?</li>
+<li>Are there faster built-in functions that could be used?</li>
+<li>Consider the logical operations</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">move_square2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">current</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># data.frame -&gt; matrix</span></span>
+<span>  <span class="va">rolls</span> <span class="op">=</span> <span class="fu">matrix</span><span class="op">(</span><span class="fu">sample</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="fl">6</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="va">Total</span> <span class="op">=</span> <span class="fu">rowSums</span><span class="op">(</span><span class="va">rolls</span><span class="op">)</span> <span class="co"># rowSums instead of apply      </span></span>
+<span>  <span class="va">IsDouble</span> <span class="op">=</span> <span class="va">rolls</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">==</span> <span class="va">rolls</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span>
+<span>  <span class="co"># &amp;&amp; instead of &amp;</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="va">IsDouble</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&amp;&amp;</span> <span class="va">IsDouble</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&amp;&amp;</span> <span class="va">IsDouble</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span> </span>
+<span>    <span class="va">current</span> <span class="op">=</span> <span class="fl">11</span><span class="co">#Go To Jail</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span><span class="op">(</span><span class="va">IsDouble</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&amp;&amp;</span> <span class="va">IsDouble</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">current</span> <span class="op">=</span> <span class="va">current</span> <span class="op">+</span> <span class="fu">sum</span><span class="op">(</span><span class="va">Total</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span><span class="op">(</span><span class="va">IsDouble</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">current</span> <span class="op">=</span> <span class="va">current</span> <span class="op">+</span> <span class="fu">sum</span><span class="op">(</span><span class="va">Total</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="va">current</span> <span class="op">=</span> <span class="va">current</span> <span class="op">+</span> <span class="va">Total</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">current</span> <span class="co">## don't need return()</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
+<span><span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span><span class="fu">run</span><span class="op">(</span><span class="va">n</span>, <span class="fu">efficient</span><span class="fu">::</span><span class="va">move_square</span><span class="op">)</span>, <span class="fu">run</span><span class="op">(</span><span class="va">n</span>, <span class="va">move_square2</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="warning" tabindex="0"><code>Warning: Some expressions had a GC in every iteration; so filtering is
+disabled.</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code># A tibble: 2 × 6
+  expression                          min   median `itr/sec` mem_alloc `gc/sec`
+  &lt;bch:expr&gt;                     &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
+1 run(n, efficient::move_square)  224.9ms    227ms      4.40    6.06MB     32.3
+2 run(n, move_square2)             12.5ms   17.3ms     61.7   150.14KB     36.6</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -737,8 +853,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/memory-management.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/memory-management.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-12",
-  "datePublished": "2026-11-12"
+  "dateModified": "2026-11-14",
+  "datePublished": "2026-11-14"
 }
 
   </script><script>
