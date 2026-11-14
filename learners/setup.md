@@ -57,7 +57,7 @@ To install R and RStudio on a University managed Mac machine:
 This course requires a number of R packages, which should be installed in advance. You can do this by starting RStudio, and entering:
 
 ```r
-install.packages(c("profvis", "bench", "tinytest"))
+install.packages(c("profvis", "bench", "tinytest", "futurize", "tictoc"))
 ```
 
 Additionally, you need to have the following pacakges installed. We won't be using them directly, but they are needed to create plots with **bench**:

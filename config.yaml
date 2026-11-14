@@ -73,8 +73,10 @@ episodes:
 - optimisation-base-r.Rmd
 - memory-management.Rmd
 - optimisation-data-frames.Rmd
+- optimisation-parallel.Rmd
 - software-engineering.md
 - next-steps.md
+
 
 # Information for Learners
 learners: 

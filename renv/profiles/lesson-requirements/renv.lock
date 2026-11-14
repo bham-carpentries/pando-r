@@ -37,6 +37,18 @@
       ],
       "Hash": "45f0398006e83a5b10b72a90663d8d8c"
     },
+    "Rcpp": {
+      "Package": "Rcpp",
+      "Version": "1.1.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "methods",
+        "utils"
+      ],
+      "Hash": "f481f89daa906a34eab8ef8658c8a89c"
+    },
     "S7": {
       "Package": "S7",
       "Version": "0.2.2",
@@ -204,6 +216,16 @@
       ],
       "Hash": "3f038e5ac7f41d4ac41ce658c85e3042"
     },
+    "codetools": {
+      "Package": "codetools",
+      "Version": "0.2-20",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "61e097f35917d342622f21cdc79c256e"
+    },
     "cpp11": {
       "Package": "cpp11",
       "Version": "0.5.5",
@@ -277,6 +299,23 @@
       ],
       "Hash": "d71f190466b9496cf8543c76641be5cf"
     },
+    "efficient": {
+      "Package": "efficient",
+      "Version": "0.1.4",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "efficient",
+      "RemoteUsername": "csgillespie",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "534447354f1ba8179803d70123af2a6fda142025",
+      "Requirements": [
+        "R",
+        "Rcpp",
+        "stats"
+      ],
+      "Hash": "e73e64aa5a0da32802e777c57919f034"
+    },
     "evaluate": {
       "Package": "evaluate",
       "Version": "1.0.5",
@@ -342,6 +381,34 @@
       ],
       "Hash": "09278623bca442bc53b0940ffa2f6d87"
     },
+    "future": {
+      "Package": "future",
+      "Version": "1.82.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "globals",
+        "listenv",
+        "parallel",
+        "parallelly",
+        "tools",
+        "utils"
+      ],
+      "Hash": "b6593a46efe4190b7411be426a05d960"
+    },
+    "futurize": {
+      "Package": "futurize",
+      "Version": "1.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "future",
+        "utils"
+      ],
+      "Hash": "f7968ca87d1b577cf35a62b8a5ed05ad"
+    },
     "generics": {
       "Package": "generics",
       "Version": "0.1.4",
@@ -395,6 +462,23 @@
         "withr"
       ],
       "Hash": "98520fe6b2745c466dca8e46aaa86242"
+    },
+    "globals": {
+      "Package": "globals",
+      "Version": "0.19.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "globals",
+      "RemoteRef": "globals",
+      "RemoteRepos": "https://cran.rstudio.com/",
+      "RemotePkgPlatform": "aarch64-apple-darwin23",
+      "RemoteSha": "0.19.1",
+      "Requirements": [
+        "R",
+        "codetools"
+      ],
+      "Hash": "7ccd5e4cffcdc6ab901626110b203584"
     },
     "glue": {
       "Package": "glue",
@@ -565,6 +649,22 @@
       ],
       "Hash": "36dbfe4fba6c064db50a671a90297c85"
     },
+    "listenv": {
+      "Package": "listenv",
+      "Version": "1.0.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "listenv",
+      "RemoteRef": "listenv",
+      "RemoteRepos": "https://cran.rstudio.com/",
+      "RemotePkgPlatform": "aarch64-apple-darwin23",
+      "RemoteSha": "1.0.0",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "c5a4adae4290385ff5819e02ff9b9931"
+    },
     "lobstr": {
       "Package": "lobstr",
       "Version": "1.2.2",
@@ -622,6 +722,24 @@
         "tools"
       ],
       "Hash": "0ec19f34c72fab674d8f2b4b1c6410e1"
+    },
+    "parallelly": {
+      "Package": "parallelly",
+      "Version": "1.48.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "parallelly",
+      "RemoteRef": "parallelly",
+      "RemoteRepos": "https://cran.rstudio.com/",
+      "RemotePkgPlatform": "aarch64-apple-darwin23",
+      "RemoteSha": "1.48.0",
+      "Requirements": [
+        "parallel",
+        "tools",
+        "utils"
+      ],
+      "Hash": "a21defc75d66882933d80b7ae824a7b1"
     },
     "pillar": {
       "Package": "pillar",
@@ -877,6 +995,17 @@
         "vctrs"
       ],
       "Hash": "c55df870972551cac674b50cadb2d51f"
+    },
+    "tictoc": {
+      "Package": "tictoc",
+      "Version": "1.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "methods"
+      ],
+      "Hash": "646895a33d57984ce7534249bd9adf64"
     },
     "tidyr": {
       "Package": "tidyr",
