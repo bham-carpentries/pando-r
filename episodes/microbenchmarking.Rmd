@@ -1,7 +1,7 @@
 ---
 title: 'Microbenchmarking with bench'
-teaching: 10
-exercises: 2
+teaching: 15
+exercises: 10
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -85,7 +85,7 @@ Which columns in the output of `bench::mark()` do you think are most useful in d
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 
-## Challenge 1
+## Exercise 1: square root (5 mins)
 
 Here are two other ways to compute the square root of a vector. Of these along with the two methods already seen, how do you think they'll rank on speed? Use microbenchmarking to check your intuition.
 
@@ -106,6 +106,10 @@ bm <- bench::mark(
 bm[order(bm$median), ]
 ```
 ::::
+
+::: instructor
+Talking about why the rankings are as they are foreshadows some of the discussions in the optimisation episodes, e.g., use specialised built-in functions, get to the underlying C code as quickly as possible, minimise the number of function calls.
+:::
 
 
 :::::::::::::::::::::::::::::::::
@@ -153,7 +157,7 @@ bp
 ```
 
 ::::::: challenge
-## Challenge 2
+## Exercise 2 (5 mins)
 
 `gl(n, k)` generates a factor by specifying the pattern of its levels, where `n` is the number of levels and `k` is the number of replications, e.g.
 

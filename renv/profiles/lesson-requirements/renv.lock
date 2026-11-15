@@ -397,6 +397,26 @@
       ],
       "Hash": "b6593a46efe4190b7411be426a05d960"
     },
+    "future.apply": {
+      "Package": "future.apply",
+      "Version": "1.20.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "future.apply",
+      "RemoteRef": "future.apply",
+      "RemoteRepos": "https://cran.rstudio.com/",
+      "RemotePkgPlatform": "aarch64-apple-darwin23",
+      "RemoteSha": "1.20.2",
+      "Requirements": [
+        "R",
+        "future",
+        "globals",
+        "parallel",
+        "utils"
+      ],
+      "Hash": "d1fe7b3f0899c110c2a6ccc460328ea9"
+    },
     "futurize": {
       "Package": "futurize",
       "Version": "1.1.0",

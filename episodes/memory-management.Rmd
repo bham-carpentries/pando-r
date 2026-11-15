@@ -1,11 +1,10 @@
 ---
 title: 'Memory management'
 teaching: 15
-exercises: 5
+exercises: 30
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions
-
 - How does R store objects in memory?
 - When does R copy an object?
 - Why is growing an object in a loop so slow?
@@ -94,7 +93,7 @@ user.
 Data frames are lists of columns. Modifying one column copies only that
 column, but modifying a **row** copies **every** column. If you need to
 update data row by row in a loop, work on a matrix or on separate vectors
-instead, and build the data frame at the end.
+instead, and build the data frame at the end. We will cover this in greater detail in the [episode on data frames](episodes/optimisation-data-frames.Rmd)
 :::
 
 ## Don't grow objects
@@ -113,11 +112,11 @@ Method 1: grow the object
 
 ```{r}
 grow <- function(n) {
-   vec <- numeric(0)
-   for (i in seq_len(n)) {
+  vec <- numeric(0)
+  for (i in seq_len(n)) {
       vec <- c(vec, i)
-   }
-   vec
+  }
+  vec
 }
 ```
 
@@ -126,11 +125,11 @@ subsetting:
 
 ```{r}
 pre_allocate <- function(n) {
-   vec <- numeric(n)
-   for (i in seq_len(n)) {
-      vec[i] <- i
-   }
-   vec
+  vec <- numeric(n)
+  for (i in seq_len(n)) {
+    vec[i] <- i
+  }
+  vec
 }
 ```
 
@@ -145,7 +144,7 @@ Method 3: create the final object directly
 
 ```{r}
 direct <- function(n) {
-   seq_len(n)
+  seq_len(n)
 }
 ```
 
@@ -155,6 +154,7 @@ See their help pages to learn about all their arguments.
 :::
 
 :::::: challenge
+Exercise 1: Growing vectors (10 minutes)
 Which of `grow()`, `pre_allocate()` and `direct()` do you expect to perform
 best and why? Which of the methods do you think will scale best as `n`
 increases? Which do you think will scale worst?
@@ -172,9 +172,9 @@ Which method(s) create copies? In which method(s) are objects modified in place?
 ```{r, cache=TRUE}
 n <- 10000
 bench::mark(
-   grow(n),
-   pre_allocate(n),
-   direct(n)
+  grow(n),
+  pre_allocate(n),
+  direct(n)
 )
 ```
 
@@ -190,15 +190,13 @@ iteration.
 
 When `n <- 10000000`, method 1 takes about an hour, whereas method 3 is
 pretty much instantaneous.
-
-
 :::
 
 ::::::
 
 :::::: challenge
 
-### Monopoly revisted
+### Exercise 2: Monopoly revisted (20 mins)
 
 In [profiling with profvis](episodes/profiling-profvis.md), there was a challenge to profile the `simulate_monopoly()` function from the **efficient** package. You should have identified that most of the time is spent in the function move_square(). 
 
@@ -228,6 +226,7 @@ run <- function(n, fun){
 ```{r}
 move_square2 <- function(current) {
   # data.frame -> matrix
+  # 1:6 instead of seq(1, 6)
   rolls = matrix(sample(1:6, 6, replace = TRUE), ncol = 2)
   Total = rowSums(rolls) # rowSums instead of apply			
   IsDouble = rolls[,1] == rolls[,2]

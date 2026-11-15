@@ -1,7 +1,7 @@
 ---
 title: 'Base R optimisations'
-teaching: 10
-exercises: 2
+teaching: 30
+exercises: 20
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -28,13 +28,13 @@ function (n, min = 0, max = 1)
 .Call(C_runif, n, min, max)
 ```
 
-A golden rule in R programming is to access underlying C/Fortran routines as quickly as possible, making as few R function calls as possible. Consider a standard numeric vector, `x`, of length `n`. Then 
+A golden rule in R programming is to access underlying C/Fortran routines as quickly as possible, making as few R function calls as possible. Consider a standard numeric vector, `x`, of length `n`. Then the following involves a single function call to `+`L  
 
 ```r
 x <- x + 1
 ```
 
-involves a single function call to `+`. Consider an alternative implementation:
+Consider an alternative implementation:
 
 ```r
 for (i in seq_along(x)) {
@@ -59,9 +59,12 @@ How many function calls are there in the above `for` loop?
 `for` loops tend to be slow in R, not because `for` itself is slow, but because loops have far more function calls than their vectorised alternatives, each with overhead.
 
 :::::: challenge
+## Exercise: loop vs. vector (10 mins)
 Use `bench::mark()` to compare the performance of the vectorised `x <- x + 1` vs. `for` loop version. Try varying the size of the input vector. 
 
-Note that you need to set `check = FALSE` in the call to `bench::mark()` because whichever of the approaches you run first changes the value of `x`, so other has a different starting and, therefore, end values.
+::: hint
+Wrap each version in a function, to make calling `bench::mark()` cleaner (see the callout in the [microbenchmarking episode](episodes/optimisation-base-r) for deatils).
+:::
 
 ::: solution
 
@@ -110,6 +113,8 @@ lengths(res)
 
 
 :::::: challenge
+
+## Exercise 2: Variance (10 mins)
 
 Write a function, `variance` to compute the variance of a numeric vector, `x`, of length `n`, making use of R's built in vectorisation.
 

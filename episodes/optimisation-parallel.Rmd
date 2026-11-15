@@ -1,7 +1,7 @@
 ---
 title: 'Parallel computing'
-teaching: 10
-exercises: 2
+teaching: 15
+exercises: 5
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -73,7 +73,7 @@ slow_sum <- function(x) {
 }
 ```
 
-```{r}
+```{r, cache=TRUE}
 library(tictoc)
 tic()
 y <- slow_sum(1:10)
@@ -96,7 +96,11 @@ toc()
 
 Instead, we can parallelise with `futurize()`:
 
-```{r}
+```{r, echo=FALSE}
+library(future.apply) # to get into lesson dependencies
+```
+
+```{r, cache=TRUE}
 plan(multisession, workers = 4) # only need 4 cores, as 4 items in the list
 
 tic()
@@ -106,7 +110,16 @@ toc()
 
 The four slow sums are calculated in about the same time as it takes to calculate one, since they are being calculated simultaneously on separate cores.
 
+::: callout
+Prior to **futurize**, there were a number of individual packages in the futureverse to support different map-reduce approaches. For example, the base R `apply()` family of functions could be parallelised with the **future.apply** package, and the **map** and variant functions from **purrr** could be parallelised with the **furrr** package.
+
+Now, **futurize** sits on top of all of these. It still calls the appropriate package under the hood, and determines which one it needs. However, you still need to manually install the appropriate package. See the [supported map-reduce packages](https://futurize.futureverse.org/#supported-map-reduce-packages) section of the **futurize** vignette for more details.
+:::
+
 :::::: challenge
+
+## Exercise 1: future apply (5 mins)
+
 The [**efficient**](https://github.com/csgillespie/efficient) package contains a function to simulate a game of snakes and ladders, returning the number of rolls required to win.
 
 Parallelise the following code:
