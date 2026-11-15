@@ -1,7 +1,7 @@
 ---
 title: 'Parallel computing'
-teaching: 10
-exercises: 2
+teaching: 15
+exercises: 5
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -111,10 +111,12 @@ toc()
 ```
 
 ``` output
-20.023 sec elapsed
+20.026 sec elapsed
 ```
 
 Instead, we can parallelise with `futurize()`:
+
+
 
 
 ``` r
@@ -132,8 +134,8 @@ ys <- lapply(xs, slow_sum) |> futurize()
 ```
 
 ``` error
-Error in `stop_with_version()`:
-! [futurize 1.1.0] Function base::lapply() is not in one of the registered futurize namespaces: 
+Error in `checkNumberOfLocalWorkers()`:
+! Attempting to set up 4 localhost parallel workers with only 1 CPU cores available for this R process (per 'cgroups2.cpu.max'), which could result in a 400% load. The hard limit is set to 300%. Overusing the CPUs has negative impact on the current R process, but also on all other processes of yours and others running on the same machine. See help("parallelly.maxWorkers.localhost", package = "parallelly") for further explanations and how to override the hard limit that triggered this error. By the way, was parallel::detectCores() used, because the number of workers (4) equals detectCores()? If so, please use parallelly::availableCores() instead
 ```
 
 ``` r
@@ -141,12 +143,21 @@ toc()
 ```
 
 ``` output
-0.017 sec elapsed
+0.042 sec elapsed
 ```
 
 The four slow sums are calculated in about the same time as it takes to calculate one, since they are being calculated simultaneously on separate cores.
 
+::: callout
+Prior to **futurize**, there were a number of individual packages in the futureverse to support different map-reduce approaches. For example, the base R `apply()` family of functions could be parallelised with the **future.apply** package, and the **map** and variant functions from **purrr** could be parallelised with the **furrr** package.
+
+Now, **futurize** sits on top of all of these. It still calls the appropriate package under the hood, and determines which one it needs. However, you still need to manually install the appropriate package. See the [supported map-reduce packages](https://futurize.futureverse.org/#supported-map-reduce-packages) section of the **futurize** vignette for more details.
+:::
+
 :::::: challenge
+
+## Exercise 1: future apply (5 mins)
+
 The [**efficient**](https://github.com/csgillespie/efficient) package contains a function to simulate a game of snakes and ladders, returning the number of rolls required to win.
 
 Parallelise the following code:
@@ -171,7 +182,7 @@ toc()
 ```
 
 ``` output
-0.067 sec elapsed
+0.056 sec elapsed
 ```
 
 ``` r
@@ -180,8 +191,8 @@ nrolls <- sapply(seq_len(N), snakes_ladders) |> futurize(future.seed = TRUE)
 ```
 
 ``` error
-Error in `stop_with_version()`:
-! [futurize 1.1.0] Function base::sapply() is not in one of the registered futurize namespaces: 
+Error in `checkNumberOfLocalWorkers()`:
+! Attempting to set up 4 localhost parallel workers with only 1 CPU cores available for this R process (per 'cgroups2.cpu.max'), which could result in a 400% load. The hard limit is set to 300%. Overusing the CPUs has negative impact on the current R process, but also on all other processes of yours and others running on the same machine. See help("parallelly.maxWorkers.localhost", package = "parallelly") for further explanations and how to override the hard limit that triggered this error. By the way, was parallel::detectCores() used, because the number of workers (4) equals detectCores()? If so, please use parallelly::availableCores() instead
 ```
 
 ``` r
@@ -189,7 +200,7 @@ toc()
 ```
 
 ``` output
-0.012 sec elapsed
+0.02 sec elapsed
 ```
 
 When `N` is 200, the two are equivalent (on a M5 MacBook Pro). When `N` is greater than that, the parallel version is faster. When `N` is less, the sequential version is faster - the overheads of setting up the parallelisation outweigh the benefits of multiple cores.

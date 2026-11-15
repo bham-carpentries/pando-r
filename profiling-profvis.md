@@ -1,7 +1,7 @@
 ---
 title: 'Profiling with profvis'
-teaching: 10
-exercises: 2
+teaching: 30
+exercises: 20
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -60,7 +60,7 @@ If we profile the execution of `top_level`, after 0.1 secs, we'd record the call
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Exercise 1
+## Exercise 1: call stack (5 minutes)
 
 Continuing the example above, write down the call stack from calling `top_level()` after 0.3 secs and after 0.4 seconds.
 
@@ -157,11 +157,11 @@ We can also see this from the memory column.
 In the memory column next to the corresponding line in the source code, we see a bar to left labelled -762.0 and a bar to the right labelled 803.0. This means that 803 MB of memory was allocated and 762 MB of memory was released.
 Each call to `c()` causes a new copy of x to be created.
 Memory profiling can help to identify short-lived objects that might be avoided by changes to the code. 
-We will see how to avoid this in the episode **REF AND LINK**.
+We will see how to avoid this in the episode on [memory management](episodes/memory-management.Rmd).
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Exercise 2: Monopoly
+## Exercise 2: Monopoly (5 minutes)
 
 In the game of Monopoly, players roll two die to move round the board. 
 Players buy assets on which they can charge rent or taxes and aim to make the most money.
@@ -179,12 +179,12 @@ Explore the output. Which parts of the code are slow?
 
 :::::::::::::::::::::::: solution 
 
-Most time is spent in `move_square()` and, within that, in `data.frame()` 
+Most time is spent in `move_square()` and, within that, in `data.frame()`, `apply()` and `seq()`. 
 
 
 :::::::::::::::::::::::::::::::::
 
-## Exercise 3: Travelling salesperson
+## Exercise 3: Travelling salesperson (10 minutes)
 
 Download <a href="files/travelling-salesperson.R" download>the travelling salesperson R script</a>. 
 

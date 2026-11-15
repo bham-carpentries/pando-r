@@ -1,7 +1,7 @@
 ---
 title: 'Microbenchmarking with bench'
-teaching: 10
-exercises: 2
+teaching: 15
+exercises: 10
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -52,8 +52,8 @@ sqrt_bench
 # A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 sqrt(x)      7.14µs   10.6µs    92044.    7.86KB     9.21
-2 x^0.5       13.42µs   13.8µs    66663.    7.86KB    13.3 
+1 sqrt(x)      7.16µs   9.46µs   100870.    7.86KB     10.1
+2 x^0.5       12.54µs  12.97µs    71975.    7.86KB     14.4
 ```
 
 By default, `bench::mark()` runs each expression enough times to take 0.5 seconds. It also checks that each run returns the same value. 
@@ -100,7 +100,7 @@ Which columns in the output of `bench::mark()` do you think are most useful in d
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 
-## Challenge 1
+## Exercise 1: square root (5 mins)
 
 Here are two other ways to compute the square root of a vector. Of these along with the two methods already seen, how do you think they'll rank on speed? Use microbenchmarking to check your intuition.
 
@@ -126,12 +126,16 @@ bm[order(bm$median), ]
 # A tibble: 4 × 6
   expression         min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr>    <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 sqrt(x)         7.13µs    7.3µs   130759.    7.86KB     52.3
-2 exp(log(x)/2)  10.06µs   10.5µs    92494.    7.86KB     27.8
-3 x^0.5           13.4µs   13.7µs    69407.    7.86KB     27.8
-4 x^(1/2)        13.61µs     14µs    69547.    7.86KB     20.9
+1 sqrt(x)         7.16µs   7.48µs   125706.    7.86KB     50.3
+2 exp(log(x)/2)   9.37µs   9.96µs    98459.    7.86KB     29.5
+3 x^0.5           12.5µs  12.87µs    76011.    7.86KB     30.4
+4 x^(1/2)        12.58µs  13.04µs    75041.    7.86KB     22.5
 ```
 ::::
+
+::: instructor
+Talking about why the rankings are as they are foreshadows some of the discussions in the optimisation episodes, e.g., use specialised built-in functions, get to the underlying C code as quickly as possible, minimise the number of function calls.
+:::
 
 
 :::::::::::::::::::::::::::::::::
@@ -183,19 +187,19 @@ bp
 # A tibble: 9 × 8
   expression     n     k      min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr> <dbl> <dbl> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 gl(n, k)      10   100   8.63µs  10.49µs    92655.   15.93KB    27.8 
-2 gl(n, k)     100   100  60.98µs  67.75µs    14470.   81.36KB    46.6 
-3 gl(n, k)    1000   100  607.3µs  672.3µs     1333.  809.06KB    29.4 
-4 gl(n, k)      10    10   3.38µs   3.93µs   247149.      896B     0   
-5 gl(n, k)     100    10  12.48µs  13.69µs    70265.   11.05KB    14.1 
-6 gl(n, k)    1000    10 135.94µs 143.09µs     6702.  105.94KB    17.3 
-7 gl(n, k)      10     1   2.81µs   3.38µs   287999.        0B     0   
-8 gl(n, k)     100     1   7.48µs   8.38µs   114313.    4.02KB    11.4 
-9 gl(n, k)    1000     1  86.52µs  89.39µs    10981.   35.62KB     8.36
+1 gl(n, k)      10   100   7.14µs   8.76µs   110247.   15.93KB     33.1
+2 gl(n, k)     100   100  49.66µs  54.26µs    17962.   81.36KB     58.0
+3 gl(n, k)    1000   100 510.01µs 548.89µs     1773.  809.06KB     42.0
+4 gl(n, k)      10    10   2.78µs   3.27µs   294662.      896B      0  
+5 gl(n, k)     100    10  10.29µs  10.89µs    89277.   11.05KB     26.8
+6 gl(n, k)    1000    10 112.12µs 116.76µs     8384.  105.94KB     19.3
+7 gl(n, k)      10     1   2.29µs   2.68µs   354640.        0B      0  
+8 gl(n, k)     100     1   6.12µs   6.68µs   142534.    4.02KB     14.3
+9 gl(n, k)    1000     1  72.86µs  76.47µs    12741.   35.62KB     11.5
 ```
 
 ::::::: challenge
-## Challenge 2
+## Exercise 2 (5 mins)
 
 `gl(n, k)` generates a factor by specifying the pattern of its levels, where `n` is the number of levels and `k` is the number of replications, e.g.
 

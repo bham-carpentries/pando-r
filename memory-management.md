@@ -1,11 +1,10 @@
 ---
 title: 'Memory management'
 teaching: 15
-exercises: 5
+exercises: 30
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions
-
 - How does R store objects in memory?
 - When does R copy an object?
 - Why is growing an object in a loop so slow?
@@ -95,7 +94,7 @@ user.
 Data frames are lists of columns. Modifying one column copies only that
 column, but modifying a **row** copies **every** column. If you need to
 update data row by row in a loop, work on a matrix or on separate vectors
-instead, and build the data frame at the end.
+instead, and build the data frame at the end. We will cover this in greater detail in the [episode on data frames](episodes/optimisation-data-frames.Rmd)
 :::
 
 ## Don't grow objects
@@ -115,11 +114,11 @@ Method 1: grow the object
 
 ``` r
 grow <- function(n) {
-   vec <- numeric(0)
-   for (i in seq_len(n)) {
+  vec <- numeric(0)
+  for (i in seq_len(n)) {
       vec <- c(vec, i)
-   }
-   vec
+  }
+  vec
 }
 ```
 
@@ -129,11 +128,11 @@ subsetting:
 
 ``` r
 pre_allocate <- function(n) {
-   vec <- numeric(n)
-   for (i in seq_len(n)) {
-      vec[i] <- i
-   }
-   vec
+  vec <- numeric(n)
+  for (i in seq_len(n)) {
+    vec[i] <- i
+  }
+  vec
 }
 ```
 
@@ -149,7 +148,7 @@ Method 3: create the final object directly
 
 ``` r
 direct <- function(n) {
-   seq_len(n)
+  seq_len(n)
 }
 ```
 
@@ -159,6 +158,7 @@ See their help pages to learn about all their arguments.
 :::
 
 :::::: challenge
+Exercise 1: Growing vectors (10 minutes)
 Which of `grow()`, `pre_allocate()` and `direct()` do you expect to perform
 best and why? Which of the methods do you think will scale best as `n`
 increases? Which do you think will scale worst?
@@ -177,9 +177,9 @@ Which method(s) create copies? In which method(s) are objects modified in place?
 ``` r
 n <- 10000
 bench::mark(
-   grow(n),
-   pre_allocate(n),
-   direct(n)
+  grow(n),
+  pre_allocate(n),
+  direct(n)
 )
 ```
 
@@ -190,11 +190,11 @@ disabled.
 
 ``` output
 # A tibble: 3 × 6
-  expression           min   median  `itr/sec` mem_alloc `gc/sec`
-  <bch:expr>      <bch:tm> <bch:tm>      <dbl> <bch:byt>    <dbl>
-1 grow(n)            102ms    107ms       9.25     382MB    96.2 
-2 pre_allocate(n)    407µs    413µs    2346.      98.6KB     4.00
-3 direct(n)          450ns    591ns 1207034.          0B     0   
+  expression           min   median `itr/sec` mem_alloc `gc/sec`
+  <bch:expr>      <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
+1 grow(n)           51.6ms   57.1ms      13.3     382MB   135.  
+2 pre_allocate(n)  217.6µs  233.2µs    4171.       99KB     6.00
+3 direct(n)          198ns  212.9ns 3011183.         0B     0   
 ```
 
 Note the orders of magnitude difference in the results. `pre_allocate(10000)`
@@ -209,15 +209,13 @@ iteration.
 
 When `n <- 10000000`, method 1 takes about an hour, whereas method 3 is
 pretty much instantaneous.
-
-
 :::
 
 ::::::
 
 :::::: challenge
 
-### Monopoly revisted
+### Exercise 2: Monopoly revisted (20 mins)
 
 In [profiling with profvis](episodes/profiling-profvis.md), there was a challenge to profile the `simulate_monopoly()` function from the **efficient** package. You should have identified that most of the time is spent in the function move_square(). 
 
@@ -249,6 +247,7 @@ run <- function(n, fun){
 ``` r
 move_square2 <- function(current) {
   # data.frame -> matrix
+  # 1:6 instead of seq(1, 6)
   rolls = matrix(sample(1:6, 6, replace = TRUE), ncol = 2)
   Total = rowSums(rolls) # rowSums instead of apply			
   IsDouble = rolls[,1] == rolls[,2]
@@ -278,8 +277,8 @@ disabled.
 # A tibble: 2 × 6
   expression                          min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr>                     <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 run(n, efficient::move_square)  224.9ms    227ms      4.40    6.06MB     32.3
-2 run(n, move_square2)             12.5ms   17.3ms     61.7   150.14KB     36.6
+1 run(n, efficient::move_square)  168.5ms  170.2ms      5.59    5.87MB     14.9
+2 run(n, move_square2)             10.1ms   10.6ms     85.4   129.69KB     17.9
 ```
 :::
 ::::::

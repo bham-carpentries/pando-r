@@ -1,7 +1,7 @@
 ---
 title: 'Base R optimisations'
-teaching: 10
-exercises: 2
+teaching: 30
+exercises: 20
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -28,13 +28,13 @@ function (n, min = 0, max = 1)
 .Call(C_runif, n, min, max)
 ```
 
-A golden rule in R programming is to access underlying C/Fortran routines as quickly as possible, making as few R function calls as possible. Consider a standard numeric vector, `x`, of length `n`. Then 
+A golden rule in R programming is to access underlying C/Fortran routines as quickly as possible, making as few R function calls as possible. Consider a standard numeric vector, `x`, of length `n`. Then the following involves a single function call to `+`L  
 
 ```r
 x <- x + 1
 ```
 
-involves a single function call to `+`. Consider an alternative implementation:
+Consider an alternative implementation:
 
 ```r
 for (i in seq_along(x)) {
@@ -59,9 +59,12 @@ How many function calls are there in the above `for` loop?
 `for` loops tend to be slow in R, not because `for` itself is slow, but because loops have far more function calls than their vectorised alternatives, each with overhead.
 
 :::::: challenge
+## Exercise: loop vs. vector (10 mins)
 Use `bench::mark()` to compare the performance of the vectorised `x <- x + 1` vs. `for` loop version. Try varying the size of the input vector. 
 
-Note that you need to set `check = FALSE` in the call to `bench::mark()` because whichever of the approaches you run first changes the value of `x`, so other has a different starting and, therefore, end values.
+::: hint
+Wrap each version in a function, to make calling `bench::mark()` cleaner (see the callout in the [microbenchmarking episode](episodes/optimisation-base-r) for deatils).
+:::
 
 ::: solution
 
@@ -89,8 +92,8 @@ bench::mark(
 # A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 vect(x)      5.74µs   31.7µs    31382.    78.2KB    50.3 
-2 loop(x)    465.16µs  477.5µs     2047.   101.5KB     4.10
+1 vect(x)      3.56µs   23.7µs    41814.    78.2KB    67.0 
+2 loop(x)    280.81µs  299.4µs     3295.   101.5KB     6.21
 ```
 
 :::
@@ -138,6 +141,8 @@ a b
 
 :::::: challenge
 
+## Exercise 2: Variance (10 mins)
+
 Write a function, `variance` to compute the variance of a numeric vector, `x`, of length `n`, making use of R's built in vectorisation.
 
 $$
@@ -168,8 +173,8 @@ bench::mark(
 # A tibble: 2 × 6
   expression       min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr>  <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 variance(x)   70.5µs   74.4µs    12265.    78.2KB    19.8 
-2 var(x)        61.4µs   64.9µs    15206.    15.3KB     2.01
+1 variance(x)   33.4µs     35µs    25170.    78.2KB     39.7
+2 var(x)        29.9µs   31.6µs    30719.    15.3KB      0  
 ```
 
 `var()` performs the variance calculation in C.
@@ -320,8 +325,8 @@ x
 ```
 
 ``` output
- [1] 32 24 36 16 20 22 12 34 30 19 43 40 42  4 18 50  3 11 47 15 39 25  7 46 35
-[26] 17 29 27 45 37 38  8  6  1 33 44 41 49  5  9 31 13 48 23 10 14 26 21 28  2
+ [1] 15  6 36 28 21  2  3 20 24 38 35 13  4 43 42 32 44 16 10 49 40 27 41 19 14
+[26] 18 17 29  5 23  7  8 25 11 26 12 34 31 33 37 50 39  9 47 48 46  1 30 45 22
 ```
 
 ``` r
@@ -338,8 +343,8 @@ sort(x, partial=1:10)
 ```
 
 ``` output
- [1]  1  2  3  4  5  6  7  8  9 10 11 14 13 12 15 18 17 16 47 50 39 25 42 46 35
-[26] 40 29 27 45 37 38 43 19 30 33 44 41 49 34 22 31 20 48 23 36 24 26 21 28 32
+ [1]  1  2  3  4  5  6  7  8  9 10 11 13 12 17 15 18 14 16 19 20 21 27 31 33 37
+[26] 32 30 29 35 23 22 24 25 28 26 36 34 41 40 49 50 39 44 47 48 46 42 43 45 38
 ```
 :::
 

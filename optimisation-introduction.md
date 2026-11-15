@@ -1,7 +1,7 @@
 ---
 title: 'Introduction to optimisation'
-teaching: 10
-exercises: 2
+teaching: 15
+exercises: 10
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -165,6 +165,8 @@ isTRUE(expect_equal(sub_one(2), 1))
 If you have passing tests for `some_function()`, when you optimise the code inside `some_function()`, rerunning the tests on the updated implemantation gives you the data you need to be confident that the optimisations have not introduced bugs into the code, leading to incorrect results (or, if the tests now fail, you know the function implementation needs correcting).
 
 ::: challenge
+## Exercise 1: expect (10 mins)
+
 Here are two functions and (part-written) associated tests. Which functions from the `expect_*()` family do you need to make these tests pass?
 
 ```r

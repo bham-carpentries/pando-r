@@ -66,6 +66,12 @@ Additionally, you need to have the following pacakges installed. We won't be usi
 install.packages(c("ggplot2", "ggbeeswarm", "tidyr"))
 ```
 
+We also need **future.apply** as a backend to work with **futurize**:
+
+```r
+install.packages("future.apply")
+```
+
 We will also use the [**efficient**](https://github.com/csgillespie/efficient) package. It can be installed directly from GitHub, which should be done by:
 
 ```r
