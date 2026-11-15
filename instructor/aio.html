@@ -438,7 +438,7 @@
         
 <section id="aio-profiling-introduction"><p>Content from <a href="profiling-introduction.html">Introduction to profiling</a></p>
 <hr>
-<p>Last updated on 2026-11-14 |
+<p>Last updated on 2026-11-15 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/profiling-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 20 minutes</p>
@@ -539,7 +539,7 @@ loading screens?</em></p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>The bottlenecked implementation was naively parsing a 10MB JSON file
 to create a list of unique items.</p>
@@ -703,7 +703,7 @@ execution.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <ul>
 <li>What tools and techniques would be required?</li>
@@ -743,10 +743,10 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-profiling-profvis"><p>Content from <a href="profiling-profvis.html">Profiling with profvis</a></p>
 <hr>
-<p>Last updated on 2026-11-14 |
+<p>Last updated on 2026-11-15 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/profiling-profvis.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 50 minutes</p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -848,13 +848,13 @@ After 0.2 secs, we’d record: <code>"pause"</code>,
 <code>"middle_level"</code>, <code>"top_level"</code>, i.e. we’re in
 <code>"pause"</code>, as called from <code>"middle_level"</code>, which
 in turn was called from <code>"top_level"</code>.</p>
-<div id="exercise-1" class="callout challenge">
+<div id="exercise-1-call-stack-5-minutes" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="exercise-1" class="callout-inner">
-<h3 class="callout-title">Exercise 1</h3>
+<div id="exercise-1-call-stack-5-minutes" class="callout-inner">
+<h3 class="callout-title">Exercise 1: call stack (5 minutes)</h3>
 <div class="callout-content">
 <p>Continuing the example above, write down the call stack from calling
 <code>top_level()</code> after 0.3 secs and after 0.4 seconds.</p>
@@ -866,7 +866,7 @@ in turn was called from <code>"top_level"</code>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>After 0.3 secs: <code>"pause"</code>, <code>"bottom_level"</code>,
 <code>"middle_level"</code>, <code>"top_level"</code></p>
@@ -895,7 +895,7 @@ machine. Save it into an RStudio project.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Demo how to create an RStudio project</p>
 </div>
@@ -1015,15 +1015,14 @@ corresponding line in the source code, we see a bar to left labelled
 memory was allocated and 762 MB of memory was released. Each call to
 <code>c()</code> causes a new copy of x to be created. Memory profiling
 can help to identify short-lived objects that might be avoided by
-changes to the code. We will see how to avoid this in the episode
-<strong>REF AND LINK</strong>.</p>
-<div id="exercise-2-monopoly" class="callout challenge">
+changes to the code. We will see how to avoid this in the episode on <a href="memory-management.html">memory management</a>.</p>
+<div id="exercise-2-monopoly-5-minutes" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="exercise-2-monopoly" class="callout-inner">
-<h3 class="callout-title">Exercise 2: Monopoly</h3>
+<div id="exercise-2-monopoly-5-minutes" class="callout-inner">
+<h3 class="callout-title">Exercise 2: Monopoly (5 minutes)</h3>
 <div class="callout-content">
 <p>In the game of Monopoly, players roll two die to move round the
 board. Players buy assets on which they can charge rent or taxes and aim
@@ -1048,21 +1047,23 @@ use this to practice profiling.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Most time is spent in <code>move_square()</code> and, within that, in
-<code>data.frame()</code></p>
+<code>data.frame()</code>, <code>apply()</code> and
+<code>seq()</code>.</p>
 </div>
 </div>
 </div>
 </div>
-<div id="exercise-3-travelling-salesperson" class="callout challenge">
+<div id="exercise-3-travelling-salesperson-10-minutes" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="exercise-3-travelling-salesperson" class="callout-inner">
-<h3 class="callout-title">Exercise 3: Travelling salesperson</h3>
+<div id="exercise-3-travelling-salesperson-10-minutes" class="callout-inner">
+<h3 class="callout-title">Exercise 3: Travelling salesperson (10
+minutes)</h3>
 <div class="callout-content">
 <p>Download <a href="../files/travelling-salesperson.R" download>the
 travelling salesperson R script</a>.</p>
@@ -1091,7 +1092,7 @@ being spent?</li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <ul>
 <li>Think about the speed at which the profiling code runs, whether the
@@ -1110,7 +1111,7 @@ or by entering Ctrl + C.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>The <code>total_distance</code> function accounts for a substantial
 percentage of the time, and <code>distance</code> appears to be the
@@ -1141,10 +1142,10 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-microbenchmarking"><p>Content from <a href="microbenchmarking.html">Microbenchmarking with bench</a></p>
 <hr>
-<p>Last updated on 2026-11-14 |
+<p>Last updated on 2026-11-15 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/microbenchmarking.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 25 minutes</p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -1224,8 +1225,8 @@ a vector of numbers:</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 sqrt(x)      7.14µs   10.6µs    92044.    7.86KB     9.21
-2 x^0.5       13.42µs   13.8µs    66663.    7.86KB    13.3 </code></pre>
+1 sqrt(x)      7.16µs   9.46µs   100870.    7.86KB     10.1
+2 x^0.5       12.54µs  12.97µs    71975.    7.86KB     14.4</code></pre>
 </div>
 <p>By default, <code>bench::mark()</code> runs each expression enough
 times to take 0.5 seconds. It also checks that each run returns the same
@@ -1283,13 +1284,13 @@ Why?</p>
 </div>
 </div>
 </div>
-<div id="challenge-1" class="callout challenge">
+<div id="exercise-1-square-root-5-mins" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="challenge-1" class="callout-inner">
-<h3 class="callout-title">Challenge 1</h3>
+<div id="exercise-1-square-root-5-mins" class="callout-inner">
+<h3 class="callout-title">Exercise 1: square root (5 mins)</h3>
 <div class="callout-content">
 <p>Here are two other ways to compute the square root of a vector. Of
 these along with the two methods already seen, how do you think they’ll
@@ -1325,11 +1326,26 @@ rank on speed? Use microbenchmarking to check your intuition.</p>
 <pre class="output" tabindex="0"><code># A tibble: 4 × 6
   expression         min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt;    &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 sqrt(x)         7.13µs    7.3µs   130759.    7.86KB     52.3
-2 exp(log(x)/2)  10.06µs   10.5µs    92494.    7.86KB     27.8
-3 x^0.5           13.4µs   13.7µs    69407.    7.86KB     27.8
-4 x^(1/2)        13.61µs     14µs    69547.    7.86KB     20.9</code></pre>
+1 sqrt(x)         7.16µs   7.48µs   125706.    7.86KB     50.3
+2 exp(log(x)/2)   9.37µs   9.96µs    98459.    7.86KB     29.5
+3 x^0.5           12.5µs  12.87µs    76011.    7.86KB     30.4
+4 x^(1/2)        12.58µs  13.04µs    75041.    7.86KB     22.5</code></pre>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div class="accordion-body">
+<p>Talking about why the rankings are as they are foreshadows some of
+the discussions in the optimisation episodes, e.g., use specialised
+built-in functions, get to the underlying C code as quickly as possible,
+minimise the number of function calls.</p>
 </div>
 </div>
 </div>
@@ -1393,23 +1409,23 @@ code to benchmark is then given by one unnamed expression</p>
 <pre class="output" tabindex="0"><code># A tibble: 9 × 8
   expression     n     k      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 gl(n, k)      10   100   8.63µs  10.49µs    92655.   15.93KB    27.8
-2 gl(n, k)     100   100  60.98µs  67.75µs    14470.   81.36KB    46.6
-3 gl(n, k)    1000   100  607.3µs  672.3µs     1333.  809.06KB    29.4
-4 gl(n, k)      10    10   3.38µs   3.93µs   247149.      896B     0
-5 gl(n, k)     100    10  12.48µs  13.69µs    70265.   11.05KB    14.1
-6 gl(n, k)    1000    10 135.94µs 143.09µs     6702.  105.94KB    17.3
-7 gl(n, k)      10     1   2.81µs   3.38µs   287999.        0B     0
-8 gl(n, k)     100     1   7.48µs   8.38µs   114313.    4.02KB    11.4
-9 gl(n, k)    1000     1  86.52µs  89.39µs    10981.   35.62KB     8.36</code></pre>
+1 gl(n, k)      10   100   7.14µs   8.76µs   110247.   15.93KB     33.1
+2 gl(n, k)     100   100  49.66µs  54.26µs    17962.   81.36KB     58.0
+3 gl(n, k)    1000   100 510.01µs 548.89µs     1773.  809.06KB     42.0
+4 gl(n, k)      10    10   2.78µs   3.27µs   294662.      896B      0
+5 gl(n, k)     100    10  10.29µs  10.89µs    89277.   11.05KB     26.8
+6 gl(n, k)    1000    10 112.12µs 116.76µs     8384.  105.94KB     19.3
+7 gl(n, k)      10     1   2.29µs   2.68µs   354640.        0B      0
+8 gl(n, k)     100     1   6.12µs   6.68µs   142534.    4.02KB     14.3
+9 gl(n, k)    1000     1  72.86µs  76.47µs    12741.   35.62KB     11.5</code></pre>
 </div>
-<div id="challenge-2" class="callout challenge">
+<div id="exercise-2-5-mins" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="challenge-2" class="callout-inner">
-<h3 class="callout-title">Challenge 2</h3>
+<div id="exercise-2-5-mins" class="callout-inner">
+<h3 class="callout-title">Exercise 2 (5 mins)</h3>
 <div class="callout-content">
 <p><code>gl(n, k)</code> generates a factor by specifying the pattern of
 its levels, where <code>n</code> is the number of levels and
@@ -1488,10 +1504,10 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-optimisation-introduction"><p>Content from <a href="optimisation-introduction.html">Introduction to optimisation</a></p>
 <hr>
-<p>Last updated on 2026-11-14 |
+<p>Last updated on 2026-11-15 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/optimisation-introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 25 minutes</p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -1776,13 +1792,13 @@ tests on the updated implemantation gives you the data you need to be
 confident that the optimisations have not introduced bugs into the code,
 leading to incorrect results (or, if the tests now fail, you know the
 function implementation needs correcting).</p>
-<div id="challenge1" class="callout challenge">
+<div id="exercise-1-expect-10-mins" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge</h3>
+<div id="exercise-1-expect-10-mins" class="callout-inner">
+<h3 class="callout-title">Exercise 1: expect (10 mins)</h3>
 <div class="callout-content">
 <p>Here are two functions and (part-written) associated tests. Which
 functions from the <code>expect_*()</code> family do you need to make
@@ -1864,10 +1880,10 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-optimisation-base-r"><p>Content from <a href="optimisation-base-r.html">Base R optimisations</a></p>
 <hr>
-<p>Last updated on 2026-11-14 |
+<p>Last updated on 2026-11-15 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/optimisation-base-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 50 minutes</p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -1923,15 +1939,15 @@ in C, <code>C_runif</code>:</p>
 <p>A golden rule in R programming is to access underlying C/Fortran
 routines as quickly as possible, making as few R function calls as
 possible. Consider a standard numeric vector, <code>x</code>, of length
-<code>n</code>. Then</p>
+<code>n</code>. Then the following involves a single function call to
+<code>+</code>L</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span></code></pre>
 </div>
-<p>involves a single function call to <code>+</code>. Consider an
-alternative implementation:</p>
+<p>Consider an alternative implementation:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1978,21 +1994,31 @@ loop?</p>
 <code>for</code> itself is slow, but because loops have far more
 function calls than their vectorised alternatives, each with
 overhead.</p>
-<div id="challenge1" class="callout challenge">
+<div id="exercise-loop-vs.-vector-10-mins" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge</h3>
+<div id="exercise-loop-vs.-vector-10-mins" class="callout-inner">
+<h3 class="callout-title">Exercise: loop vs. vector (10 mins)</h3>
 <div class="callout-content">
 <p>Use <code>bench::mark()</code> to compare the performance of the
 vectorised <code>x &lt;- x + 1</code> vs. <code>for</code> loop version.
 Try varying the size of the input vector.</p>
-<p>Note that you need to set <code>check = FALSE</code> in the call to
-<code>bench::mark()</code> because whichever of the approaches you run
-first changes the value of <code>x</code>, so other has a different
-starting and, therefore, end values.</p>
+</div>
+</div>
+</div>
+<div id="accordionHint1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
+  <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
+</button>
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div class="accordion-body">
+<p>Wrap each version in a function, to make calling
+<code>bench::mark()</code> cleaner (see the callout in the <a href="optimisation-base-r">microbenchmarking episode</a> for
+deatils).</p>
+</div>
 </div>
 </div>
 </div>
@@ -2030,8 +2056,8 @@ starting and, therefore, end values.</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 vect(x)      5.74µs   31.7µs    31382.    78.2KB    50.3
-2 loop(x)    465.16µs  477.5µs     2047.   101.5KB     4.10</code></pre>
+1 vect(x)      3.56µs   23.7µs    41814.    78.2KB    67.0
+2 loop(x)    280.81µs  299.4µs     3295.   101.5KB     6.21</code></pre>
 </div>
 </div>
 </div>
@@ -2089,13 +2115,13 @@ than loops in R because they have less overhead</li>
 <pre class="output" tabindex="0"><code>a b
 3 6 </code></pre>
 </div>
-<div id="challenge2" class="callout challenge">
+<div id="exercise-2-variance-10-mins" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge</h3>
+<div id="exercise-2-variance-10-mins" class="callout-inner">
+<h3 class="callout-title">Exercise 2: Variance (10 mins)</h3>
 <div class="callout-content">
 <p>Write a function, <code>variance</code> to compute the variance of a
 numeric vector, <code>x</code>, of length <code>n</code>, making use of
@@ -2109,12 +2135,12 @@ is faster?</p>
 </div>
 </div>
 </div>
-<div id="accordionHint1" class="accordion challenge-accordion accordion-flush">
+<div id="accordionHint2" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
-  <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
+  <h4 class="accordion-header" id="headingHint2"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
 <div class="accordion-body">
 <p>Look at the source code for <code>var</code>.</p>
 </div>
@@ -2148,8 +2174,8 @@ is faster?</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression       min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt;  &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 variance(x)   70.5µs   74.4µs    12265.    78.2KB    19.8
-2 var(x)        61.4µs   64.9µs    15206.    15.3KB     2.01</code></pre>
+1 variance(x)   33.4µs     35µs    25170.    78.2KB     39.7
+2 var(x)        29.9µs   31.6µs    30719.    15.3KB      0  </code></pre>
 </div>
 <p><code>var()</code> performs the variance calculation in C.</p>
 </div>
@@ -2377,8 +2403,8 @@ problems:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] 32 24 36 16 20 22 12 34 30 19 43 40 42  4 18 50  3 11 47 15 39 25  7 46 35
-[26] 17 29 27 45 37 38  8  6  1 33 44 41 49  5  9 31 13 48 23 10 14 26 21 28  2</code></pre>
+<pre class="output" tabindex="0"><code> [1] 15  6 36 28 21  2  3 20 24 38 35 13  4 43 42 32 44 16 10 49 40 27 41 19 14
+[26] 18 17 29  5 23  7  8 25 11 26 12 34 31 33 37 50 39  9 47 48 46  1 30 45 22</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2401,8 +2427,8 @@ problems:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1]  1  2  3  4  5  6  7  8  9 10 11 14 13 12 15 18 17 16 47 50 39 25 42 46 35
-[26] 40 29 27 45 37 38 43 19 30 33 44 41 49 34 22 31 20 48 23 36 24 26 21 28 32</code></pre>
+<pre class="output" tabindex="0"><code> [1]  1  2  3  4  5  6  7  8  9 10 11 13 12 17 15 18 14 16 19 20 21 27 31 33 37
+[26] 32 30 29 35 23 22 24 25 28 26 36 34 41 40 49 50 39 44 47 48 46 42 43 45 38</code></pre>
 </div>
 </div>
 </div>
@@ -2452,10 +2478,10 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-memory-management"><p>Content from <a href="memory-management.html">Memory management</a></p>
 <hr>
-<p>Last updated on 2026-11-14 |
+<p>Last updated on 2026-11-15 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/memory-management.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 20 minutes</p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 45 minutes</p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -2587,7 +2613,7 @@ returning them to the user.</p>
 that column, but modifying a <strong>row</strong> copies
 <strong>every</strong> column. If you need to update data row by row in
 a loop, work on a matrix or on separate vectors instead, and build the
-data frame at the end.</p>
+data frame at the end. We will cover this in greater detail in the <a href="optimisation-data-frames.html">episode on data frames</a></p>
 </div>
 </div>
 </div>
@@ -2610,11 +2636,11 @@ performance.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">grow</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
-<span>   <span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu">numeric</span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
-<span>   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu">seq_len</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu">numeric</span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu">seq_len</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="va">vec</span>, <span class="va">i</span><span class="op">)</span></span>
-<span>   <span class="op">}</span></span>
-<span>   <span class="va">vec</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">vec</span></span>
 <span><span class="op">}</span></span></code></pre>
 </div>
 <p>Method 2: create an object of the final length, then change its
@@ -2624,11 +2650,11 @@ values by subsetting:</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pre_allocate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
-<span>   <span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu">numeric</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
-<span>   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu">seq_len</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="va">vec</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">i</span></span>
-<span>   <span class="op">}</span></span>
-<span>   <span class="va">vec</span></span>
+<span>  <span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu">numeric</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu">seq_len</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">vec</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">i</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">vec</span></span>
 <span><span class="op">}</span></span></code></pre>
 </div>
 <div id="callout3" class="callout">
@@ -2652,7 +2678,7 @@ initialise a list, we can use
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">direct</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
-<span>   <span class="fu">seq_len</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span>  <span class="fu">seq_len</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre>
 </div>
 <div id="callout4" class="callout">
@@ -2676,7 +2702,8 @@ about all their arguments.</p>
 <div class="callout-inner">
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
-<p>Which of <code>grow()</code>, <code>pre_allocate()</code> and
+<p>Exercise 1: Growing vectors (10 minutes) Which of
+<code>grow()</code>, <code>pre_allocate()</code> and
 <code>direct()</code> do you expect to perform best and why? Which of
 the methods do you think will scale best as <code>n</code> increases?
 Which do you think will scale worst?</p>
@@ -2690,7 +2717,7 @@ Which do you think will scale worst?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <p>In which method do you get to the underlying C code the fastest?</p>
 <p>Which method(s) create copies? In which method(s) are objects
@@ -2704,7 +2731,7 @@ modified in place?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2712,9 +2739,9 @@ modified in place?</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10000</span></span>
 <span><span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span></span>
-<span>   <span class="fu">grow</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
-<span>   <span class="fu">pre_allocate</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
-<span>   <span class="fu">direct</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span>  <span class="fu">grow</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
+<span>  <span class="fu">pre_allocate</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
+<span>  <span class="fu">direct</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -2727,11 +2754,11 @@ disabled.</code></pre>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code># A tibble: 3 × 6
-  expression           min   median  `itr/sec` mem_alloc `gc/sec`
-  &lt;bch:expr&gt;      &lt;bch:tm&gt; &lt;bch:tm&gt;      &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 grow(n)            102ms    107ms       9.25     382MB    96.2
-2 pre_allocate(n)    407µs    413µs    2346.      98.6KB     4.00
-3 direct(n)          450ns    591ns 1207034.          0B     0   </code></pre>
+  expression           min   median `itr/sec` mem_alloc `gc/sec`
+  &lt;bch:expr&gt;      &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
+1 grow(n)           51.6ms   57.1ms      13.3     382MB   135.
+2 pre_allocate(n)  217.6µs  233.2µs    4171.       99KB     6.00
+3 direct(n)          198ns  212.9ns 3011183.         0B     0   </code></pre>
 </div>
 <p>Note the orders of magnitude difference in the results.
 <code>pre_allocate(10000)</code> is over 300 times faster than
@@ -2748,13 +2775,13 @@ whereas method 3 is pretty much instantaneous.</p>
 </div>
 </div>
 </div>
-<div id="monopoly-revisted" class="callout challenge">
+<div id="exercise-2-monopoly-revisted-20-mins" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="monopoly-revisted" class="callout-inner">
-<h3 class="callout-title">Monopoly revisted</h3>
+<div id="exercise-2-monopoly-revisted-20-mins" class="callout-inner">
+<h3 class="callout-title">Exercise 2: Monopoly revisted (20 mins)</h3>
 <div class="callout-content">
 <p>In <a href="profiling-profvis.html">profiling with profvis</a>, there
 was a challenge to profile the <code>simulate_monopoly()</code> function
@@ -2798,7 +2825,7 @@ your changes.</li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> Give me a hint </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
 <div class="accordion-body">
 <ul>
 <li>What is the simplest data structure that could be used to store the
@@ -2815,7 +2842,7 @@ roles of the dice?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2823,6 +2850,7 @@ roles of the dice?</li>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">move_square2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">current</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># data.frame -&gt; matrix</span></span>
+<span>  <span class="co"># 1:6 instead of seq(1, 6)</span></span>
 <span>  <span class="va">rolls</span> <span class="op">=</span> <span class="fu">matrix</span><span class="op">(</span><span class="fu">sample</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="fl">6</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span>  <span class="va">Total</span> <span class="op">=</span> <span class="fu">rowSums</span><span class="op">(</span><span class="va">rolls</span><span class="op">)</span> <span class="co"># rowSums instead of apply      </span></span>
 <span>  <span class="va">IsDouble</span> <span class="op">=</span> <span class="va">rolls</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">==</span> <span class="va">rolls</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span>
@@ -2854,8 +2882,8 @@ disabled.</code></pre>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression                          min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt;                     &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 run(n, efficient::move_square)  224.9ms    227ms      4.40    6.06MB     32.3
-2 run(n, move_square2)             12.5ms   17.3ms     61.7   150.14KB     36.6</code></pre>
+1 run(n, efficient::move_square)  168.5ms  170.2ms      5.59    5.87MB     14.9
+2 run(n, move_square2)             10.1ms   10.6ms     85.4   129.69KB     17.9</code></pre>
 </div>
 </div>
 </div>
@@ -2886,7 +2914,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-optimisation-data-frames"><p>Content from <a href="optimisation-data-frames.html">Data frames</a></p>
 <hr>
-<p>Last updated on 2026-11-14 |
+<p>Last updated on 2026-11-15 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/optimisation-data-frames.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 35 minutes</p>
@@ -3037,7 +3065,7 @@ measurements from 100,000 sites, each belonging to one of 26 groups.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Building this episode takes around a minute, mostly for the
 deliberately slow examples. If you live-code it, reduce <code>n</code>
@@ -3128,9 +3156,9 @@ values to zero:</p>
 <pre class="output" tabindex="0"><code># A tibble: 3 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 base       441.67µs    89.8MB
-2 dplyr        1.07ms    92.7MB
-3 data.table 232.22µs    85.8MB</code></pre>
+1 base         1.01ms    89.8MB
+2 dplyr        1.59ms    92.7MB
+3 data.table 210.37µs    85.8MB</code></pre>
 </div>
 <p>We wrap the base version in <code>{ d &lt;- df; ...; d }</code> so
 that every iteration modifies a fresh copy of <code>df</code> and leaves
@@ -3220,12 +3248,12 @@ most.</p>
 <pre class="output" tabindex="0"><code># A tibble: 6 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 df_bracket   7.24µs        0B
-2 tb_bracket  35.89µs     278KB
-3 dt_bracket  178.1µs     120KB
-4 df_dollar  671.13ns        0B
-5 tb_dollar    1.38µs        0B
-6 dt_dollar  871.14ns        0B</code></pre>
+1 df_bracket   5.79µs        0B
+2 tb_bracket  31.51µs     278KB
+3 dt_bracket 169.58µs     120KB
+4 df_dollar  511.06ns        0B
+5 tb_dollar    1.16µs        0B
+6 dt_dollar  507.11ns        0B</code></pre>
 </div>
 <p>The <code>[</code> methods for tibbles and data.tables do a lot of
 work on every call: checking arguments, handling column names, and (for
@@ -3276,10 +3304,10 @@ languages: loop over rows and update the table one cell at a time.</p>
 <pre class="output" tabindex="0"><code># A tibble: 4 × 3
   expression     median mem_alloc
   &lt;bch:expr&gt;   &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 data.frame   275.76ms    1.49GB
-2 tibble       242.25ms    1.49GB
-3 data.table     5.86ms   22.96MB
-4 plain_vector 392.04µs    7.65MB</code></pre>
+1 data.frame   278.98ms    1.49GB
+2 tibble       285.65ms    1.49GB
+3 data.table     7.58ms   22.96MB
+4 plain_vector   1.09ms    7.65MB</code></pre>
 </div>
 <div id="some-expressions-had-a-gc-in-every-iteration" class="callout">
 <div class="callout-square">
@@ -3363,7 +3391,7 @@ then on the first 10000 rows of <code>tb</code>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3395,8 +3423,8 @@ disabled.</code></pre>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 loop         20.5ms    36.6MB
-2 vec          15.8µs    39.1KB</code></pre>
+1 loop         20.4ms    36.6MB
+2 vec          18.6µs    39.1KB</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3410,8 +3438,8 @@ disabled.</code></pre>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 loop         47.6ms    36.5MB
-2 vec            36µs    39.1KB</code></pre>
+1 loop         42.8ms    36.5MB
+2 vec          34.7µs    39.1KB</code></pre>
 </div>
 <p>The vectorised versions are about 1000 times faster.
 <code>bench::mark()</code> also confirms that the two versions give
@@ -3451,9 +3479,9 @@ reading data, whilst <strong>data.table</strong> provides
 <pre class="output" tabindex="0"><code># A tibble: 3 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 read.csv      2.71s   130.9MB
-2 readr      484.96ms    35.3MB
-3 fread      144.22ms    25.9MB</code></pre>
+1 read.csv      2.34s   130.9MB
+2 readr      594.63ms    35.3MB
+3 fread       140.4ms    25.9MB</code></pre>
 </div>
 <p><code>fread()</code> returns a <code>data.table</code>, but you can
 call <code>setDF()</code> on the result, or use
@@ -3718,10 +3746,10 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-optimisation-parallel"><p>Content from <a href="optimisation-parallel.html">Parallel computing</a></p>
 <hr>
-<p>Last updated on 2026-11-14 |
+<p>Last updated on 2026-11-15 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/optimisation-parallel.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 20 minutes</p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -3913,7 +3941,7 @@ it handles each list item in turn:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>20.023 sec elapsed</code></pre>
+<pre class="output" tabindex="0"><code>20.026 sec elapsed</code></pre>
 </div>
 <p>Instead, we can parallelise with <code>futurize()</code>:</p>
 <div class="codewrapper sourceCode" id="cb11">
@@ -3938,8 +3966,8 @@ it handles each list item in turn:</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in `stop_with_version()`:
-! [futurize 1.1.0] Function base::lapply() is not in one of the registered futurize namespaces: </code></pre>
+<pre class="error" tabindex="0"><code>Error in `checkNumberOfLocalWorkers()`:
+! Attempting to set up 4 localhost parallel workers with only 1 CPU cores available for this R process (per 'cgroups2.cpu.max'), which could result in a 400% load. The hard limit is set to 300%. Overusing the CPUs has negative impact on the current R process, but also on all other processes of yours and others running on the same machine. See help("parallelly.maxWorkers.localhost", package = "parallelly") for further explanations and how to override the hard limit that triggered this error. By the way, was parallel::detectCores() used, because the number of workers (4) equals detectCores()? If so, please use parallelly::availableCores() instead</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3950,18 +3978,40 @@ it handles each list item in turn:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>0.017 sec elapsed</code></pre>
+<pre class="output" tabindex="0"><code>0.042 sec elapsed</code></pre>
 </div>
 <p>The four slow sums are calculated in about the same time as it takes
 to calculate one, since they are being calculated simultaneously on
 separate cores.</p>
-<div id="challenge1" class="callout challenge">
+<div id="callout4" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p>Prior to <strong>futurize</strong>, there were a number of individual
+packages in the futureverse to support different map-reduce approaches.
+For example, the base R <code>apply()</code> family of functions could
+be parallelised with the <strong>future.apply</strong> package, and the
+<strong>map</strong> and variant functions from <strong>purrr</strong>
+could be parallelised with the <strong>furrr</strong> package.</p>
+<p>Now, <strong>futurize</strong> sits on top of all of these. It still
+calls the appropriate package under the hood, and determines which one
+it needs. However, you still need to manually install the appropriate
+package. See the <a href="https://futurize.futureverse.org/#supported-map-reduce-packages" class="external-link">supported
+map-reduce packages</a> section of the <strong>futurize</strong>
+vignette for more details.</p>
+</div>
+</div>
+</div>
+<div id="exercise-1-future-apply-5-mins" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge</h3>
+<div id="exercise-1-future-apply-5-mins" class="callout-inner">
+<h3 class="callout-title">Exercise 1: future apply (5 mins)</h3>
 <div class="callout-content">
 <p>The <a href="https://github.com/csgillespie/efficient" class="external-link"><strong>efficient</strong></a>
 package contains a function to simulate a game of snakes and ladders,
@@ -3985,7 +4035,7 @@ large does N have to be for the parallel version to be worth using?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3999,7 +4049,7 @@ large does N have to be for the parallel version to be worth using?</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>0.067 sec elapsed</code></pre>
+<pre class="output" tabindex="0"><code>0.056 sec elapsed</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4011,8 +4061,8 @@ large does N have to be for the parallel version to be worth using?</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in `stop_with_version()`:
-! [futurize 1.1.0] Function base::sapply() is not in one of the registered futurize namespaces: </code></pre>
+<pre class="error" tabindex="0"><code>Error in `checkNumberOfLocalWorkers()`:
+! Attempting to set up 4 localhost parallel workers with only 1 CPU cores available for this R process (per 'cgroups2.cpu.max'), which could result in a 400% load. The hard limit is set to 300%. Overusing the CPUs has negative impact on the current R process, but also on all other processes of yours and others running on the same machine. See help("parallelly.maxWorkers.localhost", package = "parallelly") for further explanations and how to override the hard limit that triggered this error. By the way, was parallel::detectCores() used, because the number of workers (4) equals detectCores()? If so, please use parallelly::availableCores() instead</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4023,7 +4073,7 @@ large does N have to be for the parallel version to be worth using?</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>0.012 sec elapsed</code></pre>
+<pre class="output" tabindex="0"><code>0.02 sec elapsed</code></pre>
 </div>
 <p>When <code>N</code> is 200, the two are equivalent (on a M5 MacBook
 Pro). When <code>N</code> is greater than that, the parallel version is
@@ -4055,10 +4105,10 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-software-engineering"><p>Content from <a href="software-engineering.html">Good software engineering practices</a></p>
 <hr>
-<p>Last updated on 2026-11-14 |
+<p>Last updated on 2026-11-15 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/software-engineering.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 10 minutes</p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -4294,7 +4344,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-next-steps"><p>Content from <a href="next-steps.html">Next steps</a></p>
 <hr>
-<p>Last updated on 2026-11-14 |
+<p>Last updated on 2026-11-15 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/next-steps.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 10 minutes</p>
@@ -4491,8 +4541,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/instructor/aio.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/aio.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-14",
-  "datePublished": "2026-11-14"
+  "dateModified": "2026-11-15",
+  "datePublished": "2026-11-15"
 }
 
   </script><script>

@@ -496,7 +496,7 @@ program?<br>How can the output from <code>profvis()</code> be
 interpreted?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>00h 32m
+<span class="visually-hidden">Duration: </span>01h 10m
 </td>
 <td>
  3. <a href="microbenchmarking.html">Microbenchmarking with bench</a>
@@ -507,7 +507,7 @@ package be used to time R code?<br>How can I visualise and interpret
 the results of microbenchmarking?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>00h 44m
+<span class="visually-hidden">Duration: </span>01h 35m
 </td>
 <td>
  4. <a href="optimisation-introduction.html">Introduction to
@@ -517,7 +517,7 @@ optimisation</a>
 Why could optimisation of code be harmful?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>00h 56m
+<span class="visually-hidden">Duration: </span>02h 00m
 </td>
 <td>
  5. <a href="optimisation-base-r.html">Base R optimisations</a>
@@ -527,7 +527,7 @@ Why are R loops slower than vectorised functions?<br>How can I make my
 code more readable and faster?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>01h 08m
+<span class="visually-hidden">Duration: </span>02h 50m
 </td>
 <td>
  6. <a href="memory-management.html">Memory management</a>
@@ -537,7 +537,7 @@ How does R store objects in memory?<br>When does R copy an
 object?<br>Why is growing an object in a loop so slow?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>01h 28m
+<span class="visually-hidden">Duration: </span>03h 35m
 </td>
 <td>
  7. <a href="optimisation-data-frames.html">Data frames</a>
@@ -549,7 +549,7 @@ are some ways of modifying a table so much slower than others?<br>Which
 data structure should I use for my own work?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>02h 03m
+<span class="visually-hidden">Duration: </span>04h 10m
 </td>
 <td>
  8. <a href="optimisation-parallel.html">Parallel computing</a>
@@ -559,7 +559,7 @@ When can parallelising code lead to performance improvements, and when
 does it not?<br>::::::::::::::::::::::::::::::::::::::::::::::::
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>02h 15m
+<span class="visually-hidden">Duration: </span>04h 30m
 </td>
 <td>
  9. <a href="software-engineering.html">Good software engineering
@@ -571,7 +571,7 @@ risks to updating R and packages?<br>Are faster implementations already
 available?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>02h 27m
+<span class="visually-hidden">Duration: </span>04h 40m
 </td>
 <td>
 10. <a href="next-steps.html">Next steps</a>
@@ -581,7 +581,7 @@ Where can I learn more?<br>What can I do if I’ve optimised my R code
 but it is still too slow?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>02h 37m
+<span class="visually-hidden">Duration: </span>04h 50m
 </td>
 <td>
 Finish
@@ -681,10 +681,18 @@ won’t be using them directly, but they are needed to create plots with
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">"ggplot2"</span>, <span class="st">"ggbeeswarm"</span>, <span class="st">"tidyr"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
+<p>We also need <strong>future.apply</strong> as a backend to work with
+<strong>futurize</strong>:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"future.apply"</span><span class="op">)</span></span></code></pre>
+</div>
 <p>We will also use the <a href="https://github.com/csgillespie/efficient" class="external-link"><strong>efficient</strong></a>
 package. It can be installed directly from GitHub, which should be done
 by:</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -747,8 +755,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/instructor/index.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/index.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-14",
-  "datePublished": "2026-11-14"
+  "dateModified": "2026-11-15",
+  "datePublished": "2026-11-15"
 }
 
   </script><script>

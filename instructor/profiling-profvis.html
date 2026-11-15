@@ -123,7 +123,7 @@
     <a id="search-button-nav" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div><!--/div.container-fluid -->
 </nav><aside class="col-md-12 lesson-progress"><div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 13%" aria-valuenow="13" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">13%</div>
+    <div class="progress-bar incubator" role="progressbar" style="width: 7%" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">7%</div>
   </div>
 </aside><div class="container">
       <div class="row">
@@ -381,13 +381,13 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Profiling with profvis</h1>
-        <p>Last updated on 2026-11-14 |
+        <p>Last updated on 2026-11-15 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/profiling-profvis.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
 
 
-        <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
+        <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 50 minutes</p>
 
         <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
@@ -483,13 +483,13 @@ After 0.2 secs, we’d record: <code>"pause"</code>,
 <code>"middle_level"</code>, <code>"top_level"</code>, i.e. we’re in
 <code>"pause"</code>, as called from <code>"middle_level"</code>, which
 in turn was called from <code>"top_level"</code>.</p>
-<div id="exercise-1" class="callout challenge">
+<div id="exercise-1-call-stack-5-minutes" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="exercise-1" class="callout-inner">
-<h3 class="callout-title">Exercise 1</h3>
+<div id="exercise-1-call-stack-5-minutes" class="callout-inner">
+<h3 class="callout-title">Exercise 1: call stack (5 minutes)</h3>
 <div class="callout-content">
 <p>Continuing the example above, write down the call stack from calling
 <code>top_level()</code> after 0.3 secs and after 0.4 seconds.</p>
@@ -501,7 +501,7 @@ in turn was called from <code>"top_level"</code>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>After 0.3 secs: <code>"pause"</code>, <code>"bottom_level"</code>,
 <code>"middle_level"</code>, <code>"top_level"</code></p>
@@ -528,7 +528,7 @@ machine. Save it into an RStudio project.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Demo how to create an RStudio project</p>
 </div>
@@ -641,15 +641,14 @@ corresponding line in the source code, we see a bar to left labelled
 memory was allocated and 762 MB of memory was released. Each call to
 <code>c()</code> causes a new copy of x to be created. Memory profiling
 can help to identify short-lived objects that might be avoided by
-changes to the code. We will see how to avoid this in the episode
-<strong>REF AND LINK</strong>.</p>
-<div id="exercise-2-monopoly" class="callout challenge">
+changes to the code. We will see how to avoid this in the episode on <a href="memory-management.html">memory management</a>.</p>
+<div id="exercise-2-monopoly-5-minutes" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="exercise-2-monopoly" class="callout-inner">
-<h3 class="callout-title">Exercise 2: Monopoly</h3>
+<div id="exercise-2-monopoly-5-minutes" class="callout-inner">
+<h3 class="callout-title">Exercise 2: Monopoly (5 minutes)</h3>
 <div class="callout-content">
 <p>In the game of Monopoly, players roll two die to move round the
 board. Players buy assets on which they can charge rent or taxes and aim
@@ -672,21 +671,23 @@ use this to practice profiling.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Most time is spent in <code>move_square()</code> and, within that, in
-<code>data.frame()</code></p>
+<code>data.frame()</code>, <code>apply()</code> and
+<code>seq()</code>.</p>
 </div>
 </div>
 </div>
 </div>
-<div id="exercise-3-travelling-salesperson" class="callout challenge">
+<div id="exercise-3-travelling-salesperson-10-minutes" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="exercise-3-travelling-salesperson" class="callout-inner">
-<h3 class="callout-title">Exercise 3: Travelling salesperson</h3>
+<div id="exercise-3-travelling-salesperson-10-minutes" class="callout-inner">
+<h3 class="callout-title">Exercise 3: Travelling salesperson (10
+minutes)</h3>
 <div class="callout-content">
 <p>Download <a href="../files/travelling-salesperson.R" download>the
 travelling salesperson R script</a>.</p>
@@ -713,7 +714,7 @@ being spent?</li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <ul><li>Think about the speed at which the profiling code runs, whether the
 output identifies any bottlenecks, and how easy they are to
@@ -730,7 +731,7 @@ or by entering Ctrl + C.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>The <code>total_distance</code> function accounts for a substantial
 percentage of the time, and <code>distance</code> appears to be the
@@ -817,8 +818,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/instructor/profiling-profvis.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/profiling-profvis.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-14",
-  "datePublished": "2026-11-14"
+  "dateModified": "2026-11-15",
+  "datePublished": "2026-11-15"
 }
 
   </script><script>

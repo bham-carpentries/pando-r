@@ -123,7 +123,7 @@
     <a id="search-button-nav" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div><!--/div.container-fluid -->
 </nav><aside class="col-md-12 lesson-progress"><div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 56%" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">56%</div>
+    <div class="progress-bar incubator" role="progressbar" style="width: 74%" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">74%</div>
   </div>
 </aside><div class="container">
       <div class="row">
@@ -384,7 +384,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Data frames</h1>
-        <p>Last updated on 2026-11-14 |
+        <p>Last updated on 2026-11-15 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/optimisation-data-frames.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -534,7 +534,7 @@ measurements from 100,000 sites, each belonging to one of 26 groups.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Building this episode takes around a minute, mostly for the
 deliberately slow examples. If you live-code it, reduce <code>n</code>
@@ -617,9 +617,9 @@ values to zero:</p>
 <pre class="output" tabindex="0"><code># A tibble: 3 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 base       441.67µs    89.8MB
-2 dplyr        1.07ms    92.7MB
-3 data.table 232.22µs    85.8MB</code></pre>
+1 base         1.01ms    89.8MB
+2 dplyr        1.59ms    92.7MB
+3 data.table 210.37µs    85.8MB</code></pre>
 </div>
 <p>We wrap the base version in <code>{ d &lt;- df; ...; d }</code> so
 that every iteration modifies a fresh copy of <code>df</code> and leaves
@@ -706,12 +706,12 @@ most.</p>
 <pre class="output" tabindex="0"><code># A tibble: 6 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 df_bracket   7.24µs        0B
-2 tb_bracket  35.89µs     278KB
-3 dt_bracket  178.1µs     120KB
-4 df_dollar  671.13ns        0B
-5 tb_dollar    1.38µs        0B
-6 dt_dollar  871.14ns        0B</code></pre>
+1 df_bracket   5.79µs        0B
+2 tb_bracket  31.51µs     278KB
+3 dt_bracket 169.58µs     120KB
+4 df_dollar  511.06ns        0B
+5 tb_dollar    1.16µs        0B
+6 dt_dollar  507.11ns        0B</code></pre>
 </div>
 <p>The <code>[</code> methods for tibbles and data.tables do a lot of
 work on every call: checking arguments, handling column names, and (for
@@ -761,10 +761,10 @@ languages: loop over rows and update the table one cell at a time.</p>
 <pre class="output" tabindex="0"><code># A tibble: 4 × 3
   expression     median mem_alloc
   &lt;bch:expr&gt;   &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 data.frame   275.76ms    1.49GB
-2 tibble       242.25ms    1.49GB
-3 data.table     5.86ms   22.96MB
-4 plain_vector 392.04µs    7.65MB</code></pre>
+1 data.frame   278.98ms    1.49GB
+2 tibble       285.65ms    1.49GB
+3 data.table     7.58ms   22.96MB
+4 plain_vector   1.09ms    7.65MB</code></pre>
 </div>
 <div id="some-expressions-had-a-gc-in-every-iteration" class="callout">
 <div class="callout-square">
@@ -846,7 +846,7 @@ then on the first 10000 rows of <code>tb</code>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -878,8 +878,8 @@ disabled.</code></pre>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 loop         20.5ms    36.6MB
-2 vec          15.8µs    39.1KB</code></pre>
+1 loop         20.4ms    36.6MB
+2 vec          18.6µs    39.1KB</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -893,8 +893,8 @@ disabled.</code></pre>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 loop         47.6ms    36.5MB
-2 vec            36µs    39.1KB</code></pre>
+1 loop         42.8ms    36.5MB
+2 vec          34.7µs    39.1KB</code></pre>
 </div>
 <p>The vectorised versions are about 1000 times faster.
 <code>bench::mark()</code> also confirms that the two versions give
@@ -932,9 +932,9 @@ reading data, whilst <strong>data.table</strong> provides
 <pre class="output" tabindex="0"><code># A tibble: 3 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 read.csv      2.71s   130.9MB
-2 readr      484.96ms    35.3MB
-3 fread      144.22ms    25.9MB</code></pre>
+1 read.csv      2.34s   130.9MB
+2 readr      594.63ms    35.3MB
+3 fread       140.4ms    25.9MB</code></pre>
 </div>
 <p><code>fread()</code> returns a <code>data.table</code>, but you can
 call <code>setDF()</code> on the result, or use
@@ -1218,8 +1218,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/instructor/optimisation-data-frames.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/instructor/optimisation-data-frames.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-14",
-  "datePublished": "2026-11-14"
+  "dateModified": "2026-11-15",
+  "datePublished": "2026-11-15"
 }
 
   </script><script>

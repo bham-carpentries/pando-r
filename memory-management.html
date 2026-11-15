@@ -123,7 +123,7 @@
     <a id="search-button-nav" class="btn btn-primary" href="aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div><!--/div.container-fluid -->
 </nav><aside class="col-md-12 lesson-progress"><div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 43%" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">43%</div>
+    <div class="progress-bar incubator" role="progressbar" style="width: 59%" aria-valuenow="59" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">59%</div>
   </div>
 </aside><div class="container">
       <div class="row">
@@ -381,7 +381,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Memory management</h1>
-        <p>Last updated on 2026-11-14 |
+        <p>Last updated on 2026-11-15 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/memory-management.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -506,7 +506,7 @@ returning them to the user.</p>
 that column, but modifying a <strong>row</strong> copies
 <strong>every</strong> column. If you need to update data row by row in
 a loop, work on a matrix or on separate vectors instead, and build the
-data frame at the end.</p>
+data frame at the end. We will cover this in greater detail in the <a href="optimisation-data-frames.html">episode on data frames</a></p>
 </div>
 </div>
 </div>
@@ -527,11 +527,11 @@ performance.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">grow</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
-<span>   <span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu">numeric</span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
-<span>   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu">seq_len</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu">numeric</span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu">seq_len</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="va">vec</span>, <span class="va">i</span><span class="op">)</span></span>
-<span>   <span class="op">}</span></span>
-<span>   <span class="va">vec</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">vec</span></span>
 <span><span class="op">}</span></span></code></pre>
 </div>
 <p>Method 2: create an object of the final length, then change its
@@ -541,11 +541,11 @@ values by subsetting:</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pre_allocate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
-<span>   <span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu">numeric</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
-<span>   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu">seq_len</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="va">vec</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">i</span></span>
-<span>   <span class="op">}</span></span>
-<span>   <span class="va">vec</span></span>
+<span>  <span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu">numeric</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu">seq_len</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">vec</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">i</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">vec</span></span>
 <span><span class="op">}</span></span></code></pre>
 </div>
 <div id="callout3" class="callout">
@@ -569,7 +569,7 @@ initialise a list, we can use
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">direct</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
-<span>   <span class="fu">seq_len</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span>  <span class="fu">seq_len</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre>
 </div>
 <div id="callout4" class="callout">
@@ -593,7 +593,8 @@ about all their arguments.</p>
 <div class="callout-inner">
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
-<p>Which of <code>grow()</code>, <code>pre_allocate()</code> and
+<p>Exercise 1: Growing vectors (10 minutes) Which of
+<code>grow()</code>, <code>pre_allocate()</code> and
 <code>direct()</code> do you expect to perform best and why? Which of
 the methods do you think will scale best as <code>n</code> increases?
 Which do you think will scale worst?</p>
@@ -607,7 +608,7 @@ Which do you think will scale worst?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <p>In which method do you get to the underlying C code the fastest?</p>
 <p>Which method(s) create copies? In which method(s) are objects
@@ -621,7 +622,7 @@ modified in place?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -629,9 +630,9 @@ modified in place?</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10000</span></span>
 <span><span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span></span>
-<span>   <span class="fu">grow</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
-<span>   <span class="fu">pre_allocate</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
-<span>   <span class="fu">direct</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span>  <span class="fu">grow</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
+<span>  <span class="fu">pre_allocate</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
+<span>  <span class="fu">direct</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -644,11 +645,11 @@ disabled.</code></pre>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code># A tibble: 3 × 6
-  expression           min   median  `itr/sec` mem_alloc `gc/sec`
-  &lt;bch:expr&gt;      &lt;bch:tm&gt; &lt;bch:tm&gt;      &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 grow(n)            102ms    107ms       9.25     382MB    96.2
-2 pre_allocate(n)    407µs    413µs    2346.      98.6KB     4.00
-3 direct(n)          450ns    591ns 1207034.          0B     0   </code></pre>
+  expression           min   median `itr/sec` mem_alloc `gc/sec`
+  &lt;bch:expr&gt;      &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
+1 grow(n)           51.6ms   57.1ms      13.3     382MB   135.
+2 pre_allocate(n)  217.6µs  233.2µs    4171.       99KB     6.00
+3 direct(n)          198ns  212.9ns 3011183.         0B     0   </code></pre>
 </div>
 <p>Note the orders of magnitude difference in the results.
 <code>pre_allocate(10000)</code> is over 300 times faster than
@@ -665,13 +666,13 @@ whereas method 3 is pretty much instantaneous.</p>
 </div>
 </div>
 </div>
-<div id="monopoly-revisted" class="callout challenge">
+<div id="exercise-2-monopoly-revisted-20-mins" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="monopoly-revisted" class="callout-inner">
-<h3 class="callout-title">Monopoly revisted</h3>
+<div id="exercise-2-monopoly-revisted-20-mins" class="callout-inner">
+<h3 class="callout-title">Exercise 2: Monopoly revisted (20 mins)</h3>
 <div class="callout-content">
 <p>In <a href="profiling-profvis.html">profiling with profvis</a>, there
 was a challenge to profile the <code>simulate_monopoly()</code> function
@@ -711,7 +712,7 @@ your changes.</li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> Give me a hint </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
 <div class="accordion-body">
 <ul><li>What is the simplest data structure that could be used to store the
 roles of the dice?</li>
@@ -726,7 +727,7 @@ roles of the dice?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -734,6 +735,7 @@ roles of the dice?</li>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">move_square2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">current</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># data.frame -&gt; matrix</span></span>
+<span>  <span class="co"># 1:6 instead of seq(1, 6)</span></span>
 <span>  <span class="va">rolls</span> <span class="op">=</span> <span class="fu">matrix</span><span class="op">(</span><span class="fu">sample</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="fl">6</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span>  <span class="va">Total</span> <span class="op">=</span> <span class="fu">rowSums</span><span class="op">(</span><span class="va">rolls</span><span class="op">)</span> <span class="co"># rowSums instead of apply      </span></span>
 <span>  <span class="va">IsDouble</span> <span class="op">=</span> <span class="va">rolls</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">==</span> <span class="va">rolls</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span>
@@ -765,8 +767,8 @@ disabled.</code></pre>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 6
   expression                          min   median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt;                     &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 run(n, efficient::move_square)  224.9ms    227ms      4.40    6.06MB     32.3
-2 run(n, move_square2)             12.5ms   17.3ms     61.7   150.14KB     36.6</code></pre>
+1 run(n, efficient::move_square)  168.5ms  170.2ms      5.59    5.87MB     14.9
+2 run(n, move_square2)             10.1ms   10.6ms     85.4   129.69KB     17.9</code></pre>
 </div>
 </div>
 </div>
@@ -853,8 +855,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/memory-management.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/memory-management.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-14",
-  "datePublished": "2026-11-14"
+  "dateModified": "2026-11-15",
+  "datePublished": "2026-11-15"
 }
 
   </script><script>
