@@ -27,13 +27,13 @@
         <a href="index.html">
         <img id="incubator-logo" alt="Carpentries Incubator" src="assets/images/incubator-logo.svg"></a>
 
-        <span class="badge text-bg-danger">
-          <abbr title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.">
+        <span class="badge text-bg-warning">
+          <abbr title="This lesson is in the alpha phase, which means that it has been taught once and lesson authors are iterating on feedback.">
             <a href="https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html" class="external-link alert-link">
-              <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
-              Pre-Alpha
+              <i aria-hidden="true" class="icon" data-feather="alert-triangle" style="border-radius: 5px"></i>
+              Alpha
             </a>
-            <span class="visually-hidden">This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.</span>
+            <span class="visually-hidden">This lesson is in the alpha phase, which means that it has been taught once and lesson authors are iterating on feedback.</span>
           </abbr>
         </span>
 
@@ -598,9 +598,9 @@ values to zero:</p>
 <pre class="output" tabindex="0"><code># A tibble: 3 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 base         1.01ms    89.8MB
-2 dplyr        1.59ms    92.7MB
-3 data.table 210.37µs    85.8MB</code></pre>
+1 base          394µs    89.8MB
+2 dplyr         740µs    92.7MB
+3 data.table    162µs    85.8MB</code></pre>
 </div>
 <p>We wrap the base version in <code>{ d &lt;- df; ...; d }</code> so
 that every iteration modifies a fresh copy of <code>df</code> and leaves
@@ -687,12 +687,12 @@ most.</p>
 <pre class="output" tabindex="0"><code># A tibble: 6 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 df_bracket   5.79µs        0B
-2 tb_bracket  31.51µs     278KB
-3 dt_bracket 169.58µs     120KB
-4 df_dollar  511.06ns        0B
-5 tb_dollar    1.16µs        0B
-6 dt_dollar  507.11ns        0B</code></pre>
+1 df_bracket   5.16µs        0B
+2 tb_bracket  23.99µs     278KB
+3 dt_bracket 118.95µs     120KB
+4 df_dollar  501.05ns        0B
+5 tb_dollar    1.06µs        0B
+6 dt_dollar  521.08ns        0B</code></pre>
 </div>
 <p>The <code>[</code> methods for tibbles and data.tables do a lot of
 work on every call: checking arguments, handling column names, and (for
@@ -742,10 +742,10 @@ languages: loop over rows and update the table one cell at a time.</p>
 <pre class="output" tabindex="0"><code># A tibble: 4 × 3
   expression     median mem_alloc
   &lt;bch:expr&gt;   &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 data.frame   278.98ms    1.49GB
-2 tibble       285.65ms    1.49GB
-3 data.table     7.58ms   22.96MB
-4 plain_vector   1.09ms    7.65MB</code></pre>
+1 data.frame   230.88ms    1.49GB
+2 tibble        215.3ms    1.49GB
+3 data.table     3.25ms   22.96MB
+4 plain_vector 416.14µs    7.65MB</code></pre>
 </div>
 <div id="some-expressions-had-a-gc-in-every-iteration" class="callout">
 <div class="callout-square">
@@ -827,7 +827,7 @@ then on the first 10000 rows of <code>tb</code>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -839,19 +839,9 @@ then on the first 10000 rows of <code>tb</code>.</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">b_df</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>loop <span class="op">=</span> <span class="fu">flag_high</span><span class="op">(</span><span class="va">small_df</span><span class="op">)</span>, vec <span class="op">=</span> <span class="fu">flag_high_vec</span><span class="op">(</span><span class="va">small_df</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">b_tb</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>loop <span class="op">=</span> <span class="fu">flag_high</span><span class="op">(</span><span class="va">small_tb</span><span class="op">)</span>, vec <span class="op">=</span> <span class="fu">flag_high_vec</span><span class="op">(</span><span class="va">small_tb</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning: Some expressions had a GC in every iteration; so filtering is
-disabled.</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb22">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">show_bench</span><span class="op">(</span><span class="va">b_df</span><span class="op">)</span></span></code></pre>
+<span><span class="va">b_tb</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>loop <span class="op">=</span> <span class="fu">flag_high</span><span class="op">(</span><span class="va">small_tb</span><span class="op">)</span>, vec <span class="op">=</span> <span class="fu">flag_high_vec</span><span class="op">(</span><span class="va">small_tb</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">show_bench</span><span class="op">(</span><span class="va">b_df</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -859,10 +849,10 @@ disabled.</code></pre>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 loop         20.4ms    36.6MB
-2 vec          18.6µs    39.1KB</code></pre>
+1 loop         14.3ms    36.6MB
+2 vec          11.2µs    39.1KB</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -874,8 +864,8 @@ disabled.</code></pre>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 loop         42.8ms    36.5MB
-2 vec          34.7µs    39.1KB</code></pre>
+1 loop         30.3ms    36.5MB
+2 vec          24.3µs    39.1KB</code></pre>
 </div>
 <p>The vectorised versions are about 1000 times faster.
 <code>bench::mark()</code> also confirms that the two versions give
@@ -892,7 +882,7 @@ identical results, because <code>check</code> is left at its default of
 analysis. The <strong>readr</strong> package is the tidyverse option for
 reading data, whilst <strong>data.table</strong> provides
 <code>fread</code>. The differences are notable:</p>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -913,9 +903,9 @@ reading data, whilst <strong>data.table</strong> provides
 <pre class="output" tabindex="0"><code># A tibble: 3 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 read.csv      2.34s   130.9MB
-2 readr      594.63ms    35.3MB
-3 fread       140.4ms    25.9MB</code></pre>
+1 read.csv      1.58s   130.9MB
+2 readr      403.96ms    35.3MB
+3 fread       57.48ms    25.9MB</code></pre>
 </div>
 <p><code>fread()</code> returns a <code>data.table</code>, but you can
 call <code>setDF()</code> on the result, or use
@@ -923,7 +913,7 @@ call <code>setDF()</code> on the result, or use
 <code>data.frame</code>. If you want a <code>tbl_df</code>, reading in
 the data with <code>fread</code> and converting to a tibble is still
 more efficient than using <strong>readr</strong>:</p>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -941,7 +931,7 @@ more efficient than using <strong>readr</strong>:</p>
 operations, including <code>fread()</code>, grouping and sorting. By
 default it uses half of the available cores; <code>getDTthreads()</code>
 shows how many:</p>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">

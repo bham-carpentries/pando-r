@@ -27,13 +27,13 @@
         <a href="index.html">
         <img id="incubator-logo" alt="Carpentries Incubator" src="assets/images/incubator-logo.svg"></a>
 
-        <span class="badge text-bg-danger">
-          <abbr title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.">
+        <span class="badge text-bg-warning">
+          <abbr title="This lesson is in the alpha phase, which means that it has been taught once and lesson authors are iterating on feedback.">
             <a href="https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html" class="external-link alert-link">
-              <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
-              Pre-Alpha
+              <i aria-hidden="true" class="icon" data-feather="alert-triangle" style="border-radius: 5px"></i>
+              Alpha
             </a>
-            <span class="visually-hidden">This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.</span>
+            <span class="visually-hidden">This lesson is in the alpha phase, which means that it has been taught once and lesson authors are iterating on feedback.</span>
           </abbr>
         </span>
 
@@ -569,7 +569,7 @@ it handles each list item in turn:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>20.026 sec elapsed</code></pre>
+<pre class="output" tabindex="0"><code>20.024 sec elapsed</code></pre>
 </div>
 <p>Instead, we can parallelise with <code>futurize()</code>:</p>
 <div class="codewrapper sourceCode" id="cb11">
@@ -663,7 +663,7 @@ large does N have to be for the parallel version to be worth using?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -687,10 +687,17 @@ large does N have to be for the parallel version to be worth using?</p>
 <span><span class="va">nrolls</span> <span class="op">&lt;-</span> <span class="fu">sapply</span><span class="op">(</span><span class="fu">seq_len</span><span class="op">(</span><span class="va">N</span><span class="op">)</span>, <span class="va">snakes_ladders</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">futurize</span><span class="op">(</span>future.seed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in `checkNumberOfLocalWorkers()`:
-! Attempting to set up 4 localhost parallel workers with only 1 CPU cores available for this R process (per 'cgroups2.cpu.max'), which could result in a 400% load. The hard limit is set to 300%. Overusing the CPUs has negative impact on the current R process, but also on all other processes of yours and others running on the same machine. See help("parallelly.maxWorkers.localhost", package = "parallelly") for further explanations and how to override the hard limit that triggered this error. By the way, was parallel::detectCores() used, because the number of workers (4) equals detectCores()? If so, please use parallelly::availableCores() instead</code></pre>
+<pre class="warning" tabindex="0"><code>Warning: UNRELIABLE VALUE: One of the 'future.apply' iterations
+('fz:base::sapply-1') unexpectedly generated random numbers without declaring
+so. There is a risk that those random numbers are not statistically sound and
+the overall results might be invalid. To fix this, specify 'future.seed=TRUE'.
+This ensures that proper, parallel-safe random numbers are produced via a
+parallel RNG method. To disable this check, use 'future.seed = NULL', or set
+option 'future.rng.onMisuse' to "ignore". [future 'fz:base::sapply-1'
+(51ccc1b8da30c873439a0b6dde99101f-1); on
+51ccc1b8da30c873439a0b6dde99101f@c31b5163d257&lt;12911&gt;]</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -701,7 +708,7 @@ large does N have to be for the parallel version to be worth using?</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>0.02 sec elapsed</code></pre>
+<pre class="output" tabindex="0"><code>0.123 sec elapsed</code></pre>
 </div>
 <p>When <code>N</code> is 200, the two are equivalent (on a M5 MacBook
 Pro). When <code>N</code> is greater than that, the parallel version is
