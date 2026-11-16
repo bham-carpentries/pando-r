@@ -206,7 +206,7 @@ lapply(x, mean, na.rm = TRUE) # using ... to pass arg to mean
 
 ```{r}
 sapply(x, mean, na.rm = TRUE) 
-vapply(x, mean, numeric(2), na.rm = TRUE)
+vapply(x, mean, numeric(1), na.rm = TRUE)
 ```
 
 
