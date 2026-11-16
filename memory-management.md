@@ -192,9 +192,9 @@ disabled.
 # A tibble: 3 × 6
   expression           min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr>      <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 grow(n)           47.7ms   51.9ms      15.0     382MB    142. 
-2 pre_allocate(n)  186.3µs  188.3µs    5185.     99.1KB     10.0
-3 direct(n)        239.9ns  270.9ns 2707260.         0B      0  
+1 grow(n)           49.5ms   51.4ms      14.7     382MB   140.  
+2 pre_allocate(n)  216.6µs  234.2µs    4128.     99.1KB     8.00
+3 direct(n)        199.1ns  214.1ns 2959731.         0B     0   
 ```
 
 Note the orders of magnitude difference in the results. `pre_allocate(10000)`
@@ -277,8 +277,8 @@ disabled.
 # A tibble: 2 × 6
   expression                          min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr>                     <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 run(n, efficient::move_square) 120.67ms  128.2ms      7.71    5.87MB     19.3
-2 run(n, move_square2)             7.35ms    8.3ms    121.    129.71KB     23.9
+1 run(n, efficient::move_square) 164.29ms  165.1ms      5.80    5.87MB     15.5
+2 run(n, move_square2)             9.85ms   10.4ms     91.4   129.71KB     17.9
 ```
 :::
 ::::::

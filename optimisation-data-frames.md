@@ -145,9 +145,9 @@ show_bench(b)
 # A tibble: 3 × 3
   expression   median mem_alloc
   <bch:expr> <bch:tm> <bch:byt>
-1 base          394µs    89.8MB
-2 dplyr         740µs    92.7MB
-3 data.table    162µs    85.8MB
+1 base       981.29µs    89.8MB
+2 dplyr        1.47ms    92.7MB
+3 data.table 196.91µs    85.8MB
 ```
 
 
@@ -212,12 +212,12 @@ show_bench(b)
 # A tibble: 6 × 3
   expression   median mem_alloc
   <bch:expr> <bch:tm> <bch:byt>
-1 df_bracket   5.16µs        0B
-2 tb_bracket  23.99µs     278KB
-3 dt_bracket 118.95µs     120KB
-4 df_dollar  501.05ns        0B
-5 tb_dollar    1.06µs        0B
-6 dt_dollar  521.08ns        0B
+1 df_bracket   5.62µs        0B
+2 tb_bracket   29.3µs     278KB
+3 dt_bracket 160.16µs     120KB
+4 df_dollar  441.91ns        0B
+5 tb_dollar    1.07µs        0B
+6 dt_dollar  513.04ns        0B
 ```
 
 The `[` methods for tibbles and data.tables do a lot of work on every call: checking arguments, handling column names, and (for `data.table`) parsing the `i`, `j` and `by` expressions. That overhead is negligible once, but adds up when repeated millions of times in a loop. Extracting the column with `$` first and then indexing a vector is fast for all three.
@@ -259,10 +259,10 @@ show_bench(b)
 # A tibble: 4 × 3
   expression     median mem_alloc
   <bch:expr>   <bch:tm> <bch:byt>
-1 data.frame   230.88ms    1.49GB
-2 tibble        215.3ms    1.49GB
-3 data.table     3.25ms   22.96MB
-4 plain_vector 416.14µs    7.65MB
+1 data.frame   242.08ms    1.49GB
+2 tibble       250.91ms    1.49GB
+3 data.table     6.65ms   22.96MB
+4 plain_vector 804.58µs    7.65MB
 ```
 
 ::::::::::::::::::::::::::::::::::::: callout
@@ -326,8 +326,8 @@ show_bench(b_df)
 # A tibble: 2 × 3
   expression   median mem_alloc
   <bch:expr> <bch:tm> <bch:byt>
-1 loop         14.3ms    36.6MB
-2 vec          11.2µs    39.1KB
+1 loop           20ms    36.6MB
+2 vec          18.6µs    39.1KB
 ```
 
 ``` r
@@ -338,8 +338,8 @@ show_bench(b_tb)
 # A tibble: 2 × 3
   expression   median mem_alloc
   <bch:expr> <bch:tm> <bch:byt>
-1 loop         30.3ms    36.5MB
-2 vec          24.3µs    39.1KB
+1 loop         36.6ms    36.5MB
+2 vec          33.7µs    39.1KB
 ```
 
 The vectorised versions are about 1000 times faster. `bench::mark()` also confirms that the two versions give identical results, because `check` is left at its default of `TRUE`. In `data.table` syntax, the equivalent is `dt[, high := value > 0.9]`.
@@ -370,9 +370,9 @@ show_bench(b)
 # A tibble: 3 × 3
   expression   median mem_alloc
   <bch:expr> <bch:tm> <bch:byt>
-1 read.csv      1.58s   130.9MB
-2 readr      403.96ms    35.3MB
-3 fread       57.48ms    25.9MB
+1 read.csv      1.65s   130.9MB
+2 readr       624.9ms    35.3MB
+3 fread       58.75ms    25.9MB
 ```
 
 `fread()` returns a `data.table`, but you can call `setDF()` on the result, or use `fread(..., data.table = FALSE)`, if you'd rather work with a `data.frame`. If you want a `tbl_df`, reading in the data with `fread` and converting to a tibble is still more efficient than using **readr**:

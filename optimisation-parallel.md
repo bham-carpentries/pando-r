@@ -111,7 +111,7 @@ toc()
 ```
 
 ``` output
-20.024 sec elapsed
+20.028 sec elapsed
 ```
 
 Instead, we can parallelise with `futurize()`:
@@ -182,7 +182,7 @@ toc()
 ```
 
 ``` output
-0.056 sec elapsed
+0.06 sec elapsed
 ```
 
 ``` r
@@ -198,8 +198,8 @@ the overall results might be invalid. To fix this, specify 'future.seed=TRUE'.
 This ensures that proper, parallel-safe random numbers are produced via a
 parallel RNG method. To disable this check, use 'future.seed = NULL', or set
 option 'future.rng.onMisuse' to "ignore". [future 'fz:base::sapply-1'
-(51ccc1b8da30c873439a0b6dde99101f-1); on
-51ccc1b8da30c873439a0b6dde99101f@c31b5163d257<12911>]
+(0804db5489390de797518796ae1ab671-1); on
+0804db5489390de797518796ae1ab671@cbba2316e276<12912>]
 ```
 
 ``` r
@@ -207,7 +207,7 @@ toc()
 ```
 
 ``` output
-0.123 sec elapsed
+0.153 sec elapsed
 ```
 
 When `N` is 200, the two are equivalent (on a M5 MacBook Pro). When `N` is greater than that, the parallel version is faster. When `N` is less, the sequential version is faster - the overheads of setting up the parallelisation outweigh the benefits of multiple cores.

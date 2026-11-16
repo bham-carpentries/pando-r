@@ -92,8 +92,8 @@ bench::mark(
 # A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 vect(x)      3.04µs   26.1µs    39242.    78.2KB    62.9 
-2 loop(x)     286.7µs  304.5µs     3220.   101.5KB     6.14
+1 vect(x)      3.45µs   19.9µs    48615.    78.2KB    77.9 
+2 loop(x)    279.66µs  301.2µs     3288.   101.5KB     6.20
 ```
 
 :::
@@ -173,8 +173,8 @@ bench::mark(
 # A tibble: 2 × 6
   expression       min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr>  <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 variance(x)   46.6µs   48.6µs    18020.    78.2KB     27.8
-2 var(x)        44.7µs     46µs    21258.    15.3KB      0  
+1 variance(x)   30.7µs   33.8µs    26488.    78.2KB     42.4
+2 var(x)        29.9µs   31.4µs    31261.    15.3KB      0  
 ```
 
 `var()` performs the variance calculation in C.
@@ -298,13 +298,12 @@ a b
 ```
 
 ``` r
-vapply(x, mean, numeric(2), na.rm = TRUE)
+vapply(x, mean, numeric(1), na.rm = TRUE)
 ```
 
-``` error
-Error in `vapply()`:
-! values must be length 2,
- but FUN(X[[1]]) result is length 1
+``` output
+a b 
+2 5 
 ```
 
 
@@ -325,8 +324,8 @@ x
 ```
 
 ``` output
- [1] 22 36 38  7 43 48 46  3 16 13 20 35 11 44 41 45 47 30 12 37 40 25 28 32 24
-[26] 21 18 26 34  4 23 33 15  5 39 10 27 19  8 14  6 29  1  2 17 31 42 49 50  9
+ [1] 37  9 24 36  7 10 32 46 38 39  6 14 11 48 29  4 13 15 49 47 42  1 25 35 30
+[26] 19 31 33 43 27  8  2 44 34 12  3 20 21 16 17 40 23 41 28 18  5 26 22 50 45
 ```
 
 ``` r
@@ -343,8 +342,8 @@ sort(x, partial=1:10)
 ```
 
 ``` output
- [1]  1  2  3  4  5  6  7  8  9 10 12 11 35 44 41 45 47 30 20 37 40 25 28 32 24
-[26] 21 18 26 34 13 23 33 15 16 39 46 27 19 48 14 43 29 38 36 17 31 42 49 50 22
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 14 15 13 16 22 20 18 24 23 21 25 17 19
+[26] 30 31 33 35 27 28 29 26 34 38 32 36 37 44 43 40 42 41 47 49 48 39 46 50 45
 ```
 :::
 
