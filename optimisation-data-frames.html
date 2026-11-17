@@ -384,7 +384,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Data frames</h1>
-        <p>Last updated on 2026-11-16 |
+        <p>Last updated on 2026-11-17 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/optimisation-data-frames.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -598,9 +598,9 @@ values to zero:</p>
 <pre class="output" tabindex="0"><code># A tibble: 3 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 base       981.29µs    89.8MB
-2 dplyr        1.47ms    92.7MB
-3 data.table 196.91µs    85.8MB</code></pre>
+1 base       845.34µs    89.8MB
+2 dplyr        1.43ms    92.7MB
+3 data.table 185.53µs    85.8MB</code></pre>
 </div>
 <p>We wrap the base version in <code>{ d &lt;- df; ...; d }</code> so
 that every iteration modifies a fresh copy of <code>df</code> and leaves
@@ -687,12 +687,12 @@ most.</p>
 <pre class="output" tabindex="0"><code># A tibble: 6 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 df_bracket   5.62µs        0B
-2 tb_bracket   29.3µs     278KB
-3 dt_bracket 160.16µs     120KB
-4 df_dollar  441.91ns        0B
-5 tb_dollar    1.07µs        0B
-6 dt_dollar  513.04ns        0B</code></pre>
+1 df_bracket   5.34µs        0B
+2 tb_bracket  25.43µs     278KB
+3 dt_bracket 144.09µs     120KB
+4 df_dollar  435.04ns        0B
+5 tb_dollar  847.04ns        0B
+6 dt_dollar  488.01ns        0B</code></pre>
 </div>
 <p>The <code>[</code> methods for tibbles and data.tables do a lot of
 work on every call: checking arguments, handling column names, and (for
@@ -742,10 +742,10 @@ languages: loop over rows and update the table one cell at a time.</p>
 <pre class="output" tabindex="0"><code># A tibble: 4 × 3
   expression     median mem_alloc
   &lt;bch:expr&gt;   &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 data.frame   242.08ms    1.49GB
-2 tibble       250.91ms    1.49GB
-3 data.table     6.65ms   22.96MB
-4 plain_vector 804.58µs    7.65MB</code></pre>
+1 data.frame   236.68ms    1.49GB
+2 tibble       252.72ms    1.49GB
+3 data.table     6.12ms   22.96MB
+4 plain_vector   3.27ms    7.65MB</code></pre>
 </div>
 <div id="some-expressions-had-a-gc-in-every-iteration" class="callout">
 <div class="callout-square">
@@ -827,7 +827,7 @@ then on the first 10000 rows of <code>tb</code>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -849,8 +849,8 @@ then on the first 10000 rows of <code>tb</code>.</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 loop           20ms    36.6MB
-2 vec          18.6µs    39.1KB</code></pre>
+1 loop         16.6ms    36.6MB
+2 vec          18.1µs    39.1KB</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -864,8 +864,8 @@ then on the first 10000 rows of <code>tb</code>.</p>
 <pre class="output" tabindex="0"><code># A tibble: 2 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 loop         36.6ms    36.5MB
-2 vec          33.7µs    39.1KB</code></pre>
+1 loop         32.2ms    36.5MB
+2 vec          31.4µs    39.1KB</code></pre>
 </div>
 <p>The vectorised versions are about 1000 times faster.
 <code>bench::mark()</code> also confirms that the two versions give
@@ -903,9 +903,9 @@ reading data, whilst <strong>data.table</strong> provides
 <pre class="output" tabindex="0"><code># A tibble: 3 × 3
   expression   median mem_alloc
   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:byt&gt;
-1 read.csv      1.65s   130.9MB
-2 readr       624.9ms    35.3MB
-3 fread       58.75ms    25.9MB</code></pre>
+1 read.csv      1.68s   130.9MB
+2 readr      560.72ms    35.3MB
+3 fread      113.24ms    25.9MB</code></pre>
 </div>
 <p><code>fread()</code> returns a <code>data.table</code>, but you can
 call <code>setDF()</code> on the result, or use
@@ -1189,8 +1189,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/optimisation-data-frames.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/optimisation-data-frames.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-16",
-  "datePublished": "2026-11-16"
+  "dateModified": "2026-11-17",
+  "datePublished": "2026-11-17"
 }
 
   </script><script>

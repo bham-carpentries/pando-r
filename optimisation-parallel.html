@@ -380,7 +380,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Parallel computing</h1>
-        <p>Last updated on 2026-11-16 |
+        <p>Last updated on 2026-11-17 |
 
         <a href="https://github.com/bham-carpentries/pando-r/edit/main/episodes/optimisation-parallel.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -569,7 +569,7 @@ it handles each list item in turn:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>20.028 sec elapsed</code></pre>
+<pre class="output" tabindex="0"><code>20.025 sec elapsed</code></pre>
 </div>
 <p>Instead, we can parallelise with <code>futurize()</code>:</p>
 <div class="codewrapper sourceCode" id="cb11">
@@ -677,7 +677,7 @@ large does N have to be for the parallel version to be worth using?</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>0.06 sec elapsed</code></pre>
+<pre class="output" tabindex="0"><code>0.059 sec elapsed</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -696,8 +696,8 @@ the overall results might be invalid. To fix this, specify 'future.seed=TRUE'.
 This ensures that proper, parallel-safe random numbers are produced via a
 parallel RNG method. To disable this check, use 'future.seed = NULL', or set
 option 'future.rng.onMisuse' to "ignore". [future 'fz:base::sapply-1'
-(0804db5489390de797518796ae1ab671-1); on
-0804db5489390de797518796ae1ab671@cbba2316e276&lt;12912&gt;]</code></pre>
+(fed2b2006768531443dfb59f78964297-1); on
+fed2b2006768531443dfb59f78964297@3d2e7c83bd45&lt;12911&gt;]</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -708,7 +708,7 @@ option 'future.rng.onMisuse' to "ignore". [future 'fz:base::sapply-1'
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>0.153 sec elapsed</code></pre>
+<pre class="output" tabindex="0"><code>0.146 sec elapsed</code></pre>
 </div>
 <p>When <code>N</code> is 200, the two are equivalent (on a M5 MacBook
 Pro). When <code>N</code> is greater than that, the parallel version is
@@ -796,8 +796,8 @@ any links that you are not going to use.
   "url": "https://bham-carpentries.github.io/pando-r/optimisation-parallel.html",
   "identifier": "https://bham-carpentries.github.io/pando-r/optimisation-parallel.html",
   "dateCreated": "2026-10-05",
-  "dateModified": "2026-11-16",
-  "datePublished": "2026-11-16"
+  "dateModified": "2026-11-17",
+  "datePublished": "2026-11-17"
 }
 
   </script><script>
