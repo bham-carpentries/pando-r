@@ -154,7 +154,7 @@ See their help pages to learn about all their arguments.
 :::
 
 :::::: challenge
-Exercise 1: Growing vectors (10 minutes)
+### Exercise 1: Growing vectors (10 minutes)
 Which of `grow()`, `pre_allocate()` and `direct()` do you expect to perform
 best and why? Which of the methods do you think will scale best as `n`
 increases? Which do you think will scale worst?
