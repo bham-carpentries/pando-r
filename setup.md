@@ -32,6 +32,7 @@ To install R and RStudio on a personal laptop
 ### University of Birmingham Managed Laptop
 
 #### Windows
+
 To install R and RStudio on a University managed Windows machine:
 
 - Connect your computer to the university network and open the Software Centre from the Start Menu
@@ -57,19 +58,16 @@ To install R and RStudio on a University managed Mac machine:
 This course requires a number of R packages, which should be installed in advance. You can do this by starting RStudio, and entering:
 
 ```r
-install.packages(c("profvis", "bench", "tinytest", "futurize", "tictoc"))
-```
-
-Additionally, you need to have the following pacakges installed. We won't be using them directly, but they are needed to create plots with **bench**:
-
-```r
-install.packages(c("ggplot2", "ggbeeswarm", "tidyr"))
-```
-
-We also need **future.apply** as a backend to work with **futurize**:
-
-```r
-install.packages("future.apply")
+install.packages(c(
+  "profvis", 
+  "bench", 
+  "tinytest", 
+  "futurize", 
+  "tictoc",
+  "ggplot2",
+  "ggbeeswarm",
+  "tidyr",
+  "future.apply"))
 ```
 
 We will also use the [**efficient**](https://github.com/csgillespie/efficient) package. It can be installed directly from GitHub, which should be done by:
@@ -79,3 +77,5 @@ install.packages("remotes")
 remotes::install_github("csgillespie/efficient",
                          INSTALL_opts = "--with-keep.source")
 ```
+
+The argument `INSTALL_opts = "--with-keep.source` is essential for how we will be using the package.

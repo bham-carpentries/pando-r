@@ -92,8 +92,8 @@ bench::mark(
 # A tibble: 2 × 6
   expression      min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 vect(x)      6.91µs   30.3µs    32997.    78.2KB    52.9 
-2 loop(x)    485.11µs  497.8µs     1976.   101.5KB     4.09
+1 vect(x)      3.21µs   24.8µs    41608.    78.2KB    66.7 
+2 loop(x)    267.96µs    282µs     3517.   101.5KB     6.21
 ```
 
 :::
@@ -173,8 +173,8 @@ bench::mark(
 # A tibble: 2 × 6
   expression       min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr>  <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 variance(x)   41.3µs   44.9µs    20356.    78.2KB    33.7 
-2 var(x)        34.9µs   36.3µs    27027.    15.3KB     8.11
+1 variance(x)   46.6µs   48.9µs    17472.    78.2KB     28.8
+2 var(x)        44.7µs   45.7µs    21573.    15.3KB      0  
 ```
 
 `var()` performs the variance calculation in C.
@@ -261,7 +261,7 @@ round(M + 1.3)
 
 ## The `apply()` family of functions
 
-The `apply` family of functions provides an alternative to writing loops. The general idea is to apply (or map) a function to each element of an object. Here, we'll focus on the four most commonly used: `apply()`, `lapply()`, sapply()` and `vapply()`. Each of these takes at least two arguments: the object to iterate over and the function to apply. Every `apply` function has the dots, `...`, argument that is used to pass on arguments to the function that is given as an argument.
+The `apply` family of functions provides an alternative to writing loops. The general idea is to apply (or map) a function to each element of an object. Here, we'll focus on the four most commonly used: `apply()`, `lapply()`, `sapply()` and `vapply()`. Each of these takes at least two arguments: the object to iterate over and the function to apply. Every `apply` function has the dots, `...`, argument that is used to pass on arguments to the function that is given as an argument.
 
 - `apply()` is used to apply a function to each row or column of a matrix or array. The first argument of `apply()` is the object of interest. The second argument is the `MARGIN`. This is a vector giving the subscripts which the function (the third argument) will be applied over. When the object is a matrix, a margin of `1` indicates rows and `2` indicates columns. 
 
@@ -285,6 +285,10 @@ $b
 [1] 5
 ```
 
+::: instructor
+Demo this both with and without the `NA` and passing to `...`.
+:::
+
 - `sapply()` is like `lapply()` but attempts to simplify the answer (e.g., provide a vector rather than a list). `vapply()` is like `sapply()`, but specifies the return type and length of each iteration, making it safer and faster - it is the better choice in efficient programming:
 
 
@@ -306,6 +310,10 @@ a b
 2 5 
 ```
 
+::: instructor
+Demo this with `numeric(2)` here as well, to show the error.
+:::
+
 
 ## Faster common operations
 
@@ -324,8 +332,8 @@ x
 ```
 
 ``` output
- [1]  1 42 12 15 48 17 39  2 41  8 13 22 30 32 10 45 38 35  3 33 31 14 25  5 46
-[26]  4 18  9 34 44 28 16 47  7 24 49 23 50 11 26 37 43 40  6 27 21 19 36 20 29
+ [1] 31 40 47 21 19 36 35 30 15 26  4  6 37 12 20 42 16 45 49 41 29 17 48  3 32
+[26] 24 34 11 10 13  2 18 39 25  5  8  1 50 28 27  9 14 22 46  7 44 43 38 23 33
 ```
 
 ``` r
@@ -342,8 +350,8 @@ sort(x, partial=1:10)
 ```
 
 ``` output
- [1]  1  2  3  4  5  6  7  8  9 10 11 16 13 18 12 15 19 14 17 33 31 35 25 38 21
-[26] 36 32 30 34 27 28 22 37 20 24 26 23 29 50 49 47 43 40 42 44 46 48 45 39 41
+ [1]  1  2  3  4  5  6  7  8  9 10 14 11 13 12 20 25 16 18 22 21 19 17 15 23 24
+[26] 32 34 48 29 41 49 45 39 42 37 26 30 50 28 27 35 36 47 46 40 44 43 38 31 33
 ```
 :::
 

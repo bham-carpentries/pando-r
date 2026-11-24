@@ -158,7 +158,7 @@ See their help pages to learn about all their arguments.
 :::
 
 :::::: challenge
-Exercise 1: Growing vectors (10 minutes)
+### Exercise 1: Growing vectors (10 minutes)
 Which of `grow()`, `pre_allocate()` and `direct()` do you expect to perform
 best and why? Which of the methods do you think will scale best as `n`
 increases? Which do you think will scale worst?
@@ -190,11 +190,11 @@ disabled.
 
 ``` output
 # A tibble: 3 × 6
-  expression           min   median  `itr/sec` mem_alloc `gc/sec`
-  <bch:expr>      <bch:tm> <bch:tm>      <dbl> <bch:byt>    <dbl>
-1 grow(n)            132ms    149ms       5.93     382MB    61.3 
-2 pre_allocate(n)    363µs    375µs    2605.      99.1KB     4.00
-3 direct(n)          353ns    363ns 1274613.          0B   127.  
+  expression           min   median `itr/sec` mem_alloc `gc/sec`
+  <bch:expr>      <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
+1 grow(n)           49.1ms   50.6ms      14.8     382MB    140. 
+2 pre_allocate(n)  170.4µs    172µs    5622.     99.1KB     10.0
+3 direct(n)        230.2ns  270.1ns 2624030.         0B      0  
 ```
 
 Note the orders of magnitude difference in the results. `pre_allocate(10000)`
@@ -277,8 +277,8 @@ disabled.
 # A tibble: 2 × 6
   expression                          min   median `itr/sec` mem_alloc `gc/sec`
   <bch:expr>                     <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-1 run(n, efficient::move_square)  221.7ms    225ms      4.36    5.87MB     11.6
-2 run(n, move_square2)             13.4ms     14ms     67.0   129.71KB     13.8
+1 run(n, efficient::move_square) 129.43ms 130.22ms      7.66    6.05MB     19.1
+2 run(n, move_square2)             7.64ms   8.82ms    112.    129.71KB     22.0
 ```
 :::
 ::::::
