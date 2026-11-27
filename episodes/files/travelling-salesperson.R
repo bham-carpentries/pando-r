@@ -2,7 +2,7 @@
 #
 # Interactively (e.g. for profiling with profvis):
 #   source("travelling-salesperson.R")
-#   profvis::profvis(main(8))
+#   profvis::profvis(travelling_salesperson(n_cities))
 
 distance <- function(point1, point2) {
   sqrt((point2[1] - point1[1])^2 + (point2[2] - point1[2])^2)
