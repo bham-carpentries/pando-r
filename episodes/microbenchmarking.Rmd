@@ -115,9 +115,11 @@ Talking about why the rankings are as they are foreshadows some of the discussio
 :::::::::::::::::::::::::::::::::
 
 ::: callout
-If the code is more than a single expression, create function wrappers for each alternative (the functions can also take arguments):
+If the code is more than a single expression, you have a couple of options:
 
-```
+1. Create function wrappers for each alternative (the functions can also take arguments):
+
+```r
 fun1 <- function() {
   # some code
 }
@@ -128,6 +130,20 @@ fun2 <- function() {
 
 bench::mark(fun1(), fun2())
 ```
+
+2. Wrap the code in `{}` within the call to `bench::mark()` and give it a name, which shows in the `expression` column:
+
+```r
+bench::mark(
+  exp1 = {
+    # some code
+  },
+  exp2 = {
+    # some other code
+  }
+)
+```
+
 :::
 
 
