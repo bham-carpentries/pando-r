@@ -1,6 +1,6 @@
 ---
 title: 'Microbenchmarking with bench'
-teaching: 15
+teaching: 20
 exercises: 10
 ---
 
