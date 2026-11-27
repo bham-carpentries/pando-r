@@ -138,6 +138,8 @@ If you have passing tests for `some_function()`, when you optimise the code insi
 
 Here are two functions and (part-written) associated tests. Which functions from the `expect_*()` family do you need to make these tests pass?
 
+BONUS: There are multiple `expect_*` functions that pass in q3. How many can you find? Which one is the best choice in this case and why?
+
 ```r
 is_bigger <- function(a, b) {
   a > b
@@ -148,8 +150,13 @@ greeting <- function(name) {
   paste("Hello", name)
 }
 
+# q1
 expect_*(is_bigger(6, 3))
+
+#q2
 expect_*(greeting(6))
+
+# q3
 expect_*(greeting("Ella"), "Hello Ella")
 ```
 
@@ -158,9 +165,17 @@ The functions in the `expect_*()` family are listed in the [tinytest documentati
 :::
 
 ::: solution
-- `expect_true(is_bigger(6, 3))`
-- `expect_error(greeting(6))`
-- `expect_equal(greeting("Ella"), "Hello Ella")` (`expect_identical()` and `expect_equivalent()` also pass)
+1. `expect_true(is_bigger(6, 3))`
+2. `expect_error(greeting(6))`
+3. `expect_equal(greeting("Ella"), "Hello Ella")` 
+
+Other tests that pass for q3:
+
+- `expect_identical` # for numeric checks, no tolerance
+- `expect_equivalent` # doesn't check attributes or names, allows numerical tolerance
+- `expect_match` # for regex, but `expect_match(greeting("Ella"), "Hello")` would also pass
+- `expect_equivalent_to_reference` # sets up a file to check against next time test is run
+- `expect_equal_to_reference` # sets up a file to check against next time test is run
 :::
 
 :::
