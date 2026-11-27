@@ -36,11 +36,19 @@ name. This is called **copy-on-modify**. You can watch it happen with
 x <- c(1, 2, 3)
 tracemem(x)
 y <- x          # no copy: two names, one object
-y[[3]] <- 4     # copy: changing y must not change x
+y[3] <- 4     # copy: changing y must not change x
 #> tracemem[0x55d5c8e0b2a8 -> 0x55d5c8e0b6f8]:
-y[[2]] <- 10    # no copy: y now has its own object, with one name
+y[2] <- 10    # no copy: y now has its own object, with one name
 untracemem(x)
 ```
+
+::: instructor
+
+- Remember to switch to R in an terminal for this demo! (In RStudio, `y[2] <- 10` *will* show a copy)
+- Use `c(1, 2, 3)` instead of `1:3` because the former as `numeric` whereas the latter are `integer`. 
+  - If `x <- 1:3`, `y <- x` and `y[3] <- 4`, this moves place in memory twice, to make a copy of `x` and to convert from integers to doubles, which require more space in memory. If setting `x <- 1:3`, later need `y <- 4L` instead to avoid this.
+  - Going through these differences makes a nice teaching example, if time allows.
+:::
 
 If only one name points to an object, R can usually **modify it in place** without copying -- that's what's happening in the last line.
 
